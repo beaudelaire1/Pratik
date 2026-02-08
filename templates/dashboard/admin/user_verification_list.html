@@ -6,34 +6,63 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900">Vérification des profils</h1>
-            <p class="text-gray-500 mt-1">Validez les comptes des professionnels de la plateforme</p>
+            <p class="text-gray-500 mt-1">Gérez les dossiers des professionnels de la plateforme</p>
         </div>
         <a href="{% url 'dashboard' %}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition">← Dashboard</a>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 gap-4 mb-8">
-        <a href="?status=unverified" class="glass rounded-xl p-5 border {% if current_status == 'unverified' %}border-yellow-400 ring-2 ring-yellow-200{% else %}border-yellow-100{% endif %} hover:shadow-medium transition">
-            <p class="text-sm text-gray-600">En attente de vérification</p>
-            <p class="text-3xl font-extrabold text-yellow-600">{{ unverified_count }}</p>
+    <!-- Statuts -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        <a href="?status=pending{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'pending' %}border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50{% else %}border-yellow-100{% endif %}">
+            <p class="text-2xl font-extrabold text-yellow-600">{{ pending_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">⏳ En attente</p>
         </a>
-        <a href="?status=verified" class="glass rounded-xl p-5 border {% if current_status == 'verified' %}border-green-400 ring-2 ring-green-200{% else %}border-green-100{% endif %} hover:shadow-medium transition">
-            <p class="text-sm text-gray-600">Profils vérifiés</p>
-            <p class="text-3xl font-extrabold text-green-600">{{ verified_count }}</p>
+        <a href="?status=incomplete{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'incomplete' %}border-orange-400 ring-2 ring-orange-200 bg-orange-50{% else %}border-orange-100{% endif %}">
+            <p class="text-2xl font-extrabold text-orange-600">{{ incomplete_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">📂 Incomplet</p>
+        </a>
+        <a href="?status=under_review{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'under_review' %}border-blue-400 ring-2 ring-blue-200 bg-blue-50{% else %}border-blue-100{% endif %}">
+            <p class="text-2xl font-extrabold text-blue-600">{{ under_review_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">🔍 En examen</p>
+        </a>
+        <a href="?status=verified{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'verified' %}border-green-400 ring-2 ring-green-200 bg-green-50{% else %}border-green-100{% endif %}">
+            <p class="text-2xl font-extrabold text-green-600">{{ verified_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">✅ Vérifiés</p>
+        </a>
+        <a href="?status=rejected{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'rejected' %}border-red-400 ring-2 ring-red-200 bg-red-50{% else %}border-red-100{% endif %}">
+            <p class="text-2xl font-extrabold text-red-600">{{ rejected_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">❌ Rejetés</p>
+        </a>
+        <a href="?status=suspended{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}"
+           class="glass rounded-xl p-4 border text-center transition hover:shadow-medium
+           {% if current_status == 'suspended' %}border-gray-500 ring-2 ring-gray-300 bg-gray-100{% else %}border-gray-200{% endif %}">
+            <p class="text-2xl font-extrabold text-gray-600">{{ suspended_count }}</p>
+            <p class="text-xs font-semibold text-gray-600 mt-1">🚫 Suspendus</p>
         </a>
     </div>
 
-    <!-- Filter -->
+    <!-- Filtre par type -->
     <div class="glass rounded-xl p-4 mb-6 border border-blue-100 flex flex-wrap gap-2 items-center">
         <span class="text-sm font-bold text-gray-700 mr-2">Type :</span>
         <a href="?status={{ current_status }}" class="px-3 py-1 rounded-full text-sm font-semibold {% if not current_user_type %}bg-primary-600 text-white{% else %}bg-gray-100 text-gray-600 hover:bg-gray-200{% endif %} transition">Tous</a>
         <a href="?status={{ current_status }}&user_type=landlord" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'landlord' %}bg-amber-500 text-white{% else %}bg-amber-50 text-amber-700{% endif %} transition">🏠 Propriétaires</a>
-        <a href="?status={{ current_status }}&user_type=driver" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'driver' %}bg-cyan-500 text-white{% else %}bg-cyan-50 text-cyan-700{% endif %} transition">🚗 Chauffeurs</a>
-        <a href="?status={{ current_status }}&user_type=school" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'school' %}bg-purple-500 text-white{% else %}bg-purple-50 text-purple-700{% endif %} transition">🏫 Écoles</a>
+        <a href="?status={{ current_status }}&user_type=driver" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'driver' %}bg-blue-600 text-white{% else %}bg-blue-50 text-blue-700{% endif %} transition">🚗 Chauffeurs</a>
         <a href="?status={{ current_status }}&user_type=company" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'company' %}bg-blue-500 text-white{% else %}bg-blue-50 text-blue-700{% endif %} transition">🏢 Entreprises</a>
+        <a href="?status={{ current_status }}&user_type=school" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'school' %}bg-purple-500 text-white{% else %}bg-purple-50 text-purple-700{% endif %} transition">🏫 Écoles</a>
+        <a href="?status={{ current_status }}&user_type=partner" class="px-3 py-1 rounded-full text-sm font-semibold {% if current_user_type == 'partner' %}bg-pink-500 text-white{% else %}bg-pink-50 text-pink-700{% endif %} transition">🤝 Partenaires</a>
     </div>
 
-    <!-- Users List -->
+    <!-- Liste -->
     <div class="glass rounded-2xl shadow-strong overflow-hidden border border-blue-100">
         {% if users_list %}
         <div class="divide-y divide-blue-100">
@@ -47,6 +76,9 @@
                         <div>
                             <p class="font-bold text-gray-900">{{ u.get_display_name }}</p>
                             <p class="text-sm text-gray-500">{{ u.email }} · Inscrit le {{ u.date_joined|date:"d/m/Y" }}</p>
+                            {% if u.verification_note %}
+                            <p class="text-xs text-gray-400 mt-0.5 truncate max-w-md">{{ u.verification_note|truncatewords:12 }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
@@ -55,23 +87,50 @@
                             {% elif u.user_type == 'driver' %}bg-cyan-100 text-cyan-700 border border-cyan-200
                             {% elif u.user_type == 'school' %}bg-purple-100 text-purple-700 border border-purple-200
                             {% elif u.user_type == 'company' %}bg-blue-100 text-blue-700 border border-blue-200
+                            {% elif u.user_type == 'partner' %}bg-pink-100 text-pink-700 border border-pink-200
                             {% else %}bg-gray-100 text-gray-700{% endif %}">
                             {{ u.get_user_type_display }}
                         </span>
-                        {% if u.is_verified %}
-                        <span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200">✓ Vérifié</span>
-                        {% else %}
-                        <span class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold border border-yellow-200">⏳ En attente</span>
-                        {% endif %}
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold
+                            {% if u.verification_status == 'verified' %}bg-green-100 text-green-700 border border-green-200
+                            {% elif u.verification_status == 'pending' %}bg-yellow-100 text-yellow-700 border border-yellow-200
+                            {% elif u.verification_status == 'incomplete' %}bg-orange-100 text-orange-700 border border-orange-200
+                            {% elif u.verification_status == 'under_review' %}bg-blue-100 text-blue-700 border border-blue-200
+                            {% elif u.verification_status == 'rejected' %}bg-red-100 text-red-700 border border-red-200
+                            {% elif u.verification_status == 'suspended' %}bg-gray-200 text-gray-700 border border-gray-300
+                            {% else %}bg-gray-100 text-gray-700{% endif %}">
+                            {% if u.verification_status == 'verified' %}✅ Vérifié
+                            {% elif u.verification_status == 'pending' %}⏳ En attente
+                            {% elif u.verification_status == 'incomplete' %}📂 Incomplet
+                            {% elif u.verification_status == 'under_review' %}🔍 En examen
+                            {% elif u.verification_status == 'rejected' %}❌ Rejeté
+                            {% elif u.verification_status == 'suspended' %}🚫 Suspendu
+                            {% else %}{{ u.get_verification_status_display }}{% endif %}
+                        </span>
                     </div>
                 </div>
             </a>
             {% endfor %}
         </div>
+
+        {% if is_paginated %}
+        <div class="px-6 py-4 border-t border-blue-100 flex justify-center gap-2">
+            {% if page_obj.has_previous %}
+            <a href="?status={{ current_status }}{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}&page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-semibold transition">← Précédent</a>
+            {% endif %}
+            <span class="px-3 py-1 text-sm text-gray-500">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?status={{ current_status }}{% if current_user_type %}&user_type={{ current_user_type }}{% endif %}&page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-semibold transition">Suivant →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
         {% else %}
         <div class="p-12 text-center">
-            <span class="text-5xl block mb-4">✅</span>
-            <p class="text-gray-500 text-lg">Aucun profil en attente de vérification.</p>
+            <span class="text-5xl block mb-4">
+                {% if current_status == 'verified' %}✅{% elif current_status == 'rejected' %}❌{% elif current_status == 'suspended' %}🚫{% else %}📋{% endif %}
+            </span>
+            <p class="text-gray-500 text-lg">Aucun profil dans cette catégorie.</p>
         </div>
         {% endif %}
     </div>

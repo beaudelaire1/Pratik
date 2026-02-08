@@ -70,8 +70,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['total_internships'] = Internship.objects.count()
         context['total_applications'] = Application.objects.count()
         context['pending_verifications'] = (
-            User.objects.filter(is_verified=False)
-            .exclude(user_type__in=['student', 'admin'])
+            User.objects.exclude(user_type__in=['student', 'admin'])
+            .exclude(verification_status='verified')
             .count()
         )
         context['recent_users'] = User.objects.order_by('-date_joined')[:10]

@@ -68,6 +68,33 @@ class CustomUser(AbstractUser):
     linkedin = models.URLField(blank=True, verbose_name="LinkedIn")
     
     # Verification fields
+    VERIFICATION_PENDING = 'pending'
+    VERIFICATION_INCOMPLETE = 'incomplete'
+    VERIFICATION_UNDER_REVIEW = 'under_review'
+    VERIFICATION_VERIFIED = 'verified'
+    VERIFICATION_REJECTED = 'rejected'
+    VERIFICATION_SUSPENDED = 'suspended'
+
+    VERIFICATION_STATUS_CHOICES = [
+        (VERIFICATION_PENDING, 'En attente'),
+        (VERIFICATION_INCOMPLETE, 'Dossier incomplet'),
+        (VERIFICATION_UNDER_REVIEW, 'En cours d\'examen'),
+        (VERIFICATION_VERIFIED, 'Vérifié'),
+        (VERIFICATION_REJECTED, 'Rejeté'),
+        (VERIFICATION_SUSPENDED, 'Suspendu'),
+    ]
+
+    verification_status = models.CharField(
+        max_length=20,
+        choices=VERIFICATION_STATUS_CHOICES,
+        default=VERIFICATION_PENDING,
+        verbose_name="Statut de vérification"
+    )
+    verification_note = models.TextField(
+        blank=True,
+        verbose_name="Note de vérification",
+        help_text="Commentaire de l'admin sur le statut du dossier"
+    )
     is_verified = models.BooleanField(default=False, verbose_name="Vérifié")
     verified_at = models.DateTimeField(null=True, blank=True, verbose_name="Vérifié le")
     verified_by = models.ForeignKey(

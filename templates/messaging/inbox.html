@@ -14,10 +14,9 @@
     {% if conversations %}
     <div class="space-y-2" id="conversations-list">
         {% for conversation in conversations %}
-        {% with other=conversation.get_other_participant:request.user last_msg=conversation.get_last_message
-        unread=conversation.unread_count:request.user %}
+        {% with other=conversation.other_participant last_msg=conversation.last_message %}
         <a href="{% url 'messaging:conversation' conversation.pk %}"
-            class="block glass border {% if unread > 0 %}border-primary-500 bg-primary-50{% else %}border-primary-200{% endif %} rounded-xl p-4 shadow-medium hover:shadow-strong transition hover:border-primary-400 animate-fade-in">
+            class="block glass border {% if conversation.has_unread %}border-primary-500 bg-primary-50{% else %}border-primary-200{% endif %} rounded-xl p-4 shadow-medium hover:shadow-strong transition hover:border-primary-400 animate-fade-in">
             <div class="flex items-center gap-4">
                 <!-- Avatar -->
                 <div class="flex-shrink-0">
@@ -53,9 +52,9 @@
                 </div>
 
                 <!-- Unread badge -->
-                {% if unread > 0 %}
+                {% if conversation.unread > 0 %}
                 <div class="flex-shrink-0">
-                    <span class="bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded-full">{{ unread }}</span>
+                    <span class="bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded-full">{{ conversation.unread }}</span>
                 </div>
                 {% endif %}
             </div>

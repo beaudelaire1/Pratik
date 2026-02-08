@@ -20,6 +20,19 @@ class InboxView(LoginRequiredMixin, ListView):
             participants=self.request.user
         ).prefetch_related('participants', 'messages')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        enriched = []
+        for conv in context['conversations']:
+            conv.other_participant = conv.get_other_participant(user)
+            conv.last_message = conv.get_last_message()
+            conv.unread = conv.unread_count(user)
+            conv.has_unread = conv.unread > 0
+            enriched.append(conv)
+        context['conversations'] = enriched
+        return context
+
 
 class ConversationView(LoginRequiredMixin, DetailView):
     """
