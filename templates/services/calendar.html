@@ -1,0 +1,374 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2 uppercase tracking-tight">
+                Calendrier des Stages
+            </h1>
+            <p class="text-gray-600">Suivez les événements, deadlines et opportunités de stage.</p>
+        </div>
+        <div class="flex gap-2">
+            <button id="add-event-btn"
+                class="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-4 rounded-lg shadow-medium hover:shadow-strong transition transform hover:-translate-y-1 flex items-center gap-2">
+                <span>+</span> Ajouter un événement
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Calendar -->
+        <div class="lg:col-span-3">
+            <div class="glass border border-primary-200 rounded-2xl shadow-strong p-6">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar: Upcoming Events -->
+        <div class="space-y-6">
+            <!-- Legend -->
+            <div class="glass border border-primary-200 rounded-xl p-4 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-3">Légende</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <span class="text-gray-600">Deadline candidature</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-primary-500"></div>
+                        <span class="text-gray-600">Début de stage</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-accent-500"></div>
+                        <span class="text-gray-600">Événement carrière</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-purple-500"></div>
+                        <span class="text-gray-600">Formation / Atelier</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="glass border border-primary-200 rounded-xl p-4 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 flex items-center">
+                    <span class="text-primary-600 mr-2">📅</span> Prochains événements
+                </h3>
+                <div id="upcoming-events" class="space-y-3 max-h-96 overflow-y-auto">
+                    <!-- Events will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="glass border border-primary-200 rounded-xl p-4 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-3">Ce mois</h3>
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="bg-white border border-primary-200 rounded-lg p-3 shadow-soft">
+                        <div class="text-2xl font-bold text-primary-600" id="stat-stages">5</div>
+                        <div class="text-xs text-gray-600">Stages débutent</div>
+                    </div>
+                    <div class="bg-white border border-primary-200 rounded-lg p-3 shadow-soft">
+                        <div class="text-2xl font-bold text-red-500" id="stat-deadlines">3</div>
+                        <div class="text-xs text-gray-600">Deadlines</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Event Modal -->
+<div id="add-event-modal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="glass border border-primary-200 rounded-2xl shadow-strong max-w-md w-full">
+        <div class="p-6 border-b border-primary-200">
+            <h2 class="text-xl font-bold text-gray-900">Ajouter un événement</h2>
+        </div>
+        <form id="event-form" class="p-6 space-y-4">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Titre *</label>
+                <input type="text" name="title" required
+                    class="w-full bg-white border border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Date *</label>
+                    <input type="date" name="date" required
+                        class="w-full bg-white border border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Heure</label>
+                    <input type="time" name="time"
+                        class="w-full bg-white border border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200">
+                </div>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Type</label>
+                <select name="type"
+                    class="w-full bg-white border border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200">
+                    <option value="deadline">🔴 Deadline candidature</option>
+                    <option value="stage">🔵 Début de stage</option>
+                    <option value="event">🟢 Événement carrière</option>
+                    <option value="formation">🟣 Formation / Atelier</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                <textarea name="description" rows="2"
+                    class="w-full bg-white border border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"></textarea>
+            </div>
+            <div class="flex gap-4 pt-4">
+                <button type="button" id="cancel-event"
+                    class="flex-1 bg-white hover:bg-gray-50 border border-primary-300 text-gray-700 font-bold py-2 rounded-lg shadow-soft hover:shadow-medium transition">
+                    Annuler
+                </button>
+                <button type="submit"
+                    class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 rounded-lg shadow-medium hover:shadow-strong transition">
+                    Ajouter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+<style>
+    /* FullCalendar Light Theme Overrides */
+    .fc {
+        --fc-border-color: #d1d5db;
+        --fc-button-bg-color: #2563eb;
+        --fc-button-border-color: #2563eb;
+        --fc-button-hover-bg-color: #1d4ed8;
+        --fc-button-hover-border-color: #1d4ed8;
+        --fc-button-active-bg-color: #1e40af;
+        --fc-button-active-border-color: #1e40af;
+        --fc-today-bg-color: rgba(37, 99, 235, 0.1);
+        --fc-page-bg-color: transparent;
+        --fc-neutral-bg-color: #ffffff;
+        --fc-list-event-hover-bg-color: #f3f4f6;
+    }
+
+    .fc .fc-button {
+        color: #fff !important;
+        font-weight: bold;
+        text-transform: capitalize;
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+
+    .fc .fc-toolbar-title {
+        color: #111827;
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .fc .fc-col-header-cell-cushion,
+    .fc .fc-daygrid-day-number {
+        color: #6b7280;
+    }
+
+    .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+        color: #2563eb;
+        font-weight: bold;
+    }
+
+    .fc-theme-standard td,
+    .fc-theme-standard th {
+        border-color: #e5e7eb;
+    }
+
+    .fc .fc-daygrid-day:hover {
+        background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .fc-event {
+        border-radius: 4px;
+        padding: 2px 4px;
+        font-size: 0.75rem;
+        cursor: pointer;
+    }
+
+    .fc-event-deadline {
+        background-color: #ef4444 !important;
+        border-color: #ef4444 !important;
+    }
+
+    .fc-event-stage {
+        background-color: #2563eb !important;
+        border-color: #2563eb !important;
+    }
+
+    .fc-event-event {
+        background-color: #0ea5e9 !important;
+        border-color: #0ea5e9 !important;
+    }
+
+    .fc-event-formation {
+        background-color: #a855f7 !important;
+        border-color: #a855f7 !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+
+        // Sample events
+        const events = [
+            {
+                title: 'Deadline: Stage GuyaTech',
+                start: '2026-02-15',
+                className: 'fc-event-deadline',
+                extendedProps: { type: 'deadline', description: 'Dernier jour pour postuler au stage développeur' }
+            },
+            {
+                title: 'Début Stage: Digital Guyane',
+                start: '2026-02-20',
+                className: 'fc-event-stage',
+                extendedProps: { type: 'stage', description: 'Stage de 6 mois en développement web' }
+            },
+            {
+                title: 'Forum de l\'emploi Cayenne',
+                start: '2026-02-25',
+                className: 'fc-event-event',
+                extendedProps: { type: 'event', description: 'Rencontrez 50 entreprises qui recrutent' }
+            },
+            {
+                title: 'Atelier CV - Pratik',
+                start: '2026-03-01',
+                className: 'fc-event-formation',
+                extendedProps: { type: 'formation', description: 'Apprenez à créer un CV qui fait la différence' }
+            },
+            {
+                title: 'Deadline: Clinique Saint-Paul',
+                start: '2026-03-05',
+                className: 'fc-event-deadline',
+                extendedProps: { type: 'deadline', description: 'Stage infirmier - candidatures' }
+            },
+            {
+                title: 'Début Stage: Amazonia Market',
+                start: '2026-03-10',
+                className: 'fc-event-stage',
+                extendedProps: { type: 'stage', description: 'Stage logistique 3 mois' }
+            },
+            {
+                title: 'Webinaire: Réussir son entretien',
+                start: '2026-03-12',
+                className: 'fc-event-formation',
+                extendedProps: { type: 'formation', description: 'Tips pour un entretien réussi' }
+            },
+            {
+                title: 'Journée portes ouvertes UG',
+                start: '2026-03-20',
+                className: 'fc-event-event',
+                extendedProps: { type: 'event', description: 'Université de Guyane' }
+            }
+        ];
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'fr',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,listWeek'
+            },
+            buttonText: {
+                today: "Aujourd'hui",
+                month: 'Mois',
+                list: 'Liste'
+            },
+            events: events,
+            eventClick: function (info) {
+                alert(`📅 ${info.event.title}\n\n${info.event.extendedProps.description || ''}`);
+            },
+            dateClick: function (info) {
+                document.querySelector('input[name="date"]').value = info.dateStr;
+                openModal();
+            }
+        });
+
+        calendar.render();
+
+        // Populate upcoming events
+        const upcomingContainer = document.getElementById('upcoming-events');
+        const now = new Date();
+        const upcoming = events
+            .filter(e => new Date(e.start) >= now)
+            .sort((a, b) => new Date(a.start) - new Date(b.start))
+            .slice(0, 5);
+
+        const typeColors = {
+            deadline: 'bg-red-500',
+            stage: 'bg-primary-500',
+            event: 'bg-accent-500',
+            formation: 'bg-purple-500'
+        };
+
+        upcoming.forEach(event => {
+            const date = new Date(event.start);
+            const typeColor = typeColors[event.extendedProps.type] || 'bg-gray-500';
+
+            upcomingContainer.innerHTML += `
+            <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-primary-50 transition cursor-pointer">
+                <div class="w-10 h-10 ${typeColor} rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                    ${date.getDate()}
+                </div>
+                <div class="flex-1">
+                    <p class="text-gray-900 text-sm font-medium">${event.title}</p>
+                    <p class="text-gray-500 text-xs">${date.toLocaleDateString('fr-FR', { month: 'long' })}</p>
+                </div>
+            </div>
+        `;
+        });
+
+        // Modal handling
+        const modal = document.getElementById('add-event-modal');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.getElementById('add-event-btn').addEventListener('click', openModal);
+        document.getElementById('cancel-event').addEventListener('click', closeModal);
+
+        // Add event form
+        document.getElementById('event-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const type = formData.get('type');
+
+            const classNames = {
+                deadline: 'fc-event-deadline',
+                stage: 'fc-event-stage',
+                event: 'fc-event-event',
+                formation: 'fc-event-formation'
+            };
+
+            calendar.addEvent({
+                title: formData.get('title'),
+                start: formData.get('date'),
+                className: classNames[type],
+                extendedProps: {
+                    type: type,
+                    description: formData.get('description')
+                }
+            });
+
+            this.reset();
+            closeModal();
+        });
+    });
+</script>
+{% endblock %}

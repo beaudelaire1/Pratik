@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+                    Carte des <span class="gradient-text">Partenaires</span>
+                </h1>
+                <p class="text-lg text-gray-600">Découvrez nos entreprises partenaires en Guyane française</p>
+            </div>
+                Tous
+            </button>
+            <button
+                class="filter-map-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-bold transition"
+                data-filter="tech">
+                💻 Tech
+            </button>
+            <button
+                class="filter-map-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-bold transition"
+                data-filter="commerce">
+                🏪 Commerce
+            </button>
+            <button
+                class="filter-map-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-bold transition"
+                data-filter="sante">
+                🏥 Santé
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Map Container -->
+        <div class="lg:col-span-2">
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+                <div id="partners-map" class="h-[600px] w-full"></div>
+            </div>
+        </div>
+
+        <!-- Partners List -->
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl p-6 max-h-[600px] overflow-y-auto">
+            <h3 class="text-white font-bold text-lg mb-4 border-b border-gray-600 pb-2 flex items-center">
+                <span class="text-green-500 mr-2">📍</span> Partenaires actifs
+            </h3>
+
+            <div id="partners-list" class="space-y-4">
+                <!-- Partner 1 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="4.9224" data-lng="-52.3354" data-type="tech">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-xl">
+                            💻
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">GuyaTech Solutions</h4>
+                            <p class="text-gray-400 text-sm">Développement web & mobile</p>
+                            <span
+                                class="inline-block bg-blue-900/50 text-blue-300 text-xs px-2 py-0.5 rounded mt-1">Tech</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 Cayenne Centre</p>
+                </div>
+
+                <!-- Partner 2 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="4.9372" data-lng="-52.3261" data-type="commerce">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-orange-600 to-red-600 rounded-full flex items-center justify-center text-xl">
+                            🏪
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">Amazonia Market</h4>
+                            <p class="text-gray-400 text-sm">Distribution & Logistique</p>
+                            <span
+                                class="inline-block bg-orange-900/50 text-orange-300 text-xs px-2 py-0.5 rounded mt-1">Commerce</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 ZI Collery</p>
+                </div>
+
+                <!-- Partner 3 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="4.8566" data-lng="-52.2826" data-type="sante">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-green-600 to-teal-600 rounded-full flex items-center justify-center text-xl">
+                            🏥
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">Clinique Saint-Paul</h4>
+                            <p class="text-gray-400 text-sm">Établissement de santé</p>
+                            <span
+                                class="inline-block bg-green-900/50 text-green-300 text-xs px-2 py-0.5 rounded mt-1">Santé</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 Rémire-Montjoly</p>
+                </div>
+
+                <!-- Partner 4 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="4.9346" data-lng="-52.3304" data-type="tech">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-xl">
+                            🚀
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">Digital Guyane</h4>
+                            <p class="text-gray-400 text-sm">Agence digitale</p>
+                            <span
+                                class="inline-block bg-purple-900/50 text-purple-300 text-xs px-2 py-0.5 rounded mt-1">Tech</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 Cayenne</p>
+                </div>
+
+                <!-- Partner 5 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="5.1588" data-lng="-52.6489" data-type="commerce">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-orange-600 rounded-full flex items-center justify-center text-xl">
+                            🛒
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">Super U Kourou</h4>
+                            <p class="text-gray-400 text-sm">Grande distribution</p>
+                            <span
+                                class="inline-block bg-yellow-900/50 text-yellow-300 text-xs px-2 py-0.5 rounded mt-1">Commerce</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 Kourou</p>
+                </div>
+
+                <!-- Partner 6 -->
+                <div class="partner-card bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500 transition cursor-pointer"
+                    data-lat="5.5036" data-lng="-54.0310" data-type="sante">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-teal-600 to-cyan-600 rounded-full flex items-center justify-center text-xl">
+                            💊
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold">Centre Hospitalier de l'Ouest</h4>
+                            <p class="text-gray-400 text-sm">Hôpital public</p>
+                            <span
+                                class="inline-block bg-teal-900/50 text-teal-300 text-xs px-2 py-0.5 rounded mt-1">Santé</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">📍 Saint-Laurent du Maroni</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 text-center">
+            <div class="text-4xl font-extrabold text-green-500 mb-2">50+</div>
+            <div class="text-gray-400">Entreprises partenaires</div>
+        </div>
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 text-center">
+            <div class="text-4xl font-extrabold text-blue-500 mb-2">15</div>
+            <div class="text-gray-400">Secteurs d'activité</div>
+        </div>
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 text-center">
+            <div class="text-4xl font-extrabold text-purple-500 mb-2">200+</div>
+            <div class="text-gray-400">Stages proposés</div>
+        </div>
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 text-center">
+            <div class="text-4xl font-extrabold text-orange-500 mb-2">95%</div>
+            <div class="text-gray-400">Taux de satisfaction</div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize map centered on French Guiana
+        const map = L.map('partners-map').setView([4.9224, -52.3354], 8);
+
+        // Dark tile layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Custom marker icons
+        const icons = {
+            tech: L.divIcon({
+                className: 'custom-marker',
+                html: '<div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white">💻</div>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            }),
+            commerce: L.divIcon({
+                className: 'custom-marker',
+                html: '<div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white">🏪</div>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            }),
+            sante: L.divIcon({
+                className: 'custom-marker',
+                html: '<div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white">🏥</div>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            })
+        };
+
+        const markers = [];
+
+        // Add markers for each partner
+        document.querySelectorAll('.partner-card').forEach(card => {
+            const lat = parseFloat(card.dataset.lat);
+            const lng = parseFloat(card.dataset.lng);
+            const type = card.dataset.type;
+            const name = card.querySelector('h4').textContent;
+            const desc = card.querySelector('p').textContent;
+
+            const marker = L.marker([lat, lng], { icon: icons[type] })
+                .addTo(map)
+                .bindPopup(`
+                <div class="text-center p-2">
+                    <strong class="text-lg">${name}</strong>
+                    <p class="text-sm text-gray-600">${desc}</p>
+                    <a href="{% url 'internship_list' %}" class="inline-block mt-2 bg-green-600 text-white text-sm px-3 py-1 rounded hover:bg-green-500">
+                        Voir les stages
+                    </a>
+                </div>
+            `);
+
+            marker._type = type;
+            markers.push(marker);
+
+            // Click on card to pan to marker
+            card.addEventListener('click', function () {
+                map.setView([lat, lng], 14);
+                marker.openPopup();
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-map-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const filter = this.dataset.filter;
+
+                document.querySelectorAll('.filter-map-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-green-600');
+                    b.classList.add('bg-gray-700');
+                });
+                this.classList.add('active', 'bg-green-600');
+                this.classList.remove('bg-gray-700');
+
+                // Filter markers
+                markers.forEach(marker => {
+                    if (filter === 'all' || marker._type === filter) {
+                        marker.addTo(map);
+                    } else {
+                        map.removeLayer(marker);
+                    }
+                });
+
+                // Filter cards
+                document.querySelectorAll('.partner-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.type === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<style>
+    .custom-marker {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .leaflet-popup-content-wrapper {
+        border-radius: 12px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">
+                Mes Notifications
+            </h1>
+            <p class="text-gray-600 mt-1">Restez informé de l'activité sur votre compte</p>
+        </div>
+        {% if notifications %}
+        <button id="mark-all-read"
+            class="bg-white hover:bg-primary-50 border border-primary-300 text-primary-700 font-bold py-2 px-4 rounded-lg shadow-soft hover:shadow-medium transition text-sm">
+            ✓ Tout marquer comme lu
+        </button>
+        {% endif %}
+    </div>
+
+    {% if notifications %}
+    <div class="space-y-4" id="notifications-list">
+        {% for notification in notifications %}
+        <div class="notification-item glass border {% if not notification.is_read %}border-primary-500 bg-primary-50{% else %}border-primary-200{% endif %} rounded-xl p-4 shadow-medium hover:shadow-strong transition hover:border-primary-400 animate-fade-in"
+            data-id="{{ notification.id }}">
+            <div class="flex items-start gap-4">
+                <!-- Icon -->
+                <div class="flex-shrink-0">
+                    {% if notification.notification_type == 'application_received' %}
+                    <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center text-2xl">📥
+                    </div>
+                    {% elif notification.notification_type == 'application_accepted' %}
+                    <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center text-2xl">✅
+                    </div>
+                    {% elif notification.notification_type == 'application_rejected' %}
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-2xl">❌</div>
+                    {% elif notification.notification_type == 'new_internship' %}
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-2xl">💼
+                    </div>
+                    {% elif notification.notification_type == 'message_received' %}
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-2xl">💬
+                    </div>
+                    {% else %}
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl">🔔</div>
+                    {% endif %}
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-start">
+                        <h3
+                            class="text-gray-900 font-bold {% if not notification.is_read %}{% else %}text-gray-600{% endif %}">
+                            {{ notification.title }}
+                        </h3>
+                        {% if not notification.is_read %}
+                        <span class="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></span>
+                        {% endif %}
+                    </div>
+                    <p class="text-gray-600 text-sm mt-1">{{ notification.message }}</p>
+                    <div class="flex items-center gap-4 mt-3">
+                        <span class="text-xs text-gray-500">{{ notification.created_at|timesince }} ago</span>
+                        {% if notification.link %}
+                        <a href="{{ notification.link }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                            Voir →
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-2 flex-shrink-0">
+                    {% if not notification.is_read %}
+                    <button class="mark-read-btn text-gray-400 hover:text-accent-600 transition" title="Marquer comme lu"
+                        data-id="{{ notification.id }}">
+                        ✓
+                    </button>
+                    {% endif %}
+                    <button class="delete-btn text-gray-400 hover:text-red-600 transition" title="Supprimer"
+                        data-id="{{ notification.id }}">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="mt-8 flex justify-center gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"
+            class="bg-white hover:bg-primary-50 border border-primary-300 text-primary-700 font-bold py-2 px-4 rounded-lg shadow-soft hover:shadow-medium transition">
+            ← Précédent
+        </a>
+        {% endif %}
+        <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white font-bold py-2 px-4 rounded-lg shadow-medium">
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"
+            class="bg-white hover:bg-primary-50 border border-primary-300 text-primary-700 font-bold py-2 px-4 rounded-lg shadow-soft hover:shadow-medium transition">
+            Suivant →
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="glass border border-primary-200 rounded-xl p-12 text-center shadow-medium">
+        <div class="text-6xl mb-4">🔔</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucune notification</h3>
+        <p class="text-gray-600">Vous n'avez pas encore de notifications.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mark single as read
+        document.querySelectorAll('.mark-read-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = this.dataset.id;
+                fetch(`/notifications/${id}/read/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const item = document.querySelector(`.notification-item[data-id="${id}"]`);
+                            item.classList.remove('border-blue-500', 'bg-blue-900/10');
+                            item.classList.add('border-gray-700');
+                            this.remove();
+                        }
+                    });
+            });
+        });
+
+        // Mark all as read
+        document.getElementById('mark-all-read')?.addEventListener('click', function () {
+            fetch('/notifications/mark-all-read/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+        });
+
+        // Delete notification
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = this.dataset.id;
+                if (confirm('Supprimer cette notification ?')) {
+                    fetch(`/notifications/${id}/delete/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.querySelector(`.notification-item[data-id="${id}"]`).remove();
+                            }
+                        });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

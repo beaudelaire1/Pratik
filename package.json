@@ -1,0 +1,16 @@
+{
+  "name": "yana-pratik",
+  "version": "1.0.0",
+  "description": "Plateforme de stages en Guyane française",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify",
+    "watch:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
+    "dev": "npm run watch:css"
+  },
+  "keywords": ["django", "tailwindcss", "internship", "guyane"],
+  "author": "Pratik Team",
+  "license": "Proprietary",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

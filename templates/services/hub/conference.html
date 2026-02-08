@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-4xl font-extrabold text-white mb-2 uppercase tracking-tight">Conférences & <span
+            class="text-purple-500">Événements</span></h1>
+    <p class="text-gray-400 mb-8">Participez à nos événements pour élargir votre réseau et vos connaissances.</p>
+
+    <div class="space-y-6">
+        <div
+            class="bg-gray-900 border border-gray-700 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between hover:border-purple-500 transition shadow-lg">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="bg-purple-900/50 p-4 rounded-lg mr-6 text-center min-w-[80px]">
+                    <span class="block text-3xl font-bold text-white">15</span>
+                    <span class="text-xs text-purple-300 uppercase">Mars</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Forum des Métiers de l'IT en Guyane</h3>
+                    <p class="text-gray-400 text-sm">Rencontrez les entreprises du numérique locales et découvrez les
+                        opportunités de stage.</p>
+                    <span class="text-xs text-gray-500 mt-2 inline-block">📍 Cayenne - Palais des Congrès</span>
+                </div>
+            </div>
+            <button
+                class="bg-purple-700 hover:bg-purple-600 text-white font-bold py-2 px-6 rounded-lg transition">S'inscrire</button>
+        </div>
+
+        <div
+            class="bg-gray-900 border border-gray-700 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between hover:border-purple-500 transition shadow-lg">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="bg-blue-900/50 p-4 rounded-lg mr-6 text-center min-w-[80px]">
+                    <span class="block text-3xl font-bold text-white">22</span>
+                    <span class="text-xs text-blue-300 uppercase">Mars</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Webinaire : Réussir son Entretien de Stage</h3>
+                    <p class="text-gray-400 text-sm">Conseils pratiques de recruteurs pour préparer et réussir vos
+                        entretiens.</p>
+                    <span class="text-xs text-gray-500 mt-2 inline-block">💻 En ligne - Zoom</span>
+                </div>
+            </div>
+            <button
+                class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition">S'inscrire</button>
+        </div>
+
+        <div
+            class="bg-gray-900 border border-gray-700 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between hover:border-purple-500 transition shadow-lg">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="bg-green-900/50 p-4 rounded-lg mr-6 text-center min-w-[80px]">
+                    <span class="block text-3xl font-bold text-white">05</span>
+                    <span class="text-xs text-green-300 uppercase">Avril</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Atelier CV & Lettre de Motivation</h3>
+                    <p class="text-gray-400 text-sm">Workshop pratique pour créer des documents de candidature
+                        percutants.</p>
+                    <span class="text-xs text-gray-500 mt-2 inline-block">📍 Kourou - Maison des Associations</span>
+                </div>
+            </div>
+            <button
+                class="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition">S'inscrire</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

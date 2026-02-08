@@ -1,0 +1,39 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Nouvelle candidature - {{ internship.title }}{% endblock %}
+
+{% block content %}
+<h2>📥 Nouvelle candidature reçue !</h2>
+
+<p>Bonjour {{ company.get_full_name|default:company.username }},</p>
+
+<p>
+    Vous avez reçu une nouvelle candidature pour votre offre de stage 
+    <strong>{{ internship.title }}</strong>.
+</p>
+
+<div class="info-box">
+    <p style="margin: 0 0 10px 0;"><strong>Candidat :</strong> {{ student.get_full_name|default:student.username }}</p>
+    {% if student.school %}
+    <p style="margin: 0 0 10px 0;"><strong>École :</strong> {{ student.school }}</p>
+    {% endif %}
+    {% if student.field_of_study %}
+    <p style="margin: 0;"><strong>Domaine :</strong> {{ student.field_of_study }}</p>
+    {% endif %}
+</div>
+
+<div style="text-align: center;">
+    <a href="{{ site_url }}/dashboard/" class="button">
+        Consulter la candidature
+    </a>
+</div>
+
+<p style="font-size: 14px; color: #6b7280;">
+    <strong>Astuce :</strong> Répondez rapidement aux candidatures pour augmenter vos chances de recruter les meilleurs talents !
+</p>
+
+<p>
+    Cordialement,<br>
+    <strong>L'équipe Pratik</strong>
+</p>
+{% endblock %}

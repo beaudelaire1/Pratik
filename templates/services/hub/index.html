@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Hub <span class="gradient-text">Services</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Tous les outils et ressources pour réussir votre stage en Guyane
+            </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+
+            <!-- Library -->
+            <a href="{% url 'hub:library' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-primary-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">📚</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition">Bibliothèque Numérique</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Guides, modèles et ressources pour votre recherche de stage</p>
+            </a>
+
+            <!-- CV Builder -->
+            <a href="{% url 'tool_cv' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-accent-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-accent-400 to-accent-600 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">📄</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-accent-600 transition">Créateur de CV</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Créez un CV professionnel en quelques minutes</p>
+            </a>
+
+            <!-- Cover Letter -->
+            <a href="{% url 'tool_cover_letter' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-purple-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">✉️</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">Lettre de Motivation</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Modèles personnalisables par secteur d'activité</p>
+            </a>
+
+            <!-- Interview Prep -->
+            <a href="{% url 'tool_interview' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-indigo-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">🎤</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition">Préparation Entretien</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Questions fréquentes et conseils pour réussir</p>
+            </a>
+
+            <!-- Partners Map -->
+            <a href="{% url 'partners:map' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-navy-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-navy-500 to-navy-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">🗺️</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-navy-600 transition">Carte des Partenaires</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Découvrez nos entreprises partenaires en Guyane</p>
+            </a>
+
+            <!-- Calendar -->
+            <a href="{% url 'events:list' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-blue-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">📅</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">Calendrier</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Événements, formations et deadlines de stages</p>
+            </a>
+
+            <!-- Housing -->
+            <a href="{% url 'housing_list' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-teal-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">🏠</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition">Logement</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Trouvez un logement pour votre stage</p>
+            </a>
+
+            <!-- Transport -->
+            <a href="{% url 'transport_list' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-cyan-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">🚗</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition">Covoiturage</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Partagez vos trajets avec d'autres stagiaires</p>
+            </a>
+
+            <!-- Forum -->
+            <a href="{% url 'forum_list' %}"
+                class="group glass rounded-2xl p-8 hover:shadow-strong transition-all duration-300 border border-blue-100 hover:border-pink-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-700 rounded-xl flex items-center justify-center mb-4 shadow-medium group-hover:shadow-strong transition-all group-hover:scale-110">
+                    <span class="text-3xl" aria-hidden="true">💬</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition">Forum</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Échangez avec la communauté Pratik</p>
+            </a>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="bg-gradient-to-br from-primary-50 to-blue-50 rounded-3xl p-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Être Accompagné</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="{% url 'guide_folder' %}"
+                    class="glass rounded-2xl p-8 text-center hover:shadow-strong transition-all border border-blue-100 hover:border-primary-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-medium group-hover:scale-110 transition-all">
+                        <span class="text-3xl" aria-hidden="true">📁</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition">Constitution Dossier</h4>
+                </a>
+                <a href="{% url 'guide_finance' %}"
+                    class="glass rounded-2xl p-8 text-center hover:shadow-strong transition-all border border-blue-100 hover:border-accent-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent-400 to-accent-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-medium group-hover:scale-110 transition-all">
+                        <span class="text-3xl" aria-hidden="true">💰</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 group-hover:text-accent-600 transition">Aides Financières</h4>
+                </a>
+                <a href="{% url 'guide_admin' %}"
+                    class="glass rounded-2xl p-8 text-center hover:shadow-strong transition-all border border-blue-100 hover:border-navy-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-navy-500 to-navy-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-medium group-hover:scale-110 transition-all">
+                        <span class="text-3xl" aria-hidden="true">📋</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-900 group-hover:text-navy-600 transition">Démarches Administratives</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

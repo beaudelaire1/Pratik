@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pratik — Stage, Logement, Transport en Guyane{% endblock %}
+
+{% block content %}
+<div class="overflow-hidden">
+
+    <!-- ============ HERO ============ -->
+    <section class="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
+        <!-- Decorative blobs -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="absolute -top-16 -left-16 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl animate-float"></div>
+            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-400 rounded-full opacity-15 blur-3xl animate-float" style="animation-delay:2s"></div>
+            <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-green-400 rounded-full opacity-10 blur-3xl animate-float" style="animation-delay:4s"></div>
+            <!-- Grid pattern overlay -->
+            <div class="absolute inset-0 opacity-5" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect width=%2260%22 height=%2260%22 fill=%22none%22 stroke=%22white%22 stroke-width=%220.5%22/></svg>');background-size:60px 60px"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left: Text -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white/90 font-medium mb-8 border border-white/20">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        100% Guyane française
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+                        Votre stage en Guyane,<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-green-500">simplifié de A à Z</span>
+                    </h1>
+
+                    <p class="text-lg text-blue-100 max-w-xl mb-10 leading-relaxed">
+                        Pratik connecte étudiants, entreprises, écoles et propriétaires. Trouvez votre stage, un logement vérifié et un transport fiable — tout sur une seule plateforme.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'internship_list' %}" class="group inline-flex items-center justify-center px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                            Voir les offres de stage
+                            <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                        <a href="{% url 'dashboard' %}" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/25 transition-all">
+                            Mon tableau de bord
+                        </a>
+                        {% else %}
+                        <a href="{% url 'signup' %}" class="group inline-flex items-center justify-center px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                            Créer mon compte gratuitement
+                            <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                        <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/25 transition-all">
+                            Se connecter
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mini stats -->
+                    <div class="flex gap-8 mt-12 pt-8 border-t border-white/10">
+                        <div>
+                            <div class="text-2xl font-extrabold text-white">300€</div>
+                            <div class="text-sm text-blue-200">loyer max/mois</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-extrabold text-white">100%</div>
+                            <div class="text-sm text-blue-200">profils vérifiés</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-extrabold text-white">8</div>
+                            <div class="text-sm text-blue-200">types de profils</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual cards stack -->
+                <div class="hidden lg:block relative">
+                    <div class="relative w-full h-[480px]">
+                        <!-- Card 1: Stage -->
+                        <div class="absolute top-0 right-0 w-72 bg-white rounded-2xl shadow-xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">💼</div>
+                                <div>
+                                    <div class="font-bold text-gray-900">Stage trouvé</div>
+                                    <div class="text-sm text-gray-500">Développeur Web</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-green-600 font-semibold">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Candidature acceptée
+                            </div>
+                        </div>
+                        <!-- Card 2: Logement -->
+                        <div class="absolute top-40 left-0 w-72 bg-white rounded-2xl shadow-xl p-6 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">🏠</div>
+                                <div>
+                                    <div class="font-bold text-gray-900">Logement vérifié</div>
+                                    <div class="text-sm text-gray-500">250€/mois · Cayenne</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-blue-600 font-semibold">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Propriétaire certifié
+                            </div>
+                        </div>
+                        <!-- Card 3: Transport -->
+                        <div class="absolute bottom-0 right-8 w-72 bg-white rounded-2xl shadow-xl p-6 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-2xl">🚗</div>
+                                <div>
+                                    <div class="font-bold text-gray-900">Covoiturage</div>
+                                    <div class="text-sm text-gray-500">Cayenne → Kourou</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="text-yellow-400 text-sm">★★★★★</span>
+                                <span class="text-sm text-gray-500 ml-1">Chauffeur vérifié</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PARCOURS EN 3 ÉTAPES ============ -->
+    <section class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full mb-4">Comment ça marche</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+                    Votre parcours en <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">3 étapes</span>
+                </h2>
+                <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+                    Pratik ne s'arrête pas à la recherche de stage. On vous accompagne sur tout le reste.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Connecting line -->
+                <div class="hidden md:block absolute top-20 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-blue-200 via-green-200 to-purple-200 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative group">
+                    <div class="relative bg-white border-2 border-gray-100 group-hover:border-blue-200 p-8 rounded-2xl transition-all duration-300 group-hover:shadow-xl z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-white font-extrabold text-2xl">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Trouvez votre stage</h3>
+                        <p class="text-gray-500 leading-relaxed mb-5">Offres vérifiées auprès d'entreprises partenaires en Guyane. Postulez en quelques clics.</p>
+                        <a href="{% url 'internship_list' %}" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors group/link">
+                            Voir les offres
+                            <svg class="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative group">
+                    <div class="relative bg-white border-2 border-gray-100 group-hover:border-green-200 p-8 rounded-2xl transition-all duration-300 group-hover:shadow-xl z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-white font-extrabold text-2xl">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Trouvez un logement</h3>
+                        <p class="text-gray-500 leading-relaxed mb-5">Logements vérifiés à proximité de votre stage. Plafond à 300€/mois pour protéger votre budget.</p>
+                        <a href="{% url 'housing_list' %}" class="inline-flex items-center text-green-600 font-semibold hover:text-green-800 transition-colors group/link">
+                            Voir les logements
+                            <svg class="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative group">
+                    <div class="relative bg-white border-2 border-gray-100 group-hover:border-purple-200 p-8 rounded-2xl transition-all duration-300 group-hover:shadow-xl z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-white font-extrabold text-2xl">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Organisez votre transport</h3>
+                        <p class="text-gray-500 leading-relaxed mb-5">Covoiturage avec des chauffeurs vérifiés. Trajets réguliers domicile-stage à prix étudiant.</p>
+                        <a href="{% url 'transport_list' %}" class="inline-flex items-center text-purple-600 font-semibold hover:text-purple-800 transition-colors group/link">
+                            Voir les trajets
+                            <svg class="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SERVICES RAPIDES ============ -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="inline-block px-4 py-1.5 bg-green-100 text-green-700 text-sm font-semibold rounded-full mb-4">Écosystème complet</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Tout ce dont vous avez besoin</h2>
+                <p class="text-lg text-gray-500">Un écosystème pensé pour la Guyane, accessible en un clic</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Service cards -->
+                <a href="{% url 'internship_list' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">💼</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">Stages</h3>
+                        <p class="text-sm text-gray-400">Offres vérifiées</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'housing_list' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-green-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">🏠</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-green-600 transition-colors">Logement</h3>
+                        <p class="text-sm text-gray-400">Max 300€/mois</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'transport_list' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">🚗</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">Transport</h3>
+                        <p class="text-sm text-gray-400">Covoiturage vérifié</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'dashboard' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-indigo-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">Suivi</h3>
+                        <p class="text-sm text-gray-400">Tableau de bord</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'services_hub' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">Services</h3>
+                        <p class="text-sm text-gray-400">CV, guides, forum</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'partners:map' %}" class="group relative bg-white p-8 rounded-2xl border border-gray-100 hover:border-red-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative">
+                        <div class="text-4xl mb-4">🗺️</div>
+                        <h3 class="font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">Partenaires</h3>
+                        <p class="text-sm text-gray-400">Carte interactive</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONFIANCE & SÉCURITÉ ============ -->
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Content -->
+                <div>
+                    <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-semibold rounded-full mb-4">Sécurité & confiance</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
+                        Pas un simple site d'annonces.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">Un vrai écosystème protégé.</span>
+                    </h2>
+                    <p class="text-lg text-gray-500 mb-10 leading-relaxed">
+                        Chaque acteur est vérifié, chaque étudiant est protégé. Pratik garantit un environnement de confiance pour tous.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Profils vérifiés manuellement</h4>
+                                <p class="text-gray-500 text-sm">Propriétaires et chauffeurs vérifiés par l'équipe Pratik avant publication</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Loyer plafonné à 300€/mois</h4>
+                                <p class="text-gray-500 text-sm">Protection contre la vie chère en Guyane pour tous les étudiants stagiaires</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Relation école-entreprise directe</h4>
+                                <p class="text-gray-500 text-sm">Suivi transparent des stages et recommandations entre partenaires</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Recommandations d'entreprises</h4>
+                                <p class="text-gray-500 text-sm">Les entreprises recommandent leurs meilleurs stagiaires pour booster leur parcours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Stats grid -->
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-8 rounded-2xl text-white shadow-xl transform hover:scale-105 transition-transform">
+                            <div class="text-5xl font-extrabold mb-2">8</div>
+                            <div class="text-blue-200 text-sm font-medium">types de profils</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-500 to-green-700 p-8 rounded-2xl text-white shadow-xl transform hover:scale-105 transition-transform mt-8">
+                            <div class="text-5xl font-extrabold mb-2">300€</div>
+                            <div class="text-green-200 text-sm font-medium">loyer max/mois</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 rounded-2xl text-white shadow-xl transform hover:scale-105 transition-transform">
+                            <div class="text-5xl font-extrabold mb-2">100%</div>
+                            <div class="text-indigo-200 text-sm font-medium">Guyane française</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-600 to-purple-800 p-8 rounded-2xl text-white shadow-xl transform hover:scale-105 transition-transform mt-8">
+                            <div class="text-5xl font-extrabold mb-2">✓</div>
+                            <div class="text-purple-200 text-sm font-medium">profils vérifiés</div>
+                        </div>
+                    </div>
+                    <!-- Decorative -->
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ POUR QUI ? ============ -->
+    <section class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-purple-100 text-purple-700 text-sm font-semibold rounded-full mb-4">Pour tous les acteurs</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+                    Chacun a sa place sur <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Pratik</span>
+                </h2>
+                <p class="text-lg text-gray-500">Étudiants, entreprises, écoles, propriétaires — un espace dédié pour chacun</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="group bg-white p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 text-center">
+                    <div class="w-20 h-20 mx-auto bg-blue-100 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-200 transition-all duration-300">
+                        <span class="text-4xl">🎓</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-3 text-lg">Étudiants</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Stage, logement, transport, recommandations. Tout votre parcours en un seul endroit.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl border border-gray-100 hover:border-green-200 hover:shadow-xl transition-all duration-300 text-center">
+                    <div class="w-20 h-20 mx-auto bg-green-100 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-green-200 transition-all duration-300">
+                        <span class="text-4xl">🏢</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-3 text-lg">Entreprises</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Publiez vos offres, gérez vos stagiaires et recommandez les meilleurs talents.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 text-center">
+                    <div class="w-20 h-20 mx-auto bg-purple-100 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-200 transition-all duration-300">
+                        <span class="text-4xl">🏫</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-3 text-lg">Écoles</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Calendriers de stages, suivi des étudiants, communication avec les entreprises.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 text-center">
+                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-orange-200 transition-all duration-300">
+                        <span class="text-4xl">🏠</span>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-3 text-lg">Propriétaires</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Proposez des logements vérifiés aux étudiants. Profil certifié par Pratik.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA FINAL ============ -->
+    <section class="relative py-24 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-900 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-green-400 rounded-full opacity-10 blur-3xl"></div>
+        </div>
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                Prêt à démarrer votre<br>aventure en Guyane ?
+            </h2>
+            <p class="text-xl text-blue-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Rejoignez Pratik gratuitement et accédez à tout l'écosystème : stages, logements, transport et bien plus.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                <a href="{% url 'internship_list' %}" class="group inline-flex items-center justify-center px-10 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 text-lg">
+                    Découvrir les offres
+                    <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+                {% else %}
+                <a href="{% url 'signup' %}" class="group inline-flex items-center justify-center px-10 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 text-lg">
+                    Créer mon compte gratuitement
+                    <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+                <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-10 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/25 transition-all text-lg">
+                    Se connecter
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

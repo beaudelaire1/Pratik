@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="glass rounded-2xl p-8 mb-8 shadow-strong relative overflow-hidden border border-blue-100">
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-primary-200 rounded-full opacity-30 filter blur-3xl"></div>
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Mon Espace Étudiant</h1>
+                    <p class="text-gray-600">Bienvenue, <span class="text-primary-600 font-bold">{{ user.username }}</span></p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-medium">
+                        <span class="text-3xl" aria-hidden="true">🎓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass rounded-2xl p-6 shadow-medium border border-blue-100">
+                <h3 class="text-gray-600 text-sm uppercase tracking-wider font-bold mb-2">Candidatures</h3>
+                <p class="text-4xl text-gray-900 font-extrabold">{{ applications.count }}</p>
+            </div>
+            <div class="glass rounded-2xl p-6 shadow-medium border border-blue-100">
+                <h3 class="text-gray-600 text-sm uppercase tracking-wider font-bold mb-2">En attente</h3>
+                <p class="text-4xl text-accent-600 font-extrabold">{{ applications.count }}</p>
+            </div>
+            <div class="glass rounded-2xl p-6 shadow-medium border border-blue-100">
+                <h3 class="text-gray-600 text-sm uppercase tracking-wider font-bold mb-2">Acceptées</h3>
+                <p class="text-4xl text-green-600 font-extrabold">0</p>
+            </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="glass rounded-2xl shadow-strong overflow-hidden border border-blue-100">
+            <div class="px-6 py-5 border-b border-blue-100 bg-gradient-to-r from-primary-50 to-blue-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h2 class="text-2xl font-bold text-gray-900">Mes Candidatures</h2>
+                <a href="{% url 'internship_list' %}"
+                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold rounded-lg shadow-medium transition-all">
+                    Chercher un stage →
+                </a>
+            </div>
+
+            <!-- Mobile Cards View -->
+            <div class="block md:hidden divide-y divide-blue-100">
+                {% for application in applications %}
+                <div class="p-4 bg-white hover:bg-blue-50 transition-all">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-gray-900 font-bold text-base mb-1 truncate">{{ application.internship.title }}</h3>
+                            <p class="text-gray-600 text-sm flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-primary-100 flex items-center justify-center text-xs font-bold text-primary-700 flex-shrink-0">
+                                    {{ application.internship.company.username|slice:":1" }}
+                                </span>
+                                <span class="truncate">{{ application.internship.company.username }}</span>
+                            </p>
+                        </div>
+                        <div class="ml-2">
+                            {% if application.status == 'pending' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent-100 text-accent-700 border border-accent-200 whitespace-nowrap">
+                                <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mr-1"></span>
+                                En attente
+                            </span>
+                            {% elif application.status == 'accepted' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200 whitespace-nowrap">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1"></span>
+                                Acceptée
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 border border-red-200 whitespace-nowrap">
+                                <span class="w-1.5 h-1.5 bg-red-500 rounded-full mr-1"></span>
+                                Refusée
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500 font-medium">{{ application.created_at|date:"d/m/Y" }}</span>
+                        <div class="flex gap-2">
+                            {% if application.response_message %}
+                            <button onclick="showMessage({{ application.id }})" class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-medium min-h-[44px] touch-manipulation shadow-soft">
+                                💬 {% if application.status == 'accepted' %}Message{% else %}Raison{% endif %}
+                            </button>
+                            {% endif %}
+                            <a href="{% url 'internship_detail' application.internship.slug %}"
+                                class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-medium min-h-[44px] flex items-center touch-manipulation">Voir</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-8 text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl" aria-hidden="true">📋</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Vous n'avez pas encore postulé à des offres de stage.</p>
+                    <a href="{% url 'internship_list' %}"
+                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium transition-all">
+                        Commencer ma recherche
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Desktop Table View -->
+            <div class="hidden md:block overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="text-xs text-gray-600 uppercase bg-gradient-to-r from-gray-50 to-blue-50 font-bold tracking-wider">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left">Stage</th>
+                            <th scope="col" class="px-6 py-4 text-left">Entreprise</th>
+                            <th scope="col" class="px-6 py-4 text-left">Date</th>
+                            <th scope="col" class="px-6 py-4 text-left">Statut</th>
+                            <th scope="col" class="px-6 py-4 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-blue-100">
+                        {% for application in applications %}
+                        <tr class="bg-white hover:bg-blue-50 transition-all">
+                            <td class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
+                                {{ application.internship.title }}
+                            </td>
+                            <td class="px-6 py-4 flex items-center">
+                                <div class="w-8 h-8 rounded bg-primary-100 mr-3 flex items-center justify-center text-xs font-bold text-primary-700">
+                                    {{ application.internship.company.username|slice:":1" }}
+                                </div>
+                                <span class="text-gray-700">{{ application.internship.company.username }}</span>
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-600">{{ application.created_at|date:"d/m/Y" }}</td>
+                            <td class="px-6 py-4">
+                                {% if application.status == 'pending' %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-100 text-accent-700 border border-accent-200">
+                                    <span class="w-1.5 h-1.5 bg-accent-500 rounded-full mr-1.5"></span>
+                                    En attente
+                                </span>
+                                {% elif application.status == 'accepted' %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Acceptée
+                                </span>
+                                {% if application.response_message %}
+                                <button onclick="showMessage({{ application.id }})" class="ml-2 text-primary-600 hover:text-primary-700 text-xs font-medium">
+                                    💬 Message
+                                </button>
+                                {% endif %}
+                                {% else %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700 border border-red-200">
+                                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5"></span>
+                                    Refusée
+                                </span>
+                                {% if application.response_message %}
+                                <button onclick="showMessage({{ application.id }})" class="ml-2 text-primary-600 hover:text-primary-700 text-xs font-medium">
+                                    💬 Raison
+                                </button>
+                                {% endif %}
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="{% url 'internship_detail' application.internship.slug %}"
+                                    class="text-primary-600 hover:text-primary-700 font-semibold">Voir</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-3xl" aria-hidden="true">📋</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Vous n'avez pas encore postulé à des offres de stage.</p>
+                                <a href="{% url 'internship_list' %}"
+                                    class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium transition-all">
+                                    Commencer ma recherche
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for response messages -->
+<div id="messageModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="glass rounded-2xl shadow-strong max-w-md w-full border border-blue-100">
+        <div class="p-6 border-b border-blue-100 flex justify-between items-center bg-gradient-to-r from-primary-50 to-blue-50">
+            <h2 class="text-xl font-bold text-gray-900">Message de l'entreprise</h2>
+            <button onclick="closeMessageModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        </div>
+        <div class="p-6">
+            <p id="messageContent" class="text-gray-700 whitespace-pre-line leading-relaxed"></p>
+        </div>
+        <div class="p-6 border-t border-blue-100">
+            <button onclick="closeMessageModal()" class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-3 rounded-xl shadow-medium transition-all">
+                Fermer
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Store messages data
+const applicationMessages = {
+    {% for application in applications %}
+    {% if application.response_message %}
+    {{ application.id }}: `{{ application.response_message|escapejs }}`,
+    {% endif %}
+    {% endfor %}
+};
+
+function showMessage(applicationId) {
+    const message = applicationMessages[applicationId];
+    if (message) {
+        document.getElementById('messageContent').textContent = message;
+        document.getElementById('messageModal').classList.remove('hidden');
+        document.getElementById('messageModal').classList.add('flex');
+    }
+}
+
+function closeMessageModal() {
+    document.getElementById('messageModal').classList.add('hidden');
+    document.getElementById('messageModal').classList.remove('flex');
+}
+</script>
+{% endblock %}

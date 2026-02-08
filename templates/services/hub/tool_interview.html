@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-green-900 to-teal-900 p-8 border-b border-gray-700">
+            <h1 class="text-3xl font-extrabold text-white mb-2 uppercase tracking-tight">
+                Touche Magique <span class="text-green-400">Entretien</span>
+            </h1>
+            <p class="text-gray-300">Préparez-vous à réussir votre entretien de stage avec confiance.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-700">
+            <button
+                class="tab-btn active flex-1 py-4 text-center font-bold text-white bg-gray-800 hover:bg-gray-700 transition"
+                data-tab="questions">
+                💬 Questions fréquentes
+            </button>
+            <button class="tab-btn flex-1 py-4 text-center font-bold text-gray-400 hover:bg-gray-700 transition"
+                data-tab="simulator">
+                🎯 Simulateur
+            </button>
+            <button class="tab-btn flex-1 py-4 text-center font-bold text-gray-400 hover:bg-gray-700 transition"
+                data-tab="tips">
+                💡 Conseils
+            </button>
+        </div>
+
+        <!-- Tab: Questions -->
+        <div id="tab-questions" class="tab-content p-8">
+            <div class="mb-6">
+                <input type="text" id="search-questions" placeholder="Rechercher une question..."
+                    class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition">
+            </div>
+
+            <div class="space-y-4" id="questions-list">
+                <!-- Question 1 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="présenter parlez-moi">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">1. Parlez-moi de vous</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Cette question ouvre souvent l'entretien. Préparez un pitch de 2
+                            minutes :</p>
+                        <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside mb-4">
+                            <li><strong class="text-green-400">Formation</strong> : Votre parcours académique</li>
+                            <li><strong class="text-green-400">Expérience</strong> : Stages, projets, jobs étudiants
+                                pertinents</li>
+                            <li><strong class="text-green-400">Motivation</strong> : Pourquoi ce stage vous intéresse
+                            </li>
+                            <li><strong class="text-green-400">Objectifs</strong> : Ce que vous voulez apprendre</li>
+                        </ul>
+                        <div class="bg-green-900/30 border border-green-700 rounded p-3 text-sm">
+                            <span class="text-green-400 font-bold">💡 Exemple :</span>
+                            <span class="text-gray-300">"Je suis en L3 Informatique à l'Université de Guyane. Passionné
+                                par le développement web, j'ai réalisé plusieurs projets personnels en Python et Django.
+                                Je recherche un stage pour mettre en pratique mes compétences et découvrir le monde
+                                professionnel."</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="qualités défauts forces faiblesses">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">2. Quelles sont vos qualités et défauts ?</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Soyez authentique mais stratégique :</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-800 rounded p-3">
+                                <h4 class="text-green-400 font-bold mb-2">✅ Qualités à mentionner</h4>
+                                <ul class="text-gray-400 text-sm space-y-1">
+                                    <li>• Autonomie</li>
+                                    <li>• Curiosité</li>
+                                    <li>• Rigueur</li>
+                                    <li>• Esprit d'équipe</li>
+                                    <li>• Adaptabilité</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800 rounded p-3">
+                                <h4 class="text-yellow-400 font-bold mb-2">⚠️ Défauts "positifs"</h4>
+                                <ul class="text-gray-400 text-sm space-y-1">
+                                    <li>• Perfectionniste</li>
+                                    <li>• Impatient (envie de progresser)</li>
+                                    <li>• Trop curieux</li>
+                                    <li>• Direct (franchise)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="entreprise pourquoi nous">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">3. Pourquoi notre entreprise ?</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Montrez que vous avez fait des recherches :</p>
+                        <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+                            <li>Valeurs et culture de l'entreprise</li>
+                            <li>Projets récents ou innovations</li>
+                            <li>Position sur le marché local (Guyane)</li>
+                            <li>Opportunités de développement</li>
+                        </ul>
+                        <div class="mt-4 bg-red-900/30 border border-red-700 rounded p-3 text-sm">
+                            <span class="text-red-400 font-bold">❌ À éviter :</span>
+                            <span class="text-gray-300">"Parce que vous êtes proche de chez moi" ou "Parce que vous
+                                recrutez"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="apporter contribution valeur">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">4. Qu'est-ce que vous pouvez nous apporter ?</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Mettez en avant :</p>
+                        <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+                            <li>Votre motivation et votre énergie</li>
+                            <li>Un regard neuf sur les projets</li>
+                            <li>Des compétences techniques actualisées</li>
+                            <li>Votre capacité d'apprentissage rapide</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="difficulté problème échec">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">5. Racontez une difficulté que vous avez surmontée</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Utilisez la méthode STAR :</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <span class="bg-green-600 text-white font-bold px-2 py-1 rounded mr-3 text-sm">S</span>
+                                <span class="text-gray-400">Situation : Décrivez le contexte</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="bg-green-600 text-white font-bold px-2 py-1 rounded mr-3 text-sm">T</span>
+                                <span class="text-gray-400">Tâche : Quel était votre objectif ?</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="bg-green-600 text-white font-bold px-2 py-1 rounded mr-3 text-sm">A</span>
+                                <span class="text-gray-400">Action : Qu'avez-vous fait ?</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="bg-green-600 text-white font-bold px-2 py-1 rounded mr-3 text-sm">R</span>
+                                <span class="text-gray-400">Résultat : Quel fut le résultat ?</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="5 ans avenir futur">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">6. Où vous voyez-vous dans 5 ans ?</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Montrez de l'ambition réaliste :</p>
+                        <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+                            <li>Objectifs professionnels clairs</li>
+                            <li>Évolution de compétences</li>
+                            <li>Potentiel lien avec l'entreprise</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden"
+                    data-keywords="questions poser demander">
+                    <button
+                        class="question-toggle w-full flex justify-between items-center p-4 text-left hover:bg-gray-700/50 transition">
+                        <span class="text-white font-bold">7. Avez-vous des questions ?</span>
+                        <span class="text-green-500 text-xl toggle-icon">+</span>
+                    </button>
+                    <div class="question-answer hidden p-4 pt-0 border-t border-gray-700 bg-gray-800/30">
+                        <p class="text-gray-300 mb-3">Toujours répondre OUI ! Questions à poser :</p>
+                        <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
+                            <li>"Comment se déroule une journée type ?"</li>
+                            <li>"Quels projets seraient confiés au stagiaire ?"</li>
+                            <li>"Comment est organisée l'équipe ?"</li>
+                            <li>"Y a-t-il des possibilités de prolongation ou d'embauche ?"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Simulator -->
+        <div id="tab-simulator" class="tab-content hidden p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">🎤 Simulateur d'entretien</h2>
+                <p class="text-gray-400">Entraînez-vous à répondre à des questions aléatoires</p>
+            </div>
+
+            <div id="simulator-card"
+                class="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-600 rounded-2xl p-8 mb-6 text-center">
+                <p class="text-gray-400 mb-4 text-sm uppercase tracking-wide">Question</p>
+                <h3 id="random-question" class="text-xl md:text-2xl font-bold text-white mb-6">
+                    Cliquez sur "Nouvelle question" pour commencer
+                </h3>
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <button id="new-question-btn"
+                        class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition">
+                        🔄 Nouvelle question
+                    </button>
+                    <button id="show-tips-btn"
+                        class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                        💡 Voir les conseils
+                    </button>
+                </div>
+            </div>
+
+            <div id="simulator-tips" class="hidden bg-green-900/30 border border-green-700 rounded-lg p-6">
+                <h4 class="text-green-400 font-bold mb-3">💡 Conseils pour cette question :</h4>
+                <p id="tips-content" class="text-gray-300"></p>
+            </div>
+
+            <div class="mt-8 bg-gray-800 rounded-lg p-6">
+                <h4 class="text-white font-bold mb-3">📊 Votre progression</h4>
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-400">Questions pratiquées :</span>
+                    <span id="practice-count" class="text-2xl font-bold text-green-500">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Tips -->
+        <div id="tab-tips" class="tab-content hidden p-8">
+            <h2 class="text-2xl font-bold text-white mb-6">💡 Conseils pour réussir votre entretien</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-green-400 font-bold text-lg mb-3">📅 Avant l'entretien</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ Renseignez-vous sur l'entreprise</li>
+                        <li>✓ Préparez votre tenue (sobre, professionnelle)</li>
+                        <li>✓ Imprimez plusieurs CV</li>
+                        <li>✓ Repérez le lieu et prévoyez de la marge</li>
+                        <li>✓ Dormez bien la veille</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-blue-400 font-bold text-lg mb-3">🤝 Pendant l'entretien</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ Arrivez 10 min en avance</li>
+                        <li>✓ Saluez avec une poignée de main ferme</li>
+                        <li>✓ Maintenez le contact visuel</li>
+                        <li>✓ Écoutez attentivement avant de répondre</li>
+                        <li>✓ Posez des questions pertinentes</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-purple-400 font-bold text-lg mb-3">💬 Communication</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ Parlez clairement et posément</li>
+                        <li>✓ Évitez les tics de langage ("euh", "genre")</li>
+                        <li>✓ Utilisez le "je" (appropriez-vous vos réussites)</li>
+                        <li>✓ Soyez positif, évitez les critiques</li>
+                        <li>✓ Montrez votre enthousiasme</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-yellow-400 font-bold text-lg mb-3">📧 Après l'entretien</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ Envoyez un email de remerciement (24h)</li>
+                        <li>✓ Résumez votre motivation</li>
+                        <li>✓ Restez disponible pour un second entretien</li>
+                        <li>✓ Faites un suivi si pas de réponse (1 semaine)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active', 'text-white', 'bg-gray-800');
+                    b.classList.add('text-gray-400');
+                });
+                this.classList.add('active', 'text-white', 'bg-gray-800');
+                this.classList.remove('text-gray-400');
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById('tab-' + this.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Question accordion
+        document.querySelectorAll('.question-toggle').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('.toggle-icon');
+
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    icon.textContent = '−';
+                } else {
+                    answer.classList.add('hidden');
+                    icon.textContent = '+';
+                }
+            });
+        });
+
+        // Search questions
+        document.getElementById('search-questions').addEventListener('input', function () {
+            const term = this.value.toLowerCase();
+            document.querySelectorAll('.question-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const keywords = card.dataset.keywords.toLowerCase();
+                card.style.display = (text.includes(term) || keywords.includes(term)) ? 'block' : 'none';
+            });
+        });
+
+        // Simulator
+        const questions = [
+            { q: "Parlez-moi de vous", tips: "Préparez un pitch de 2 min : formation, expérience, motivation, objectifs." },
+            { q: "Quelles sont vos qualités et défauts ?", tips: "Choisissez 3 qualités en lien avec le poste et 1 défaut 'positif'." },
+            { q: "Pourquoi notre entreprise ?", tips: "Montrez que vous avez recherché l'entreprise : valeurs, projets, position." },
+            { q: "Qu'est-ce que vous pouvez nous apporter ?", tips: "Motivation, regard neuf, compétences actualisées, apprentissage rapide." },
+            { q: "Où vous voyez-vous dans 5 ans ?", tips: "Ambition réaliste, évolution, potentiel lien avec l'entreprise." },
+            { q: "Avez-vous des questions pour nous ?", tips: "Toujours oui ! Demandez sur les projets, l'équipe, une journée type." },
+            { q: "Pourquoi ce stage en particulier ?", tips: "Lien avec votre formation, apprentissages visés, intérêt pour le secteur." },
+            { q: "Comment gérez-vous le stress ?", tips: "Donnez un exemple concret de situation stressante bien gérée." },
+            { q: "Préférez-vous travailler seul ou en équipe ?", tips: "Montrez que vous êtes adaptable aux deux situations." },
+            { q: "Quelle est votre plus grande réussite ?", tips: "Utilisez la méthode STAR : Situation, Tâche, Action, Résultat." }
+        ];
+
+        let practiceCount = 0;
+        let currentQuestion = null;
+
+        document.getElementById('new-question-btn').addEventListener('click', function () {
+            const idx = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[idx];
+            document.getElementById('random-question').textContent = currentQuestion.q;
+            document.getElementById('simulator-tips').classList.add('hidden');
+            practiceCount++;
+            document.getElementById('practice-count').textContent = practiceCount;
+        });
+
+        document.getElementById('show-tips-btn').addEventListener('click', function () {
+            if (currentQuestion) {
+                document.getElementById('tips-content').textContent = currentQuestion.tips;
+                document.getElementById('simulator-tips').classList.remove('hidden');
+            }
+        });
+    });
+</script>
+{% endblock %}

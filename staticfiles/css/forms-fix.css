@@ -1,0 +1,114 @@
+/* Fix pour tous les formulaires - Amélioration de la visibilité */
+
+/* Inputs de texte sur fond sombre */
+input[type="text"].bg-gray-800,
+input[type="email"].bg-gray-800,
+input[type="number"].bg-gray-800,
+input[type="tel"].bg-gray-800,
+input[type="url"].bg-gray-800,
+input[type="date"].bg-gray-800,
+input[type="datetime-local"].bg-gray-800,
+input[type="time"].bg-gray-800,
+textarea.bg-gray-800,
+select.bg-gray-800 {
+    color: white !important;
+    background-color: rgb(31, 41, 55) !important; /* gray-800 */
+}
+
+input[type="text"].bg-gray-800::placeholder,
+input[type="email"].bg-gray-800::placeholder,
+input[type="number"].bg-gray-800::placeholder,
+input[type="tel"].bg-gray-800::placeholder,
+input[type="url"].bg-gray-800::placeholder,
+textarea.bg-gray-800::placeholder {
+    color: rgb(156, 163, 175) !important; /* gray-400 */
+    opacity: 1;
+}
+
+/* Inputs de texte sur fond blanc */
+input[type="text"].bg-white,
+input[type="email"].bg-white,
+input[type="number"].bg-white,
+input[type="tel"].bg-white,
+input[type="url"].bg-white,
+input[type="date"].bg-white,
+input[type="datetime-local"].bg-white,
+input[type="time"].bg-white,
+textarea.bg-white,
+select.bg-white {
+    color: rgb(17, 24, 39) !important; /* gray-900 */
+    background-color: white !important;
+}
+
+input[type="text"].bg-white::placeholder,
+input[type="email"].bg-white::placeholder,
+input[type="number"].bg-white::placeholder,
+input[type="tel"].bg-white::placeholder,
+input[type="url"].bg-white::placeholder,
+textarea.bg-white::placeholder {
+    color: rgb(156, 163, 175) !important; /* gray-400 */
+    opacity: 1;
+}
+
+/* Select dropdowns */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* File inputs */
+input[type="file"] {
+    color: white !important;
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: 1rem;
+    border: none;
+    background: rgb(79, 70, 229); /* indigo-600 */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: rgb(67, 56, 202); /* indigo-700 */
+}
+
+/* Autofill fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(31, 41, 55) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Focus states */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    ring: 2px;
+}
+
+/* Disabled states */
+input:disabled,
+textarea:disabled,
+select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

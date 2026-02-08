@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+                    Trouver un <span class="gradient-text">Transport</span>
+                </h1>
+                <p class="text-lg text-gray-600">Covoiturage entre étudiants et professionnels</p>
+            </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'transport_create' %}"
+                class="mt-4 md:mt-0 inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium hover:shadow-strong transition-all transform hover:-translate-y-1">
+                <span class="text-xl mr-2">+</span> Proposer un trajet
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- Offers List -->
+        <div class="space-y-4">
+            {% for offer in carpooling_offers %}
+            <div class="glass rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between hover:shadow-strong transition-all group border border-blue-100 hover:border-primary-300">
+                
+                <!-- Left: Route Info -->
+                <div class="flex items-center w-full md:w-auto mb-4 md:mb-0">
+                    <div class="bg-gradient-to-br from-primary-100 to-blue-100 p-4 rounded-xl mr-6 group-hover:scale-110 transition-all">
+                        <span class="text-3xl" aria-hidden="true">🚗</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center text-xl font-bold text-gray-900 mb-1">
+                            {{ offer.departure }} 
+                            <span class="mx-3 text-primary-600" aria-hidden="true">→</span> 
+                            {{ offer.destination }}
+                        </div>
+                        <div class="text-gray-600 text-sm flex flex-wrap gap-4">
+                            <span class="flex items-center">
+                                <span class="mr-1" aria-hidden="true">📅</span> 
+                                {{ offer.date_time|date:"d M Y à H:i" }}
+                            </span>
+                            <span class="flex items-center">
+                                <span class="mr-1" aria-hidden="true">👤</span> 
+                                {{ offer.driver.get_display_name }}
+                            </span>
+                        </div>
+                        {% if offer.description %}
+                        <p class="text-gray-600 text-sm mt-2 max-w-md">{{ offer.description|truncatewords:15 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Right: Price & Action -->
+                <div class="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                    <div class="text-center">
+                        <span class="block text-2xl font-bold text-primary-600">{{ offer.price }} €</span>
+                        <span class="text-xs text-gray-500">par place</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-2xl font-bold text-primary-600">{{ offer.seats_available }}</span>
+                        <span class="text-xs text-gray-500">places</span>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'messaging:start' offer.driver.pk %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="text-primary-600 font-bold text-sm bg-white border-2 border-primary-600 hover:bg-primary-50 py-2.5 px-6 rounded-lg transition-all">
+                            Contacter
+                        </button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}"
+                        class="text-primary-600 font-bold text-sm bg-white border-2 border-primary-600 hover:bg-primary-50 py-2.5 px-6 rounded-lg transition-all">
+                        Réserver
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="glass rounded-2xl p-12 text-center border border-blue-100 shadow-medium">
+                <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-4xl" aria-hidden="true">🚗</span>
+                </div>
+                <p class="text-2xl text-gray-900 font-bold mb-2">Aucun trajet disponible</p>
+                <p class="text-gray-600 mb-6">Soyez le premier à proposer un covoiturage</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'transport_create' %}"
+                    class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium hover:shadow-strong transition-all">
+                    <span class="text-xl mr-2">+</span> Proposer un trajet
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

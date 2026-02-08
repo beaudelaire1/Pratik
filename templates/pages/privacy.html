@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-white mb-4">
+                Politique de <span class="text-blue-500">Confidentialité</span>
+            </h1>
+            <p class="text-gray-400">Dernière mise à jour : Février 2026</p>
+        </div>
+
+        <!-- Content -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 prose prose-invert max-w-none">
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2">1. Introduction</h2>
+            <p class="text-gray-300">
+                Pratik s'engage à protéger la vie privée des utilisateurs de sa plateforme.
+                Cette politique explique comment nous collectons, utilisons et protégeons vos données personnelles
+                conformément au Règlement Général sur la Protection des Données (RGPD).
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">2. Responsable du Traitement
+            </h2>
+            <p class="text-gray-300">
+                <strong>Pratik SAS</strong><br>
+                Adresse : [Adresse], 97300 Cayenne, Guyane<br>
+                Email : privacy@yanapratik.gf<br>
+                Délégué à la Protection des Données : dpo@yanapratik.gf
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">3. Données Collectées</h2>
+            <p class="text-gray-300">Nous collectons les données suivantes :</p>
+
+            <h3 class="text-lg font-semibold text-white mt-4">Données d'identification :</h3>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Nom, prénom, email</li>
+                <li>Numéro de téléphone (optionnel)</li>
+                <li>Photo de profil (optionnel)</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white mt-4">Données professionnelles/académiques :</h3>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Établissement scolaire, diplôme, année d'études</li>
+                <li>Compétences, expériences</li>
+                <li>CV et lettres de motivation</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white mt-4">Données techniques :</h3>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Adresse IP</li>
+                <li>Type de navigateur et appareil</li>
+                <li>Pages visitées, durée de visite</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">4. Finalités du Traitement</h2>
+            <p class="text-gray-300">Vos données sont utilisées pour :</p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Créer et gérer votre compte utilisateur</li>
+                <li>Permettre la mise en relation étudiants/entreprises</li>
+                <li>Traiter vos candidatures aux offres de stage</li>
+                <li>Vous envoyer des notifications (candidatures, messages)</li>
+                <li>Améliorer nos services et notre plateforme</li>
+                <li>Assurer la sécurité de la plateforme</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">5. Base Légale</h2>
+            <p class="text-gray-300">Le traitement de vos données est fondé sur :</p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li><strong>Contrat</strong> : exécution du service demandé</li>
+                <li><strong>Consentement</strong> : newsletters, profil public</li>
+                <li><strong>Intérêt légitime</strong> : amélioration des services, sécurité</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">6. Durée de Conservation</h2>
+            <p class="text-gray-300">
+                • Données de compte : conservées pendant la durée d'utilisation + 3 ans après suppression<br>
+                • Candidatures : 2 ans après la clôture de l'offre<br>
+                • Données de connexion : 1 an<br>
+                • Cookies : 13 mois maximum
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">7. Vos Droits</h2>
+            <p class="text-gray-300">Conformément au RGPD, vous disposez des droits suivants :</p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li><strong>Droit d'accès</strong> : obtenir une copie de vos données</li>
+                <li><strong>Droit de rectification</strong> : corriger des données inexactes</li>
+                <li><strong>Droit à l'effacement</strong> : demander la suppression de vos données</li>
+                <li><strong>Droit à la portabilité</strong> : recevoir vos données dans un format standard</li>
+                <li><strong>Droit d'opposition</strong> : vous opposer à certains traitements</li>
+                <li><strong>Droit de limitation</strong> : limiter l'utilisation de vos données</li>
+            </ul>
+            <p class="text-gray-300 mt-4">
+                Pour exercer ces droits, contactez-nous à : <a href="mailto:privacy@yanapratik.gf"
+                    class="text-blue-400 hover:underline">privacy@yanapratik.gf</a>
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">8. Sécurité des Données</h2>
+            <p class="text-gray-300">
+                Nous mettons en œuvre des mesures techniques et organisationnelles pour protéger vos données :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Chiffrement SSL/TLS pour toutes les communications</li>
+                <li>Hashage sécurisé des mots de passe</li>
+                <li>Accès restreint aux données personnelles</li>
+                <li>Sauvegardes régulières</li>
+                <li>Surveillance et détection des intrusions</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">9. Partage des Données</h2>
+            <p class="text-gray-300">
+                Vos données peuvent être partagées avec :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Les entreprises auxquelles vous postulez (CV, profil)</li>
+                <li>Nos prestataires techniques (hébergement, email)</li>
+                <li>Les autorités compétentes si la loi l'exige</li>
+            </ul>
+            <p class="text-gray-300 mt-2">
+                Nous ne vendons jamais vos données personnelles à des tiers.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">10. Cookies</h2>
+            <p class="text-gray-300">
+                Nous utilisons des cookies pour :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li><strong>Cookies essentiels</strong> : fonctionnement du site (session, sécurité)</li>
+                <li><strong>Cookies analytiques</strong> : statistiques de visite (anonymisées)</li>
+                <li><strong>Cookies de préférences</strong> : mémoriser vos choix</li>
+            </ul>
+            <p class="text-gray-300 mt-2">
+                Vous pouvez gérer vos préférences cookies via les paramètres de votre navigateur.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">11. Réclamation</h2>
+            <p class="text-gray-300">
+                Si vous estimez que vos droits ne sont pas respectés, vous pouvez déposer une réclamation
+                auprès de la CNIL : <a href="https://www.cnil.fr" target="_blank"
+                    class="text-blue-400 hover:underline">www.cnil.fr</a>
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">12. Contact</h2>
+            <p class="text-gray-300">
+                Pour toute question sur cette politique :<br>
+                Email : <a href="mailto:privacy@yanapratik.gf"
+                    class="text-blue-400 hover:underline">privacy@yanapratik.gf</a><br>
+                Courrier : Pratik - Protection des données, [Adresse], 97300 Cayenne
+            </p>
+        </div>
+
+        <!-- Back Link -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'home' %}" class="text-blue-400 hover:text-blue-300 transition">
+                ← Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

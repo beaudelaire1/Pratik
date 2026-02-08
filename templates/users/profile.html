@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- Profile Header -->
+    <div class="glass border border-primary-200 rounded-2xl shadow-strong overflow-hidden mb-8 animate-fade-in">
+        <div class="h-32 bg-gradient-to-r from-primary-600 via-accent-500 to-primary-700"></div>
+        <div class="px-6 pb-6 relative">
+            <!-- Avatar -->
+            <div class="absolute -top-16 left-6">
+                {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}"
+                    class="w-32 h-32 rounded-full border-4 border-white object-cover shadow-strong"
+                    alt="{{ user.get_display_name }}">
+                {% elif user.company_logo %}
+                <img src="{{ user.company_logo.url }}"
+                    class="w-32 h-32 rounded-full border-4 border-white object-cover shadow-strong bg-white"
+                    alt="{{ user.get_display_name }}">
+                {% else %}
+                <img src="https://ui-avatars.com/api/?name={{ user.get_display_name }}&size=128&background=2563eb&color=fff"
+                    class="w-32 h-32 rounded-full border-4 border-white shadow-strong" alt="{{ user.get_display_name }}">
+                {% endif %}
+            </div>
+
+            <div class="pt-20 flex flex-col md:flex-row md:items-end justify-between">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-gray-900">{{ user.get_display_name }}</h1>
+                    <p class="text-gray-600 mt-1">
+                        {% if user.is_company %}
+                        <span class="text-primary-600">🏢 Entreprise</span>
+                        {% else %}
+                        <span class="text-accent-600">🎓 Étudiant</span>
+                        {% endif %}
+                        {% if user.location %}
+                        <span class="mx-2">•</span>
+                        <span>📍 {{ user.location }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                {% if user == request.user %}
+                <a href="{% url 'edit_profile' %}"
+                    class="mt-4 md:mt-0 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-4 rounded-lg shadow-medium hover:shadow-strong transition transform hover:-translate-y-1 inline-flex items-center gap-2">
+                    ✏️ Modifier le profil
+                </a>
+                {% elif request.user.is_authenticated %}
+                <form method="POST" action="{% url 'messaging:start' user.pk %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="mt-4 md:mt-0 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-4 rounded-lg shadow-medium hover:shadow-strong transition transform hover:-translate-y-1 inline-flex items-center gap-2">
+                        💬 Envoyer un message
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column -->
+        <div class="space-y-6">
+            <!-- About -->
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">À propos</h3>
+                {% if user.bio %}
+                <p class="text-gray-700 text-sm whitespace-pre-line">{{ user.bio }}</p>
+                {% else %}
+                <p class="text-gray-500 text-sm italic">Aucune bio renseignée.</p>
+                {% endif %}
+            </div>
+
+            <!-- Contact -->
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">Contact</h3>
+                <div class="space-y-3 text-sm">
+                    {% if user.email %}
+                    <div class="flex items-center gap-3 text-gray-700">
+                        <span>📧</span>
+                        <a href="mailto:{{ user.email }}" class="hover:text-primary-600 transition">{{ user.email }}</a>
+                    </div>
+                    {% endif %}
+                    {% if user.phone %}
+                    <div class="flex items-center gap-3 text-gray-700">
+                        <span>📞</span>
+                        <span>{{ user.phone }}</span>
+                    </div>
+                    {% endif %}
+                    {% if user.website %}
+                    <div class="flex items-center gap-3 text-gray-700">
+                        <span>🌐</span>
+                        <a href="{{ user.website }}" target="_blank" class="hover:text-primary-600 transition">Site web</a>
+                    </div>
+                    {% endif %}
+                    {% if user.linkedin %}
+                    <div class="flex items-center gap-3 text-gray-700">
+                        <span>💼</span>
+                        <a href="{{ user.linkedin }}" target="_blank"
+                            class="hover:text-primary-600 transition">LinkedIn</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Skills (Students) -->
+            {% if user.is_student and user.skills %}
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">Compétences</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for skill in user.get_skills_list %}
+                    <span class="bg-primary-100 text-primary-700 text-xs px-3 py-1 rounded-full font-medium">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Languages -->
+            {% if user.languages %}
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">Langues</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for lang in user.get_languages_list %}
+                    <span class="bg-accent-100 text-accent-700 text-xs px-3 py-1 rounded-full font-medium">{{ lang }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column -->
+        <div class="lg:col-span-2 space-y-6">
+            {% if user.is_student %}
+            <!-- Education -->
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">🎓 Formation</h3>
+                {% if user.school %}
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-2xl">🏫</div>
+                    <div>
+                        <h4 class="text-gray-900 font-bold">{{ user.school }}</h4>
+                        <p class="text-gray-600 text-sm">{{ user.field_of_study }}</p>
+                        {% if user.graduation_year %}
+                        <span class="text-gray-500 text-xs">Diplôme prévu en {{ user.graduation_year }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-gray-500 text-sm italic">Aucune formation renseignée.</p>
+                {% endif %}
+            </div>
+
+            <!-- Portfolio & CV -->
+            {% if user.portfolio_url or user.cv %}
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">📂 Documents</h3>
+                <div class="flex gap-4">
+                    {% if user.cv %}
+                    <a href="{{ user.cv.url }}" target="_blank"
+                        class="flex-1 bg-white hover:bg-primary-50 border border-primary-200 rounded-lg p-4 text-center transition shadow-soft hover:shadow-medium transform hover:-translate-y-1">
+                        <span class="text-3xl block mb-2">📄</span>
+                        <span class="text-gray-900 font-bold text-sm">Télécharger CV</span>
+                    </a>
+                    {% endif %}
+                    {% if user.portfolio_url %}
+                    <a href="{{ user.portfolio_url }}" target="_blank"
+                        class="flex-1 bg-white hover:bg-primary-50 border border-primary-200 rounded-lg p-4 text-center transition shadow-soft hover:shadow-medium transform hover:-translate-y-1">
+                        <span class="text-3xl block mb-2">🎨</span>
+                        <span class="text-gray-900 font-bold text-sm">Voir Portfolio</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% elif user.is_company %}
+            <!-- Company Info -->
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">🏢 L'entreprise</h3>
+                {% if user.company_description %}
+                <p class="text-gray-700 text-sm whitespace-pre-line mb-4">{{ user.company_description }}</p>
+                {% endif %}
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    {% if user.industry %}
+                    <div>
+                        <span class="text-gray-500">Secteur</span>
+                        <p class="text-gray-900 font-medium">{{ user.industry }}</p>
+                    </div>
+                    {% endif %}
+                    {% if user.company_size %}
+                    <div>
+                        <span class="text-gray-500">Taille</span>
+                        <p class="text-gray-900 font-medium">{{ user.company_size }}</p>
+                    </div>
+                    {% endif %}
+                    {% if user.siret %}
+                    <div>
+                        <span class="text-gray-500">SIRET</span>
+                        <p class="text-gray-900 font-medium">{{ user.siret }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Active Internships -->
+            <div class="glass border border-primary-200 rounded-xl p-6 shadow-medium hover:shadow-strong transition">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-primary-200 pb-2">💼 Offres de stage actives</h3>
+                {% if user.internship_set.exists %}
+                <div class="space-y-3">
+                    {% for internship in user.internship_set.all|slice:":3" %}
+                    <a href="{% url 'internship_detail' internship.slug %}"
+                        class="block bg-white border border-primary-200 rounded-lg p-4 hover:bg-primary-50 hover:border-primary-300 transition shadow-soft hover:shadow-medium transform hover:-translate-y-1">
+                        <h4 class="text-gray-900 font-bold">{{ internship.title }}</h4>
+                        <div class="flex gap-4 text-sm text-gray-600 mt-1">
+                            <span>📍 {{ internship.location }}</span>
+                            <span>⏱ {{ internship.duration }}</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-gray-500 text-sm italic">Aucune offre active.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

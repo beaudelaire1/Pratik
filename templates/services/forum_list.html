@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h1 class="text-4xl font-extrabold text-gray-900 uppercase tracking-tight">Forum d'échange</h1>
+            <p class="text-gray-600 mt-2">Posez vos questions, partagez vos expériences</p>
+        </div>
+        <a href="{% url 'forum_create' %}"
+            class="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-3 px-6 rounded-lg shadow-medium hover:shadow-strong flex items-center transition transform hover:-translate-y-1">
+            <span class="text-xl mr-2">+</span> Nouvelle Discussion
+        </a>
+    </div>
+
+    <div class="space-y-4">
+        {% for post in posts %}
+        <div class="glass border border-primary-200 rounded-xl p-6 hover:border-primary-400 transition shadow-medium hover:shadow-strong group animate-fade-in">
+            <div class="flex items-start justify-between">
+                <div class="flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition">
+                        <a href="{% url 'forum_detail' post.pk %}">{{ post.title }}</a>
+                    </h3>
+                    <p class="text-gray-600 text-sm line-clamp-2 md:w-3/4">{{ post.content }}</p>
+
+                    <div class="flex items-center gap-4 mt-4 text-xs text-gray-500">
+                        <span class="flex items-center"><span class="mr-1">👤</span> {{ post.author.username }}</span>
+                        <span class="flex items-center"><span class="mr-1">📅</span> {{ post.created_at|timesince
+                            }}</span>
+                        <span class="flex items-center"><span class="mr-1">💬</span> {{ post.comments.count }}
+                            réponses</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <a href="{% url 'forum_detail' post.pk %}"
+                        class="bg-white hover:bg-primary-50 border border-primary-300 text-primary-700 py-2 px-4 rounded text-sm font-semibold shadow-soft hover:shadow-medium transition">
+                        Voir la discussion
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-20 glass border border-primary-200 rounded-2xl shadow-medium">
+            <p class="text-gray-500 text-xl">Aucune discussion pour le moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

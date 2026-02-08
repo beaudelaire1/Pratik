@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Glass Effect */
+@layer utilities {
+  .glass {
+    @apply bg-white/90 backdrop-blur-lg;
+  }
+  
+  .glass-dark {
+    @apply bg-gray-900/90 backdrop-blur-lg;
+  }
+}
+
+/* Custom Gradient Text */
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent;
+  }
+}
+
+/* Smooth Scrolling */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+/* Focus Visible for Accessibility */
+@layer base {
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+  }
+}

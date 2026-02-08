@@ -1,0 +1,24 @@
+# Production dependencies
+-r requirements.txt
+
+# Production Server
+gunicorn>=21.2.0
+
+# Database
+psycopg2-binary>=2.9
+
+# Cache and Async Tasks
+redis>=7.1,<8.0
+django-redis>=5.3.0
+celery>=5.6,<6.0
+django-celery-beat>=2.8,<3.0
+
+# Storage (Optional)
+boto3>=1.28.0
+django-storages>=1.14.0
+
+# Monitoring
+sentry-sdk>=1.32.0
+
+# Security
+django-cors-headers>=4.2.0

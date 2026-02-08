@@ -1,0 +1,47 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Réponse à votre candidature - {{ internship.title }}{% endblock %}
+
+{% block content %}
+<h2>Réponse à votre candidature</h2>
+
+<p>Bonjour {{ student.get_full_name|default:student.username }},</p>
+
+<p>
+    Nous vous remercions pour l'intérêt que vous avez porté au stage 
+    <strong>{{ internship.title }}</strong> chez <strong>{{ company.company_name|default:company.username }}</strong>.
+</p>
+
+<p>
+    Malheureusement, après étude de votre candidature, l'entreprise a décidé de ne pas donner suite à votre demande.
+</p>
+
+{% if application.response_message %}
+<div class="info-box">
+    <p style="margin: 0;"><strong>Message de l'entreprise :</strong></p>
+    <p style="margin: 10px 0 0 0; white-space: pre-line;">{{ application.response_message }}</p>
+</div>
+{% endif %}
+
+<p><strong>Ne vous découragez pas !</strong></p>
+<ul>
+    <li>De nombreuses autres opportunités sont disponibles sur notre plateforme</li>
+    <li>Utilisez nos outils pour améliorer votre CV et lettre de motivation</li>
+    <li>Consultez nos guides pour maximiser vos chances</li>
+</ul>
+
+<div style="text-align: center;">
+    <a href="{{ site_url }}/internships/" class="button">
+        Voir d'autres offres
+    </a>
+</div>
+
+<p style="font-size: 14px; color: #6b7280;">
+    <strong>💡 Conseil :</strong> Chaque refus est une opportunité d'apprendre et de s'améliorer. Continuez vos efforts !
+</p>
+
+<p>
+    Nous vous souhaitons bonne chance dans vos recherches,<br>
+    <strong>L'équipe Pratik</strong>
+</p>
+{% endblock %}

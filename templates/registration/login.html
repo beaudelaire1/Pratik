@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md">
+        <!-- Card -->
+        <div class="glass rounded-2xl shadow-strong overflow-hidden">
+            <!-- Header with gradient -->
+            <div class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-navy-800 px-8 py-10 text-center overflow-hidden">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-white rounded-full filter blur-2xl"></div>
+                    <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent-400 rounded-full filter blur-2xl"></div>
+                </div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-3xl" aria-hidden="true">🔐</span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-white mb-2">Bon retour !</h2>
+                    <p class="text-blue-100">Connectez-vous à votre espace Pratik</p>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="px-8 py-8 bg-white">
+                <form method="post" class="space-y-6" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg" role="alert">
+                        {% for error in form.non_field_errors %}
+                        <p class="text-sm font-medium">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Username -->
+                    <div>
+                        <label for="id_username" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Nom d'utilisateur <span class="text-red-500" aria-label="requis">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
+                                </svg>
+                            </div>
+                            <input type="text" 
+                                   name="username" 
+                                   id="id_username" 
+                                   required
+                                   autocomplete="username"
+                                   class="block w-full pl-11 pr-4 py-3.5 border {% if form.username.errors %}border-red-500{% else %}border-gray-300{% endif %} rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-soft"
+                                   placeholder="Votre nom d'utilisateur"
+                                   aria-describedby="{% if form.username.errors %}username-error{% endif %}">
+                        </div>
+                        {% if form.username.errors %}
+                        <p id="username-error" class="mt-2 text-sm text-red-600 font-medium" role="alert">{{ form.username.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="id_password" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Mot de passe <span class="text-red-500" aria-label="requis">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="password" 
+                                   name="password" 
+                                   id="id_password" 
+                                   required
+                                   autocomplete="current-password"
+                                   class="block w-full pl-11 pr-4 py-3.5 border {% if form.password.errors %}border-red-500{% else %}border-gray-300{% endif %} rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-soft"
+                                   placeholder="••••••••"
+                                   aria-describedby="{% if form.password.errors %}password-error{% endif %}">
+                        </div>
+                        {% if form.password.errors %}
+                        <p id="password-error" class="mt-2 text-sm text-red-600 font-medium" role="alert">{{ form.password.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm">
+                            <a href="{% url 'password_reset' %}" class="font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                                Mot de passe oublié ?
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit"
+                                class="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-xl shadow-medium text-base font-bold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all transform hover:-translate-y-0.5 hover:shadow-strong">
+                            <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Se connecter
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Pas encore de compte ?
+                        <a href="{% url 'signup' %}" class="font-bold text-primary-600 hover:text-primary-700 transition-colors">
+                            Créer un compte gratuitement
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="mt-6 text-center">
+            <a href="{% url 'home' %}" class="inline-flex items-center text-sm text-gray-600 hover:text-primary-600 transition-colors font-medium">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

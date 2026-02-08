@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Guide <span class="text-blue-500">Utilisateur</span>
+            </h1>
+            <p class="text-gray-400 text-lg">
+                Apprenez à utiliser toutes les fonctionnalités de Pratik
+            </p>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="bg-gradient-to-r from-blue-900 to-purple-900 border border-blue-700 rounded-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-white mb-4">🚀 Démarrage Rapide</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-black/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">1️⃣</div>
+                    <p class="text-white font-medium">Créez votre compte</p>
+                </div>
+                <div class="bg-black/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">2️⃣</div>
+                    <p class="text-white font-medium">Complétez votre profil</p>
+                </div>
+                <div class="bg-black/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">3️⃣</div>
+                    <p class="text-white font-medium">Postulez aux stages !</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="space-y-8">
+
+            <!-- Section: Créer un compte -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-blue-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📝 Créer un Compte</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p><strong class="text-white">1.</strong> Cliquez sur le bouton <span
+                            class="bg-blue-600 px-2 py-1 rounded text-sm">Inscription</span> dans la barre de
+                        navigation.</p>
+                    <p><strong class="text-white">2.</strong> Choisissez votre type de profil :</p>
+                    <ul class="list-disc pl-6">
+                        <li><strong>Étudiant</strong> : pour rechercher des stages</li>
+                        <li><strong>Entreprise</strong> : pour publier des offres de stage</li>
+                    </ul>
+                    <p><strong class="text-white">3.</strong> Remplissez le formulaire avec vos informations
+                        personnelles.</p>
+                    <p><strong class="text-white">4.</strong> Validez votre email en cliquant sur le lien reçu.</p>
+                    <p><strong class="text-white">5.</strong> Votre compte est créé ! 🎉</p>
+                </div>
+            </div>
+
+            <!-- Section: Compléter le profil -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-green-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">👤 Compléter votre Profil</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p>Un profil complet augmente vos chances d'être sélectionné !</p>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <h4 class="text-white font-bold mb-2">📌 Informations recommandées :</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Photo de profil professionnelle</li>
+                            <li>Formation actuelle (école, diplôme, année)</li>
+                            <li>Compétences (les plus pertinentes)</li>
+                            <li>Langues parlées avec niveau</li>
+                            <li>CV téléchargeable (format PDF)</li>
+                            <li>Liens LinkedIn et Portfolio</li>
+                        </ul>
+                    </div>
+                    <p>Pour modifier votre profil : <strong>Menu → Mon Profil → Modifier</strong></p>
+                </div>
+            </div>
+
+            <!-- Section: Rechercher un stage -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-purple-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🔍 Rechercher un Stage</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p><strong class="text-white">1.</strong> Accédez à la page <strong>Entreprises</strong> depuis le
+                        menu.</p>
+                    <p><strong class="text-white">2.</strong> Utilisez les filtres pour affiner votre recherche :</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 my-4">
+                        <span class="bg-gray-800 px-3 py-1 rounded text-sm text-center">📍 Localisation</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded text-sm text-center">⏱️ Durée</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded text-sm text-center">💰 Rémunération</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded text-sm text-center">🏢 Secteur</span>
+                    </div>
+                    <p><strong class="text-white">3.</strong> Cliquez sur une offre pour voir les détails.</p>
+                    <p><strong class="text-white">4.</strong> Cliquez <span
+                            class="bg-green-600 px-2 py-1 rounded text-sm">Postuler</span> pour envoyer votre
+                        candidature.</p>
+                </div>
+            </div>
+
+            <!-- Section: Postuler -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-orange-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📤 Postuler à une Offre</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p>Pour envoyer une candidature complète :</p>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Téléchargez votre <strong>CV</strong> (PDF, max 5 Mo)</li>
+                        <li>Rédigez votre <strong>lettre de motivation</strong> personnalisée
+                            <br><span class="text-sm text-gray-500">💡 Utilisez notre générateur dans le Hub Services
+                                !</span>
+                        </li>
+                        <li>Indiquez votre <strong>disponibilité</strong></li>
+                        <li>Validez et envoyez</li>
+                    </ol>
+                    <div class="bg-yellow-900/50 border border-yellow-700 rounded-lg p-4 mt-4">
+                        <p class="text-yellow-300">⚠️ <strong>Conseil :</strong> Adaptez votre lettre de motivation à
+                            chaque offre pour maximiser vos chances !</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Hub Services -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-cyan-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🛠️ Utiliser le Hub Services</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p>Le Hub Services vous offre des outils gratuits :</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-white font-bold">📄 Créateur de CV</h4>
+                            <p class="text-sm mt-1">Générez un CV professionnel étape par étape</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-white font-bold">✉️ Générateur de Lettre</h4>
+                            <p class="text-sm mt-1">Modèles adaptés par secteur d'activité</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-white font-bold">🎤 Préparation Entretien</h4>
+                            <p class="text-sm mt-1">FAQ et simulateur de questions</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-white font-bold">📚 Bibliothèque</h4>
+                            <p class="text-sm mt-1">Guides et ressources utiles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Suivi candidatures -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-red-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📊 Suivre vos Candidatures</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <p>Accédez à votre <strong>Tableau de Bord</strong> pour suivre vos candidatures :</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-600 px-3 py-1 rounded">🟡 En attente</span>
+                        <span class="bg-blue-600 px-3 py-1 rounded">🔵 En cours d'examen</span>
+                        <span class="bg-green-600 px-3 py-1 rounded">🟢 Acceptée</span>
+                        <span class="bg-red-600 px-3 py-1 rounded">🔴 Refusée</span>
+                    </div>
+                    <p class="mt-4">Vous recevrez des <strong>notifications</strong> à chaque changement de statut.</p>
+                </div>
+            </div>
+
+            <!-- Section: Pour les Entreprises -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-indigo-900 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🏢 Guide Entreprise</h2>
+                </div>
+                <div class="p-6 text-gray-300 space-y-4">
+                    <h4 class="text-white font-bold">Publier une offre de stage :</h4>
+                    <ol class="list-decimal pl-6 space-y-1">
+                        <li>Accédez à votre Tableau de Bord</li>
+                        <li>Cliquez sur "Publier une offre"</li>
+                        <li>Remplissez les détails (titre, description, durée, etc.)</li>
+                        <li>Définissez les compétences requises</li>
+                        <li>Publiez !</li>
+                    </ol>
+
+                    <h4 class="text-white font-bold mt-6">Gérer les candidatures :</h4>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Consultez les profils des candidats</li>
+                        <li>Téléchargez les CV</li>
+                        <li>Acceptez ou refusez avec un message personnalisé</li>
+                        <li>Contactez les candidats via la messagerie interne</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help CTA -->
+        <div class="mt-12 text-center">
+            <p class="text-gray-400 mb-4">Vous avez encore des questions ?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'faq' %}"
+                    class="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-lg transition">
+                    📌 Consulter la FAQ
+                </a>
+                <a href="mailto:support@yanapratik.gf"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition">
+                    📧 Contacter le support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

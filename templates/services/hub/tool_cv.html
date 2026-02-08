@@ -1,0 +1,474 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-900 to-purple-900 p-8 border-b border-gray-700">
+            <h1 class="text-3xl font-extrabold text-white mb-2 uppercase tracking-tight">
+                Touche Magique <span class="text-indigo-400">CV</span>
+            </h1>
+            <p class="text-gray-300">Créez un CV professionnel en quelques étapes simples.</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="flex justify-between items-center px-8 py-4 bg-gray-800/50 border-b border-gray-700">
+            <div class="step-indicator flex items-center">
+                <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm"
+                    id="step1-indicator">1</div>
+                <span class="ml-2 text-white font-medium">Infos personnelles</span>
+            </div>
+            <div class="h-0.5 flex-1 bg-gray-600 mx-4"></div>
+            <div class="step-indicator flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold text-sm"
+                    id="step2-indicator">2</div>
+                <span class="ml-2 text-gray-400 font-medium">Expérience</span>
+            </div>
+            <div class="h-0.5 flex-1 bg-gray-600 mx-4"></div>
+            <div class="step-indicator flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold text-sm"
+                    id="step3-indicator">3</div>
+                <span class="ml-2 text-gray-400 font-medium">Compétences</span>
+            </div>
+        </div>
+
+        <form id="cv-form" class="p-8">
+            <!-- Step 1: Personal Info -->
+            <div id="step1" class="step-content">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-3xl mr-3">👤</span> Informations Personnelles
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Prénom *</label>
+                        <input type="text" name="first_name" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="Jean">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Nom *</label>
+                        <input type="text" name="last_name" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="Dupont">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Email *</label>
+                        <input type="email" name="email" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="jean.dupont@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Téléphone *</label>
+                        <input type="tel" name="phone" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="0694 12 34 56">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Adresse</label>
+                        <input type="text" name="address"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="12 Rue de Cayenne, 97300 Cayenne">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">LinkedIn</label>
+                        <input type="url" name="linkedin"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="linkedin.com/in/jeandupont">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Portfolio / Site web</label>
+                        <input type="url" name="portfolio"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="www.monportfolio.com">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Titre professionnel / Poste recherché
+                            *</label>
+                        <input type="text" name="title" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="Étudiant en Informatique - Recherche stage développement web">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Résumé professionnel</label>
+                        <textarea name="summary" rows="3"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                            placeholder="En quelques lignes, décrivez votre parcours et vos objectifs..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Experience -->
+            <div id="step2" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-3xl mr-3">💼</span> Expérience & Formation
+                </h2>
+
+                <!-- Experience Section -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-indigo-400 mb-4">Expériences professionnelles</h3>
+                    <div id="experiences-container">
+                        <div class="experience-entry bg-gray-800/50 border border-gray-700 rounded-lg p-4 mb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Poste</label>
+                                    <input type="text" name="exp_title[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="Développeur stagiaire">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Entreprise</label>
+                                    <input type="text" name="exp_company[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="Nom de l'entreprise">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Date début</label>
+                                    <input type="month" name="exp_start[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Date fin</label>
+                                    <input type="month" name="exp_end[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Description des
+                                        missions</label>
+                                    <textarea name="exp_desc[]" rows="2"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="Décrivez vos principales missions et réalisations..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-experience"
+                        class="text-indigo-400 hover:text-indigo-300 font-bold text-sm flex items-center">
+                        <span class="text-xl mr-1">+</span> Ajouter une expérience
+                    </button>
+                </div>
+
+                <!-- Education Section -->
+                <div>
+                    <h3 class="text-lg font-bold text-indigo-400 mb-4">Formation</h3>
+                    <div id="education-container">
+                        <div class="education-entry bg-gray-800/50 border border-gray-700 rounded-lg p-4 mb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Diplôme /
+                                        Formation</label>
+                                    <input type="text" name="edu_title[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="Licence Informatique">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Établissement</label>
+                                    <input type="text" name="edu_school[]"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="Université de Guyane">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm font-bold mb-2">Année d'obtention</label>
+                                    <input type="number" name="edu_year[]" min="1990" max="2030"
+                                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                        placeholder="2024">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-education"
+                        class="text-indigo-400 hover:text-indigo-300 font-bold text-sm flex items-center">
+                        <span class="text-xl mr-1">+</span> Ajouter une formation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Skills -->
+            <div id="step3" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-3xl mr-3">🛠️</span> Compétences & Langues
+                </h2>
+
+                <!-- Skills Section -->
+                <div class="mb-8">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Compétences techniques</label>
+                    <p class="text-gray-500 text-xs mb-3">Séparez chaque compétence par une virgule</p>
+                    <textarea name="skills" rows="3"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                        placeholder="Python, Django, JavaScript, HTML/CSS, Git, SQL, React..."></textarea>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="mb-8">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Qualités personnelles (soft
+                        skills)</label>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Autonomie">Autonomie</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Travail d'équipe">Travail d'équipe</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Communication">Communication</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Organisation">Organisation</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Adaptabilité">Adaptabilité</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Créativité">Créativité</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Rigueur">Rigueur</button>
+                        <button type="button"
+                            class="skill-tag bg-gray-700 hover:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm transition"
+                            data-skill="Leadership">Leadership</button>
+                    </div>
+                    <input type="hidden" name="soft_skills" id="soft-skills-input">
+                </div>
+
+                <!-- Languages -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-indigo-400 mb-4">Langues</h3>
+                    <div id="languages-container">
+                        <div class="language-entry flex gap-4 mb-3">
+                            <input type="text" name="lang_name[]" value="Français"
+                                class="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
+                                placeholder="Langue">
+                            <select name="lang_level[]"
+                                class="bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                                <option value="native">Langue maternelle</option>
+                                <option value="fluent">Courant</option>
+                                <option value="intermediate">Intermédiaire</option>
+                                <option value="basic">Notions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" id="add-language"
+                        class="text-indigo-400 hover:text-indigo-300 font-bold text-sm flex items-center">
+                        <span class="text-xl mr-1">+</span> Ajouter une langue
+                    </button>
+                </div>
+
+                <!-- Hobbies -->
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Centres d'intérêt (optionnel)</label>
+                    <input type="text" name="hobbies"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition"
+                        placeholder="Sport, musique, voyages, photographie...">
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between mt-8 pt-6 border-t border-gray-700">
+                <button type="button" id="prev-btn"
+                    class="hidden bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                    ← Précédent
+                </button>
+                <div class="flex-1"></div>
+                <button type="button" id="next-btn"
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                    Suivant →
+                </button>
+                <button type="submit" id="generate-btn"
+                    class="hidden bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg">
+                    🎉 Générer mon CV
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- CV Preview Modal -->
+    <div id="cv-preview-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-auto">
+            <div class="p-8" id="cv-preview-content">
+                <!-- CV Preview will be generated here -->
+            </div>
+            <div class="border-t p-4 flex justify-end gap-4 bg-gray-50">
+                <button type="button" id="close-preview"
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">
+                    Fermer
+                </button>
+                <button type="button" id="print-cv"
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-lg transition">
+                    📄 Imprimer / PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let currentStep = 1;
+        const totalSteps = 3;
+        const selectedSoftSkills = [];
+
+        const steps = {
+            1: document.getElementById('step1'),
+            2: document.getElementById('step2'),
+            3: document.getElementById('step3')
+        };
+
+        const indicators = {
+            1: document.getElementById('step1-indicator'),
+            2: document.getElementById('step2-indicator'),
+            3: document.getElementById('step3-indicator')
+        };
+
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const generateBtn = document.getElementById('generate-btn');
+
+        function showStep(step) {
+            Object.keys(steps).forEach(s => {
+                steps[s].classList.add('hidden');
+                indicators[s].classList.remove('bg-indigo-600');
+                indicators[s].classList.add('bg-gray-600');
+            });
+
+            steps[step].classList.remove('hidden');
+
+            for (let i = 1; i <= step; i++) {
+                indicators[i].classList.remove('bg-gray-600');
+                indicators[i].classList.add('bg-indigo-600');
+            }
+
+            prevBtn.classList.toggle('hidden', step === 1);
+            nextBtn.classList.toggle('hidden', step === totalSteps);
+            generateBtn.classList.toggle('hidden', step !== totalSteps);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // Soft skills selection
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('click', function () {
+                const skill = this.dataset.skill;
+                const index = selectedSoftSkills.indexOf(skill);
+
+                if (index > -1) {
+                    selectedSoftSkills.splice(index, 1);
+                    this.classList.remove('bg-indigo-600');
+                    this.classList.add('bg-gray-700');
+                } else {
+                    selectedSoftSkills.push(skill);
+                    this.classList.add('bg-indigo-600');
+                    this.classList.remove('bg-gray-700');
+                }
+
+                document.getElementById('soft-skills-input').value = selectedSoftSkills.join(', ');
+            });
+        });
+
+        // Add experience
+        document.getElementById('add-experience').addEventListener('click', function () {
+            const container = document.getElementById('experiences-container');
+            const entry = container.querySelector('.experience-entry').cloneNode(true);
+            entry.querySelectorAll('input, textarea').forEach(input => input.value = '');
+            container.appendChild(entry);
+        });
+
+        // Add education
+        document.getElementById('add-education').addEventListener('click', function () {
+            const container = document.getElementById('education-container');
+            const entry = container.querySelector('.education-entry').cloneNode(true);
+            entry.querySelectorAll('input').forEach(input => input.value = '');
+            container.appendChild(entry);
+        });
+
+        // Add language
+        document.getElementById('add-language').addEventListener('click', function () {
+            const container = document.getElementById('languages-container');
+            const entry = container.querySelector('.language-entry').cloneNode(true);
+            entry.querySelector('input').value = '';
+            container.appendChild(entry);
+        });
+
+        // Generate CV Preview
+        document.getElementById('cv-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            const preview = document.getElementById('cv-preview-content');
+            preview.innerHTML = `
+            <div class="text-center mb-6 border-b pb-6">
+                <h1 class="text-3xl font-bold text-gray-900">${formData.get('first_name')} ${formData.get('last_name')}</h1>
+                <p class="text-lg text-indigo-600 font-medium">${formData.get('title')}</p>
+                <div class="flex justify-center gap-4 mt-3 text-sm text-gray-600">
+                    <span>📧 ${formData.get('email')}</span>
+                    <span>📱 ${formData.get('phone')}</span>
+                </div>
+                ${formData.get('address') ? `<p class="text-sm text-gray-500 mt-1">📍 ${formData.get('address')}</p>` : ''}
+            </div>
+            
+            ${formData.get('summary') ? `
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-gray-900 border-b-2 border-indigo-600 pb-1 mb-3">PROFIL</h2>
+                <p class="text-gray-700">${formData.get('summary')}</p>
+            </div>
+            ` : ''}
+            
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-gray-900 border-b-2 border-indigo-600 pb-1 mb-3">COMPÉTENCES</h2>
+                <p class="text-gray-700">${formData.get('skills') || 'Non renseigné'}</p>
+                ${formData.get('soft_skills') ? `<p class="text-gray-600 mt-2 italic">${formData.get('soft_skills')}</p>` : ''}
+            </div>
+            
+            <div class="text-center text-gray-400 text-sm mt-8">
+                <p>Généré par Pratik - La plateforme des stages en Guyane</p>
+            </div>
+        `;
+
+            document.getElementById('cv-preview-modal').classList.remove('hidden');
+            document.getElementById('cv-preview-modal').classList.add('flex');
+        });
+
+        // Close preview
+        document.getElementById('close-preview').addEventListener('click', function () {
+            document.getElementById('cv-preview-modal').classList.add('hidden');
+            document.getElementById('cv-preview-modal').classList.remove('flex');
+        });
+
+        // Print CV
+        document.getElementById('print-cv').addEventListener('click', function () {
+            const content = document.getElementById('cv-preview-content').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Mon CV - Pratik</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
+                    h1 { color: #1e3a5f; }
+                    h2 { border-bottom: 2px solid #4f46e5; padding-bottom: 4px; }
+                    .text-indigo-600 { color: #4f46e5; }
+                </style>
+            </head>
+            <body>${content}</body>
+            </html>
+        `);
+            printWindow.document.close();
+            printWindow.print();
+        });
+    });
+</script>
+{% endblock %}

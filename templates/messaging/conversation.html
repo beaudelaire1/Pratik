@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    {% with other=conversation.get_other_participant:request.user %}
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-primary-200">
+        <a href="{% url 'messaging:inbox' %}" class="text-gray-600 hover:text-gray-900 transition font-medium">
+            ← Retour
+        </a>
+        <div class="flex items-center gap-3 flex-1">
+            {% if other.profile_pic %}
+            <img src="{{ other.profile_pic.url }}" class="w-12 h-12 rounded-full object-cover"
+                alt="{{ other.username }}">
+            {% else %}
+            <img src="https://ui-avatars.com/api/?name={{ other.username }}&background=2563eb&color=fff"
+                class="w-12 h-12 rounded-full" alt="{{ other.username }}">
+            {% endif %}
+            <div>
+                <h1 class="text-xl font-bold text-gray-900">{{ other.username }}</h1>
+                {% if other.user_type == 'company' %}
+                <span class="text-sm text-primary-600">Entreprise</span>
+                {% else %}
+                <span class="text-sm text-accent-600">Étudiant</span>
+                {% endif %}
+            </div>
+        </div>
+        {% if conversation.internship %}
+        <a href="{% url 'internship_detail' conversation.internship.slug %}"
+            class="text-sm text-gray-600 hover:text-gray-900 transition">
+            💼 {{ conversation.internship.title|truncatechars:25 }}
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Messages -->
+    <div class="glass border border-primary-200 rounded-xl overflow-hidden shadow-medium">
+        <div id="messages-container" class="p-6 h-96 overflow-y-auto space-y-4">
+            {% for message in messages %}
+            <div class="flex {% if message.sender == request.user %}justify-end{% else %}justify-start{% endif %}">
+                <div class="max-w-xs md:max-w-md lg:max-w-lg">
+                    {% if message.sender != request.user %}
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-xs text-gray-500">{{ message.sender.username }}</span>
+                    </div>
+                    {% endif %}
+                    <div
+                        class="{% if message.sender == request.user %}bg-gradient-to-r from-primary-600 to-primary-700 text-white{% else %}bg-white border border-primary-200 text-gray-900{% endif %} rounded-2xl px-4 py-2.5 shadow-soft">
+                        <p class="text-sm whitespace-pre-wrap">{{ message.content }}</p>
+                    </div>
+                    <div class="{% if message.sender == request.user %}text-right{% endif %}">
+                        <span class="text-xs text-gray-500">{{ message.created_at|date:"H:i" }}</span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-12">
+                <div class="text-4xl mb-4">💬</div>
+                <p class="text-gray-600">Aucun message. Commencez la conversation !</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Send form -->
+        <form method="POST" action="{% url 'messaging:send' conversation.pk %}"
+            class="border-t border-primary-200 p-4 bg-white">
+            {% csrf_token %}
+            <div class="flex gap-3">
+                <input type="text" name="content" placeholder="Écrire un message..." required autofocus
+                    class="flex-1 bg-white border border-primary-300 rounded-full px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                <button type="submit"
+                    class="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2.5 px-6 rounded-full shadow-medium hover:shadow-strong transition transform hover:-translate-y-1 flex items-center gap-2">
+                    <span>Envoyer</span>
+                    <span>→</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% endwith %}
+</div>
+
+<script>
+    // Scroll to bottom on load
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('messages-container');
+        container.scrollTop = container.scrollHeight;
+    });
+</script>
+{% endblock %}

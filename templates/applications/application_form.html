@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl w-full glass border border-primary-200 rounded-2xl shadow-strong overflow-hidden animate-fade-in">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-primary-600 to-accent-500 p-8 text-center">
+            <h2 class="text-3xl font-extrabold text-white uppercase tracking-widest mb-2">Candidature</h2>
+            <p class="text-white/90 font-medium text-lg">{{ internship.title }}</p>
+            <p class="text-white/70 text-sm mt-1">chez {{ internship.company.username }}</p>
+        </div>
+
+        <div class="p-8 md:p-10">
+            <form method="post" enctype="multipart/form-data" class="space-y-8">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="bg-red-50 border border-red-300 text-red-800 px-6 py-4 rounded-xl shadow-soft"
+                    role="alert">
+                    {% for error in form.non_field_errors %}
+                    <span class="block font-medium">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="space-y-2">
+                    <label class="block text-gray-900 text-sm font-bold uppercase tracking-wider" for="id_cv">
+                        Votre CV <span class="text-gray-500 normal-case font-normal">(PDF recommandé)</span>
+                    </label>
+                    <div class="relative group">
+                        {% render_field form.cv class="block w-full text-sm text-gray-700 border border-primary-300
+                        rounded-lg cursor-pointer bg-white focus:outline-none focus:border-primary-500 focus:ring-2
+                        focus:ring-primary-200 file:bg-primary-600 file:border-0 file:mr-4 file:py-3 file:px-6
+                        file:text-white file:font-semibold hover:file:bg-primary-700 transition shadow-soft" %}
+                    </div>
+                    {% if form.cv.errors %}
+                    <p class="text-red-600 text-xs italic mt-1 font-bold">{{ form.cv.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-gray-900 text-sm font-bold uppercase tracking-wider" for="id_cover_letter">
+                        Lettre de motivation
+                    </label>
+                    <div class="relative">
+                        {% render_field form.cover_letter class="block w-full bg-white border border-primary-300
+                        text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-primary-200 focus:border-primary-500 p-4 h-48 transition
+                        shadow-soft placeholder-gray-400" placeholder="Présentez-vous et expliquez vos motivations..."
+                        %}
+                    </div>
+                    {% if form.cover_letter.errors %}
+                    <p class="text-red-600 text-xs italic mt-1 font-bold">{{ form.cover_letter.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center justify-between pt-6 border-t border-primary-200">
+                    <a href="{% url 'internship_detail' internship.slug %}"
+                        class="text-gray-600 hover:text-gray-900 font-medium transition">
+                        Annuler
+                    </a>
+                    <button
+                        class="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-medium transform hover:-translate-y-1 hover:shadow-strong"
+                        type="submit">
+                        Envoyer ma candidature
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

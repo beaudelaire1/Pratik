@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratik</title>
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS - Built locally (65KB instead of 3MB+ CDN) -->
+    <link rel="stylesheet" href="/static/css/output.css">
+    
+    <!-- Forms Fix CSS -->
+    <link rel="stylesheet" href="/static/css/forms-fix.css">
+
+    <!-- HTMX & Alpine.js -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2563eb;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1d4ed8;
+        }
+
+        /* Smooth font rendering */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Touch-friendly interactions */
+        .touch-manipulation {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Smooth animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Mobile menu backdrop blur */
+        @supports (backdrop-filter: blur(10px)) {
+            .backdrop-blur-md {
+                backdrop-filter: blur(12px);
+            }
+        }
+
+        /* Prevent text selection on buttons */
+        button, .touch-manipulation {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Active state for mobile */
+        @media (hover: none) {
+            button:active, a:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Focus visible for accessibility */
+        *:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 4px 0;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 text-gray-900 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Navbar -->
+    
+<nav class="glass border-b border-blue-100 shadow-soft sticky top-0 z-40" role="navigation" aria-label="Navigation principale">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="/" class="flex items-center gap-3 group" aria-label="Retour à l'accueil">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                        <div class="relative w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center shadow-medium">
+                            <span class="text-white font-bold text-lg">YP</span>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block">
+                        <span class="text-xl font-bold gradient-text">Pratik</span>
+                        <p class="text-xs text-gray-600 -mt-1">Stages en Guyane</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-1">
+                <a href="/internships/" 
+                   class="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-blue-50 rounded-lg transition-all font-medium"
+                   aria-label="Voir les offres de stage">
+                    Offres de Stage
+                </a>
+                <a href="/services/" 
+                   class="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-blue-50 rounded-lg transition-all font-medium"
+                   aria-label="Accéder au hub services">
+                    Services
+                </a>
+                <a href="/partners/" 
+                   class="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-blue-50 rounded-lg transition-all font-medium"
+                   aria-label="Voir la carte des partenaires">
+                    Partenaires
+                </a>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-2">
+                
+                <a href="/auth/login/" 
+                   class="px-4 py-2 text-gray-700 hover:text-primary-600 font-semibold transition-all"
+                   aria-label="Se connecter">
+                    Connexion
+                </a>
+                <a href="/auth/signup/" 
+                   class="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg transition-all font-semibold shadow-medium hover:shadow-strong"
+                   aria-label="Créer un compte">
+                    Inscription
+                </a>
+                
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" 
+                        class="lg:hidden p-2 text-gray-600 hover:text-primary-600 hover:bg-blue-50 rounded-lg transition-all min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
+                        aria-label="Ouvrir le menu"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 glass z-50 lg:hidden overflow-y-auto animate-slide-in" role="dialog" aria-modal="true">
+        <div class="p-4">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center shadow-medium">
+                        <span class="text-white font-bold text-lg">YP</span>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">Pratik</span>
+                </a>
+                <button id="close-menu-btn" 
+                        class="p-2 text-gray-600 hover:text-primary-600 hover:bg-blue-50 rounded-lg transition-all min-w-[44px] min-h-[44px]"
+                        aria-label="Fermer le menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Nav Links -->
+            <nav class="space-y-2" role="navigation">
+                <a href="/" 
+                   class="flex items-center gap-3 p-4 bg-white hover:bg-blue-50 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">🏠</span>
+                    <span class="text-gray-900 font-semibold">Accueil</span>
+                </a>
+                <a href="/internships/" 
+                   class="flex items-center gap-3 p-4 bg-white hover:bg-blue-50 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">💼</span>
+                    <span class="text-gray-900 font-semibold">Offres de Stage</span>
+                </a>
+                <a href="/services/" 
+                   class="flex items-center gap-3 p-4 bg-white hover:bg-blue-50 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">📚</span>
+                    <span class="text-gray-900 font-semibold">Hub Services</span>
+                </a>
+                <a href="/partners/" 
+                   class="flex items-center gap-3 p-4 bg-white hover:bg-blue-50 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">🗺️</span>
+                    <span class="text-gray-900 font-semibold">Carte Partenaires</span>
+                </a>
+
+                
+                <hr class="my-4 border-blue-100">
+                <a href="/auth/login/" 
+                   class="flex items-center gap-3 p-4 bg-gradient-to-r from-primary-50 to-blue-50 hover:from-primary-100 hover:to-blue-100 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">🔐</span>
+                    <span class="text-primary-700 font-semibold">Connexion</span>
+                </a>
+                <a href="/auth/signup/" 
+                   class="flex items-center gap-3 p-4 bg-gradient-to-r from-accent-50 to-blue-50 hover:from-accent-100 hover:to-blue-100 rounded-xl transition-all min-h-[56px] touch-manipulation shadow-soft">
+                    <span class="text-2xl" aria-hidden="true">✨</span>
+                    <span class="text-accent-700 font-semibold">Inscription</span>
+                </a>
+                
+            </nav>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = '';
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        mobileMenuBtn?.addEventListener('click', openMenu);
+        closeMenuBtn?.addEventListener('click', closeMenu);
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                closeMenu();
+            }
+        });
+
+        
+
+        // Profile dropdown toggle
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        const profileBtn = document.querySelector('.profile-dropdown-btn');
+        const profileMenu = document.querySelector('.profile-dropdown-menu');
+
+        if (profileBtn && profileMenu) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileMenu.classList.toggle('hidden');
+                const isExpanded = !profileMenu.classList.contains('hidden');
+                profileBtn.setAttribute('aria-expanded', isExpanded);
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!profileDropdown.contains(e.target)) {
+                    profileMenu.classList.add('hidden');
+                    profileBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+</script>
+
+
+    <!-- Messages -->
+    
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow w-full" role="main">
+        
+<div class="relative overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Animated gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 opacity-90"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <!-- Badge -->
+                <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold mb-8 border border-white/30">
+                    <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                    🚀 La plateforme #1 des stages en Guyane
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight tracking-tight">
+                    Ton stage de rêve<br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300">
+                        commence ici
+                    </span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+                    Connecte-toi avec les meilleures entreprises de Guyane.<br class="hidden sm:block">
+                    Trouve ton stage, ton logement, ton transport. Tout en un seul endroit.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    
+                    <a href="/auth/signup/" 
+                       class="group inline-flex items-center justify-center px-10 py-5 bg-white text-purple-600 font-bold rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all transform hover:scale-105 hover:-translate-y-1">
+                        <span class="text-lg">Commencer gratuitement</span>
+                        <svg class="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                    <a href="/internships/" 
+                       class="inline-flex items-center justify-center px-10 py-5 bg-white/10 backdrop-blur-md text-white font-bold rounded-2xl border-2 border-white/30 hover:bg-white/20 transition-all">
+                        <span class="text-lg">Découvrir</span>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Tout ce dont tu as besoin
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Une plateforme complète pour réussir ton stage
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Offres de stage</h3>
+                    <p class="text-gray-600">
+                        Des centaines d'offres de stage dans tous les domaines en Guyane
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Logement</h3>
+                    <p class="text-gray-600">
+                        Trouve facilement un logement près de ton lieu de stage
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-pink-100 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-pink-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Transport</h3>
+                    <p class="text-gray-600">
+                        Organise ton covoiturage avec d'autres stagiaires
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950 text-gray-300 py-12 border-t border-navy-700" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- About -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">YP</span>
+                    </div>
+                    Pratik
+                </h3>
+                <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+                    La plateforme de référence pour les stages en Guyane française. Connectons talents et opportunités.
+                </p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 bg-navy-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all" aria-label="Facebook">
+                        <span class="text-lg" aria-hidden="true">📘</span>
+                    </a>
+                    <a href="#" class="w-9 h-9 bg-navy-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all" aria-label="Instagram">
+                        <span class="text-lg" aria-hidden="true">📷</span>
+                    </a>
+                    <a href="#" class="w-9 h-9 bg-navy-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all" aria-label="LinkedIn">
+                        <span class="text-lg" aria-hidden="true">💼</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Services</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/internships/" class="hover:text-primary-400 transition-colors">Offres de Stage</a></li>
+                    <li><a href="/services/" class="hover:text-primary-400 transition-colors">Hub Services</a></li>
+                    <li><a href="/partners/" class="hover:text-primary-400 transition-colors">Carte Partenaires</a></li>
+                    <li><a href="/events/" class="hover:text-primary-400 transition-colors">Calendrier</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Support</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/" class="hover:text-primary-400 transition-colors">Accueil</a></li>
+                    <li><a href="/faq/" class="hover:text-primary-400 transition-colors">FAQ</a></li>
+                    <li><a href="/guide/" class="hover:text-primary-400 transition-colors">Guide Utilisateur</a></li>
+                    <li><a href="/cgu/" class="hover:text-primary-400 transition-colors">CGU</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Contact</h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-2">
+                        <span class="text-primary-400 mt-0.5" aria-hidden="true">📍</span>
+                        <span>Cayenne, Guyane<br>97300 France</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-primary-400" aria-hidden="true">📧</span>
+                        <a href="mailto:contact@yanapratik.gf" class="hover:text-primary-400 transition-colors">contact@yanapratik.gf</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-primary-400" aria-hidden="true">📞</span>
+                        <span>0594 XX XX XX</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-navy-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-gray-400">
+                &copy; 2026 Pratik. Tous droits réservés. Développé par <a href="https://traitdunion.it" target="_blank" rel="noopener noreferrer" class="text-primary-400 hover:text-primary-300 transition-colors font-semibold">Trait d'Union Studio</a>
+            </p>
+            <div class="flex gap-6 text-sm">
+                <a href="/privacy/" class="text-gray-400 hover:text-primary-400 transition-colors">Confidentialité</a>
+                <a href="/mentions-legales/" class="text-gray-400 hover:text-primary-400 transition-colors">Mentions Légales</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Django Browser Reload -->
+    
+    
+    <!-- Notifications & Messages -->
+    
+<script src="/static/django-browser-reload/reload-listener.js" data-worker-script-path="/static/django-browser-reload/reload-worker.js" data-events-path="/__reload__/events/" defer></script></body>
+
+</html>

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-4xl font-extrabold text-white mb-2 uppercase tracking-tight">Se <span
+            class="text-green-500">Financer</span></h1>
+    <p class="text-gray-400 mb-8">Découvrez les aides financières disponibles pour votre stage en Guyane.</p>
+
+    <div class="space-y-6">
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-green-500 transition shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center"><span class="text-2xl mr-3">🏛️</span>
+                Bourse LADOM</h3>
+            <p class="text-gray-300 mb-4">L'Agence de l'Outre-mer pour la Mobilité (LADOM) propose une aide au
+                financement des voyages et de l'installation pour les stages en mobilité.</p>
+            <ul class="text-gray-400 text-sm space-y-1 mb-4">
+                <li>• Prise en charge du billet d'avion</li>
+                <li>• Aide à l'installation jusqu'à 800€</li>
+                <li>• Accompagnement personnalisé</li>
+            </ul>
+            <a href="#" class="text-green-400 font-bold text-sm hover:underline">En savoir plus →</a>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-green-500 transition shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center"><span class="text-2xl mr-3">🎓</span> Bourse
+                du CROUS</h3>
+            <p class="text-gray-300 mb-4">Les étudiants boursiers conservent leur bourse pendant leur stage. Des aides
+                complémentaires peuvent être demandées selon votre situation.</p>
+            <ul class="text-gray-400 text-sm space-y-1 mb-4">
+                <li>• Maintien de la bourse sur critères sociaux</li>
+                <li>• Aide au mérite cumulable</li>
+                <li>• Aide d'urgence ponctuelle possible</li>
+            </ul>
+            <a href="#" class="text-green-400 font-bold text-sm hover:underline">En savoir plus →</a>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-green-500 transition shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center"><span class="text-2xl mr-3">💰</span>
+                Gratification de stage</h3>
+            <p class="text-gray-300 mb-4">Pour les stages de plus de 2 mois, l'entreprise est tenue de vous verser une
+                gratification minimale de 4,35€/heure.</p>
+            <ul class="text-gray-400 text-sm space-y-1 mb-4">
+                <li>• Minimum légal : ~600€/mois pour 35h/semaine</li>
+                <li>• Exonération de charges sociales</li>
+                <li>• Versée mensuellement</li>
+            </ul>
+            <a href="#" class="text-green-400 font-bold text-sm hover:underline">En savoir plus →</a>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-green-500 transition shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-3 flex items-center"><span class="text-2xl mr-3">🏠</span> Aides
+                au logement (APL)</h3>
+            <p class="text-gray-300 mb-4">La CAF peut vous accorder une aide au logement même pendant un stage, sous
+                conditions de ressources.</p>
+            <ul class="text-gray-400 text-sm space-y-1 mb-4">
+                <li>• Simulation en ligne sur caf.fr</li>
+                <li>• Aide personnalisée selon votre loyer</li>
+                <li>• Demande à effectuer dès l'entrée dans le logement</li>
+            </ul>
+            <a href="#" class="text-green-400 font-bold text-sm hover:underline">En savoir plus →</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

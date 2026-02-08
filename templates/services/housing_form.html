@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4">
+    <div class="max-w-2xl w-full bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl p-8">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center uppercase tracking-widest">Publier un Logement</h2>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Titre de l'annonce</label>
+                    {% render_field form.title class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3
+                    text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Type</label>
+                    {% render_field form.housing_type class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4
+                    py-3 text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Prix / Mois (€)</label>
+                    {% render_field form.price class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3
+                    text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Ville / Quartier</label>
+                    {% render_field form.location class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3
+                    text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Image</label>
+                    {% render_field form.images class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2
+                    text-gray-400 file:bg-gray-700 file:text-white file:border-0 file:py-1 file:px-3 file:rounded
+                    file:mr-4 hover:file:bg-gray-600" %}
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Description</label>
+                    {% render_field form.description class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4
+                    py-3 text-white focus:outline-none focus:border-teal-500 h-32" %}
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Email contact</label>
+                    {% render_field form.contact_email class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4
+                    py-3 text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Téléphone</label>
+                    {% render_field form.contact_phone class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4
+                    py-3 text-white focus:outline-none focus:border-teal-500" %}
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-teal-700 hover:bg-teal-600 text-white font-bold py-4 rounded-lg shadow-lg transition mt-8 text-lg uppercase tracking-wide">
+                Publier l'annonce
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

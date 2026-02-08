@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-white mb-4">
+                Conditions Générales <span class="text-blue-500">d'Utilisation</span>
+            </h1>
+            <p class="text-gray-400">Dernière mise à jour : Février 2026</p>
+        </div>
+
+        <!-- Content -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 prose prose-invert max-w-none">
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2">Article 1 : Objet</h2>
+            <p class="text-gray-300">
+                Les présentes Conditions Générales d'Utilisation (CGU) ont pour objet de définir les modalités
+                d'accès et d'utilisation de la plateforme Pratik, accessible à l'adresse yanapratik.gf.
+            </p>
+            <p class="text-gray-300">
+                En accédant à ce site, vous acceptez sans réserve les présentes CGU. Si vous n'acceptez pas
+                ces conditions, veuillez ne pas utiliser ce site.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 2 : Mentions Légales
+            </h2>
+            <p class="text-gray-300">
+                <strong>Éditeur du site :</strong><br>
+                Pratik SAS<br>
+                Adresse : [Adresse à compléter], 97300 Cayenne, Guyane<br>
+                SIRET : [Numéro à compléter]<br>
+                Email : contact@yanapratik.gf
+            </p>
+            <p class="text-gray-300">
+                <strong>Directeur de la publication :</strong> [Nom du responsable]<br>
+                <strong>Hébergeur :</strong> [Nom de l'hébergeur], [Adresse hébergeur]
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 3 : Services Proposés
+            </h2>
+            <p class="text-gray-300">
+                Pratik est une plateforme de mise en relation entre étudiants recherchant un stage
+                et entreprises proposant des opportunités de stage en Guyane française. Les services incluent :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Publication et consultation d'offres de stage</li>
+                <li>Candidature en ligne aux offres de stage</li>
+                <li>Outils d'aide à la recherche d'emploi (CV, lettre de motivation)</li>
+                <li>Services annexes : logement, covoiturage, forum d'entraide</li>
+                <li>Messagerie interne entre utilisateurs</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 4 : Inscription et
+                Compte Utilisateur</h2>
+            <p class="text-gray-300">
+                L'accès à certaines fonctionnalités nécessite la création d'un compte. L'utilisateur s'engage à :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Fournir des informations exactes et à jour</li>
+                <li>Maintenir la confidentialité de ses identifiants de connexion</li>
+                <li>Notifier immédiatement toute utilisation non autorisée de son compte</li>
+                <li>Ne pas créer de faux profils ou usurper l'identité d'un tiers</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 5 : Obligations des
+                Utilisateurs</h2>
+            <p class="text-gray-300">
+                Les utilisateurs s'engagent à :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Respecter les lois et règlements en vigueur</li>
+                <li>Ne pas publier de contenu illégal, diffamatoire ou offensant</li>
+                <li>Ne pas utiliser la plateforme à des fins frauduleuses</li>
+                <li>Respecter les droits de propriété intellectuelle</li>
+                <li>Ne pas perturber le fonctionnement du site</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 6 : Responsabilité</h2>
+            <p class="text-gray-300">
+                Pratik agit en tant qu'intermédiaire et ne peut être tenu responsable :
+            </p>
+            <ul class="text-gray-300 list-disc pl-6">
+                <li>Du contenu des offres publiées par les entreprises</li>
+                <li>De la véracité des informations fournies par les utilisateurs</li>
+                <li>Des dommages résultant de l'utilisation ou de l'impossibilité d'utiliser le site</li>
+                <li>Des relations établies entre utilisateurs via la plateforme</li>
+            </ul>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 7 : Propriété
+                Intellectuelle</h2>
+            <p class="text-gray-300">
+                Le contenu du site (textes, images, logos, design) est protégé par le droit de la propriété
+                intellectuelle. Toute reproduction, modification ou exploitation sans autorisation préalable est
+                interdite.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 8 : Protection des
+                Données Personnelles</h2>
+            <p class="text-gray-300">
+                Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d'un droit d'accès,
+                de rectification, de suppression et de portabilité de vos données personnelles.
+                Pour exercer ces droits, contactez-nous à : privacy@yanapratik.gf
+            </p>
+            <p class="text-gray-300">
+                Pour plus de détails, consultez notre <a href="{% url 'privacy_policy' %}"
+                    class="text-blue-400 hover:underline">Politique de Confidentialité</a>.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 9 : Cookies</h2>
+            <p class="text-gray-300">
+                Le site utilise des cookies pour améliorer l'expérience utilisateur. En continuant à naviguer,
+                vous acceptez l'utilisation de cookies conformément à notre politique de cookies.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 10 : Modification des
+                CGU</h2>
+            <p class="text-gray-300">
+                Pratik se réserve le droit de modifier les présentes CGU à tout moment.
+                Les utilisateurs seront informés des modifications par email ou notification sur le site.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 11 : Droit Applicable
+            </h2>
+            <p class="text-gray-300">
+                Les présentes CGU sont régies par le droit français. En cas de litige, les tribunaux
+                de Cayenne (Guyane) seront seuls compétents.
+            </p>
+
+            <h2 class="text-xl font-bold text-white border-b border-gray-700 pb-2 mt-8">Article 12 : Contact</h2>
+            <p class="text-gray-300">
+                Pour toute question concernant ces CGU, vous pouvez nous contacter à :<br>
+                Email : legal@yanapratik.gf<br>
+                Adresse : [Adresse à compléter], 97300 Cayenne, Guyane
+            </p>
+        </div>
+
+        <!-- Back Link -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'home' %}" class="text-blue-400 hover:text-blue-300 transition">
+                ← Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

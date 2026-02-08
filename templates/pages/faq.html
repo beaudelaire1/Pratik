@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Questions <span class="text-blue-500">Fréquentes</span>
+            </h1>
+            <p class="text-gray-400 text-lg">
+                Trouvez rapidement les réponses à vos questions
+            </p>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-8">
+            <input type="text" id="faq-search" placeholder="🔍 Rechercher une question..."
+                class="w-full bg-gray-900 border border-gray-700 rounded-xl px-6 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none">
+        </div>
+
+        <!-- FAQ Sections -->
+        <div class="space-y-8">
+
+            <!-- Section: Général -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🏠 Général</h2>
+                </div>
+                <div class="divide-y divide-gray-700">
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Qu'est-ce que Pratik ?</span>
+                            <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Pratik est la plateforme de référence en Guyane pour connecter les étudiants avec
+                                les entreprises qui proposent des stages. Notre mission est de faciliter la recherche de
+                                stage et d'accompagner les étudiants dans leur parcours professionnel.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Le service est-il gratuit ?</span>
+                            <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Oui ! L'accès à la plateforme est entièrement gratuit pour les étudiants. Les entreprises
+                                peuvent publier leurs offres de stage sans frais également.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment créer un compte ?</span>
+                            <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Cliquez sur "Inscription" dans le menu, choisissez votre type de profil (Étudiant ou
+                                Entreprise), remplissez le formulaire avec vos informations et validez votre email.
+                                C'est simple et rapide !</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Section: Étudiants -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-green-900 to-green-800 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🎓 Étudiants</h2>
+                </div>
+                <div class="divide-y divide-gray-700">
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment postuler à un stage ?</span>
+                            <span class="text-green-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>1. Trouvez une offre qui vous intéresse dans notre liste de stages<br>
+                                2. Cliquez sur "Postuler"<br>
+                                3. Téléchargez votre CV et rédigez votre lettre de motivation<br>
+                                4. Envoyez votre candidature !<br>
+                                L'entreprise recevra une notification et vous serez informé de sa réponse.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment améliorer mes chances d'être sélectionné ?</span>
+                            <span class="text-green-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>• Complétez votre profil à 100% avec toutes vos compétences<br>
+                                • Utilisez notre outil de création de CV pour un CV professionnel<br>
+                                • Personnalisez votre lettre de motivation pour chaque offre<br>
+                                • Préparez vos entretiens avec notre simulateur<br>
+                                • Postulez rapidement aux nouvelles offres</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment utiliser les outils du Hub Services ?</span>
+                            <span class="text-green-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Le Hub Services propose plusieurs outils gratuits :<br>
+                                • <strong>Créateur de CV</strong> : Un formulaire guidé pour créer votre CV<br>
+                                • <strong>Générateur de lettre</strong> : Des modèles par secteur d'activité<br>
+                                • <strong>Préparation entretien</strong> : FAQ et simulateur de questions<br>
+                                • <strong>Bibliothèque</strong> : Guides et ressources utiles</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Section: Entreprises -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-900 to-purple-800 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🏢 Entreprises</h2>
+                </div>
+                <div class="divide-y divide-gray-700">
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment publier une offre de stage ?</span>
+                            <span class="text-purple-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>1. Créez un compte Entreprise (gratuit)<br>
+                                2. Accédez à votre tableau de bord<br>
+                                3. Cliquez sur "Publier une offre"<br>
+                                4. Remplissez les détails du stage (titre, description, durée, etc.)<br>
+                                5. Publiez ! Votre offre sera visible par tous les étudiants.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment gérer les candidatures reçues ?</span>
+                            <span class="text-purple-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Dans votre tableau de bord, vous verrez toutes les candidatures reçues. Pour chaque
+                                candidature, vous pouvez :<br>
+                                • Consulter le profil de l'étudiant<br>
+                                • Télécharger son CV<br>
+                                • Accepter ou refuser la candidature<br>
+                                • Envoyer un message à l'étudiant</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Section: Services -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-orange-900 to-orange-800 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">🛠️ Services Annexes</h2>
+                </div>
+                <div class="divide-y divide-gray-700">
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment fonctionne le service de logement ?</span>
+                            <span class="text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Notre service de logement permet aux utilisateurs de poster des annonces de logement
+                                (studios, colocations, chambres). Les étudiants en recherche de stage peuvent ainsi
+                                trouver un logement adapté à leur période de stage en Guyane.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment fonctionne le covoiturage ?</span>
+                            <span class="text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Vous pouvez proposer ou rechercher des trajets partagés. C'est idéal pour les
+                                déplacements entre les communes de Guyane (Cayenne, Kourou, Saint-Laurent...) pour
+                                rejoindre votre lieu de stage.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Section: Contact -->
+            <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-red-900 to-red-800 px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">📞 Contact & Support</h2>
+                </div>
+                <div class="divide-y divide-gray-700">
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment contacter le support ?</span>
+                            <span class="text-red-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Vous pouvez nous contacter par :<br>
+                                • Email : <a href="mailto:support@yanapratik.gf"
+                                    class="text-blue-400 hover:underline">support@yanapratik.gf</a><br>
+                                • Téléphone : 0594 XX XX XX<br>
+                                • Formulaire de contact sur notre site</p>
+                        </div>
+                    </details>
+                    <details class="faq-item group">
+                        <summary
+                            class="px-6 py-4 cursor-pointer text-white font-medium hover:bg-gray-800 transition flex justify-between items-center">
+                            <span>Comment signaler un problème ou un abus ?</span>
+                            <span class="text-red-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-6 pb-4 text-gray-400">
+                            <p>Si vous constatez un problème, une offre frauduleuse ou un comportement inapproprié, vous
+                                pouvez utiliser le bouton "Signaler" présent sur chaque profil et chaque offre. Notre
+                                équipe examinera votre signalement dans les plus brefs délais.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div
+            class="mt-12 bg-gradient-to-r from-blue-900 to-purple-900 border border-blue-700 rounded-xl p-8 text-center">
+            <h3 class="text-2xl font-bold text-white mb-4">Vous n'avez pas trouvé votre réponse ?</h3>
+            <p class="text-gray-300 mb-6">Notre équipe est là pour vous aider !</p>
+            <a href="mailto:support@yanapratik.gf"
+                class="inline-flex items-center gap-2 bg-white text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition">
+                📧 Contactez-nous
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FAQ Search
+    document.getElementById('faq-search')?.addEventListener('input', function (e) {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? 'block' : 'none';
+        });
+    });
+</script>
+{% endblock %}

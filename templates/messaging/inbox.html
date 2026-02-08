@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold gradient-text uppercase tracking-tight">
+                Ma Messagerie
+            </h1>
+            <p class="text-gray-600 mt-1">Échangez avec les entreprises et les étudiants</p>
+        </div>
+    </div>
+
+    {% if conversations %}
+    <div class="space-y-2" id="conversations-list">
+        {% for conversation in conversations %}
+        {% with other=conversation.get_other_participant:request.user last_msg=conversation.get_last_message
+        unread=conversation.unread_count:request.user %}
+        <a href="{% url 'messaging:conversation' conversation.pk %}"
+            class="block glass border {% if unread > 0 %}border-primary-500 bg-primary-50{% else %}border-primary-200{% endif %} rounded-xl p-4 shadow-medium hover:shadow-strong transition hover:border-primary-400 animate-fade-in">
+            <div class="flex items-center gap-4">
+                <!-- Avatar -->
+                <div class="flex-shrink-0">
+                    {% if other.profile_pic %}
+                    <img src="{{ other.profile_pic.url }}" class="w-14 h-14 rounded-full object-cover"
+                        alt="{{ other.username }}">
+                    {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ other.username }}&background=2563eb&color=fff"
+                        class="w-14 h-14 rounded-full" alt="{{ other.username }}">
+                    {% endif %}
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-gray-900 font-bold truncate">{{ other.username }}</h3>
+                        {% if last_msg %}
+                        <span class="text-xs text-gray-500">{{ last_msg.created_at|timesince }}</span>
+                        {% endif %}
+                    </div>
+                    <p class="text-gray-600 text-sm truncate mt-1">
+                        {% if last_msg %}
+                        {% if last_msg.sender == request.user %}Vous: {% endif %}{{ last_msg.content|truncatechars:50 }}
+                        {% else %}
+                        Aucun message
+                        {% endif %}
+                    </p>
+                    {% if conversation.internship %}
+                    <span class="inline-block bg-primary-100 text-primary-700 text-xs px-2 py-0.5 rounded mt-2 font-medium">
+                        💼 {{ conversation.internship.title|truncatechars:30 }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Unread badge -->
+                {% if unread > 0 %}
+                <div class="flex-shrink-0">
+                    <span class="bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded-full">{{ unread }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </a>
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="glass border border-primary-200 rounded-xl p-12 text-center shadow-medium">
+        <div class="text-6xl mb-4">💬</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucune conversation</h3>
+        <p class="text-gray-600">Commencez une conversation en contactant une entreprise depuis une offre de stage.</p>
+        <a href="{% url 'internship_list' %}"
+            class="inline-block mt-6 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-6 rounded-lg shadow-medium hover:shadow-strong transition transform hover:-translate-y-1">
+            Voir les offres
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

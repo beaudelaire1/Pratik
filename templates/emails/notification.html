@@ -1,0 +1,30 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}{{ notification.title }} - Pratik{% endblock %}
+
+{% block content %}
+<h2>{{ notification.title }}</h2>
+
+<p>Bonjour {{ user.get_full_name|default:user.username }},</p>
+
+<p>{{ notification.message }}</p>
+
+{% if notification.link %}
+<div style="text-align: center;">
+    <a href="{{ site_url }}{{ notification.link }}" class="button">
+        Voir les détails
+    </a>
+</div>
+{% endif %}
+
+<div class="info-box">
+    <p style="margin: 0;">
+        <strong>💡 Conseil :</strong> Connectez-vous régulièrement à votre compte pour ne manquer aucune opportunité !
+    </p>
+</div>
+
+<p>
+    Cordialement,<br>
+    <strong>L'équipe Pratik</strong>
+</p>
+{% endblock %}

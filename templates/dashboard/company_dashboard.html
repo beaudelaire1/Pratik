@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Espace Recruteur</h1>
+                <p class="text-lg text-gray-600">Gérez vos offres et candidatures</p>
+            </div>
+            <a href="{% url 'internship_create' %}"
+                class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-strong hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <span class="mr-2 font-bold text-xl">+</span> Nouvelle Offre
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Mes Offres -->
+            <div class="glass rounded-2xl shadow-strong overflow-hidden flex flex-col border border-blue-100">
+                <div class="p-6 border-b border-blue-100 bg-gradient-to-r from-primary-50 to-blue-50 flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Mes Offres Actives</h2>
+                    <span class="bg-primary-100 text-primary-700 text-sm font-bold px-3 py-1 rounded-full">{{ internships.count }}</span>
+                </div>
+
+                <div class="p-6 space-y-4 overflow-y-auto max-h-[600px]">
+                    {% for internship in internships %}
+                    <div class="glass border border-blue-100 p-5 rounded-xl hover:shadow-medium transition-all group">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition">{{ internship.title }}</h3>
+                                <div class="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                                    <span>📍 {{ internship.location }}</span>
+                                    <span>📅 {{ internship.created_at|date:"d M" }}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <a href="{% url 'internship_detail' internship.slug %}"
+                                    class="text-gray-400 hover:text-primary-600 transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </a>
+                                <span class="text-xs bg-primary-100 text-primary-700 px-3 py-1 rounded-full font-semibold">{{ internship.applications.count }} candidats</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl" aria-hidden="true">📋</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Vous n'avez pas encore publié d'offres.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Dernières Candidatures -->
+            <div class="glass rounded-2xl shadow-strong overflow-hidden flex flex-col border border-blue-100">
+                <div class="p-6 border-b border-blue-100 bg-gradient-to-r from-primary-50 to-blue-50 flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Candidatures Reçues</h2>
+                    <span class="bg-accent-100 text-accent-700 text-sm font-bold px-3 py-1 rounded-full animate-pulse">Nouveau</span>
+                </div>
+
+                <div class="p-6 space-y-4 overflow-y-auto max-h-[600px]">
+                    {% for app in received_applications %}
+                    <div class="glass border border-blue-100 p-5 rounded-xl hover:shadow-medium transition-all">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 mr-3 flex items-center justify-center text-white font-bold text-lg shadow-medium">
+                                    {{ app.student.username|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <span class="font-bold text-gray-900 block">{{ app.student.username }}</span>
+                                    <span class="text-xs text-gray-500">{{ app.created_at|timesince }}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-accent-100 text-accent-700 px-3 py-1 rounded-full font-semibold">En attente</span>
+                        </div>
+
+                        <p class="text-sm text-gray-700 mb-3 border-l-2 border-primary-300 pl-3">
+                            Candidature pour : <span class="text-gray-900 font-semibold">{{ app.internship.title }}</span>
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4">
+                            <a href="{{ app.cv.url }}" target="_blank"
+                                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm font-bold text-center transition min-h-[48px] flex items-center justify-center touch-manipulation">
+                                📄 Voir CV
+                            </a>
+                            {% if app.status == 'pending' %}
+                            <button onclick="updateApplicationStatus({{ app.id }}, 'accept')"
+                                class="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 rounded-lg text-sm font-bold transition min-h-[48px] shadow-medium">
+                                ✓ Accepter
+                            </button>
+                            <button onclick="updateApplicationStatus({{ app.id }}, 'reject')"
+                                class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 rounded-lg text-sm font-bold transition min-h-[48px] shadow-medium">
+                                ✕ Refuser
+                            </button>
+                            {% else %}
+                            <span class="flex-1 text-center py-3 text-sm font-bold {% if app.status == 'accepted' %}text-green-600{% else %}text-red-600{% endif %}">
+                                {{ app.get_status_display }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl" aria-hidden="true">📭</span>
+                        </div>
+                        <p class="text-gray-600">Aucune candidature reçue pour le moment.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateApplicationStatus(applicationId, action) {
+    const actionText = action === 'accept' ? 'accepter' : 'refuser';
+    let message = '';
+    
+    if (action === 'reject') {
+        message = prompt('Raison du refus (optionnel) :');
+        if (message === null) return;
+    } else {
+        const addMessage = confirm('Voulez-vous ajouter un message personnalisé ?');
+        if (addMessage) {
+            message = prompt('Message pour le candidat :') || '';
+        }
+    }
+    
+    if (!confirm(`Êtes-vous sûr de vouloir ${actionText} cette candidature ?`)) {
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('action', action);
+    formData.append('message', message);
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    
+    fetch(`/applications/${applicationId}/update-status/`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert('Erreur: ' + (data.error || 'Une erreur est survenue'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Une erreur est survenue');
+    });
+}
+</script>
+{% endblock %}

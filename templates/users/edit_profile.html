@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="flex items-center gap-4 mb-8">
+            <a href="{% url 'profile' request.user.pk %}" 
+               class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold transition-all">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Retour
+            </a>
+            <h1 class="text-3xl font-extrabold text-gray-900">
+                Modifier mon <span class="text-primary-600">Profil</span>
+            </h1>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Photos Section -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-blue-100 pb-2 flex items-center">
+                    <span class="mr-2">📸</span> Photo & Identité
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Photo de profil</label>
+                        <input type="file" name="profile_picture" accept="image/*"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                        {% if user.profile_picture %}
+                        <p class="text-gray-500 text-xs mt-1">Photo actuelle: {{ user.profile_picture.name }}</p>
+                        {% endif %}
+                    </div>
+                    {% if user.is_company %}
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Logo entreprise</label>
+                        <input type="file" name="company_logo" accept="image/*"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Basic Info -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-blue-100 pb-2 flex items-center">
+                    <span class="mr-2">👤</span> Informations de base
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Prénom *</label>
+                        <input type="text" name="first_name" value="{{ user.first_name }}" required
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Nom *</label>
+                        <input type="text" name="last_name" value="{{ user.last_name }}" required
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Bio</label>
+                        <textarea name="bio" rows="3"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">{{ user.bio }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-blue-100 pb-2 flex items-center">
+                    <span class="mr-2">📞</span> Contact
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Téléphone</label>
+                        <input type="tel" name="phone" value="{{ user.phone }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Localisation</label>
+                        <input type="text" name="location" value="{{ user.location }}" placeholder="Cayenne, Guyane"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Site web</label>
+                        <input type="url" name="website" value="{{ user.website }}" placeholder="https://"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">LinkedIn</label>
+                        <input type="url" name="linkedin" value="{{ user.linkedin }}"
+                            placeholder="https://linkedin.com/in/..."
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_student %}
+            <!-- Student Section -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-blue-100 pb-2 flex items-center">
+                    <span class="mr-2">🎓</span> Formation & Compétences
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">École / Université</label>
+                        <input type="text" name="school" value="{{ user.school }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Domaine d'études</label>
+                        <input type="text" name="field_of_study" value="{{ user.field_of_study }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Année d'obtention du diplôme</label>
+                        <input type="number" name="graduation_year" value="{{ user.graduation_year }}" min="2020" max="2030"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">URL Portfolio</label>
+                        <input type="url" name="portfolio_url" value="{{ user.portfolio_url }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Compétences</label>
+                        <input type="text" name="skills" value="{{ user.skills }}"
+                            placeholder="Python, JavaScript, Design..."
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                        <p class="text-gray-500 text-xs mt-1">Séparez chaque compétence par une virgule</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Langues</label>
+                        <input type="text" name="languages" value="{{ user.languages }}"
+                            placeholder="Français, Anglais, Créole..."
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">CV (PDF)</label>
+                        <input type="file" name="cv" accept=".pdf,.doc,.docx"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-2 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div class="flex items-center">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" name="looking_for_internship" {% if user.looking_for_internship %}checked{% endif %}
+                                class="w-5 h-5 bg-white border-primary-300 rounded text-primary-600 focus:ring-primary-500">
+                            <span class="text-gray-700">Je recherche actuellement un stage</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {% elif user.is_company %}
+            <!-- Company Section -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="text-gray-900 font-bold mb-4 border-b border-blue-100 pb-2 flex items-center">
+                    <span class="mr-2">🏢</span> Informations entreprise
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Nom de l'entreprise *</label>
+                        <input type="text" name="company_name" value="{{ user.company_name }}" required
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">SIRET</label>
+                        <input type="text" name="siret" value="{{ user.siret }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Secteur d'activité</label>
+                        <input type="text" name="industry" value="{{ user.industry }}"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Taille de l'entreprise</label>
+                        <select name="company_size"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">
+                            <option value="">Sélectionner</option>
+                            <option value="1-10" {% if user.company_size=='1-10' %}selected{% endif %}>1-10 employés</option>
+                            <option value="11-50" {% if user.company_size=='11-50' %}selected{% endif %}>11-50 employés</option>
+                            <option value="51-200" {% if user.company_size=='51-200' %}selected{% endif %}>51-200 employés</option>
+                            <option value="200+" {% if user.company_size=='200+' %}selected{% endif %}>200+ employés</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Description de l'entreprise</label>
+                        <textarea name="company_description" rows="4"
+                            class="w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition">{{ user.company_description }}</textarea>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Submit -->
+            <div class="flex gap-4">
+                <a href="{% url 'profile' request.user.pk %}"
+                    class="flex-1 text-center bg-white border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-bold py-3 px-6 rounded-xl transition shadow-soft">
+                    Annuler
+                </a>
+                <button type="submit"
+                    class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-3 px-6 rounded-xl transition shadow-medium hover:shadow-strong">
+                    💾 Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+        {% csrf_token %}
+
+        <!-- Photos Section -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2">📸 Photo & Identité</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Photo de profil</label>
+                    <input type="file" name="profile_picture" accept="image/*"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                    {% if user.profile_picture %}
+                    <p class="text-gray-500 text-xs mt-1">Photo actuelle: {{ user.profile_picture.name }}</p>
+                    {% endif %}
+                </div>
+                {% if user.is_company %}
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Logo entreprise</label>
+                    <input type="file" name="company_logo" accept="image/*"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2">👤 Informations de base</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Prénom *</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" required
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Nom *</label>
+                    <input type="text" name="last_name" value="{{ user.last_name }}" required
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Bio</label>
+                    <textarea name="bio" rows="3"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">{{ user.bio }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2">📞 Contact</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Téléphone</label>
+                    <input type="tel" name="phone" value="{{ user.phone }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Localisation</label>
+                    <input type="text" name="location" value="{{ user.location }}" placeholder="Cayenne, Guyane"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Site web</label>
+                    <input type="url" name="website" value="{{ user.website }}" placeholder="https://"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">LinkedIn</label>
+                    <input type="url" name="linkedin" value="{{ user.linkedin }}"
+                        placeholder="https://linkedin.com/in/..."
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_student %}
+        <!-- Student Section -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2">🎓 Formation & Compétences</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">École / Université</label>
+                    <input type="text" name="school" value="{{ user.school }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Domaine d'études</label>
+                    <input type="text" name="field_of_study" value="{{ user.field_of_study }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Année d'obtention du diplôme</label>
+                    <input type="number" name="graduation_year" value="{{ user.graduation_year }}" min="2020" max="2030"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">URL Portfolio</label>
+                    <input type="url" name="portfolio_url" value="{{ user.portfolio_url }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Compétences</label>
+                    <input type="text" name="skills" value="{{ user.skills }}"
+                        placeholder="Python, JavaScript, Design..."
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                    <p class="text-gray-500 text-xs mt-1">Séparez chaque compétence par une virgule</p>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Langues</label>
+                    <input type="text" name="languages" value="{{ user.languages }}"
+                        placeholder="Français, Anglais, Créole..."
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">CV (PDF)</label>
+                    <input type="file" name="cv" accept=".pdf,.doc,.docx"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                </div>
+                <div class="flex items-center">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" name="looking_for_internship" {% if user.looking_for_internship
+                            %}checked{% endif %}
+                            class="w-5 h-5 bg-gray-800 border-gray-600 rounded text-blue-500 focus:ring-blue-500">
+                        <span class="text-gray-300">Je recherche actuellement un stage</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        {% elif user.is_company %}
+        <!-- Company Section -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2">🏢 Informations entreprise</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Nom de l'entreprise *</label>
+                    <input type="text" name="company_name" value="{{ user.company_name }}" required
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">SIRET</label>
+                    <input type="text" name="siret" value="{{ user.siret }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Secteur d'activité</label>
+                    <input type="text" name="industry" value="{{ user.industry }}"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Taille de l'entreprise</label>
+                    <select name="company_size"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">
+                        <option value="">Sélectionner</option>
+                        <option value="1-10" {% if user.company_size=='1-10' %}selected{% endif %}>1-10 employés
+                        </option>
+                        <option value="11-50" {% if user.company_size=='11-50' %}selected{% endif %}>11-50 employés
+                        </option>
+                        <option value="51-200" {% if user.company_size=='51-200' %}selected{% endif %}>51-200 employés
+                        </option>
+                        <option value="200+" {% if user.company_size=='200+' %}selected{% endif %}>200+ employés
+                        </option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-gray-400 text-sm font-bold mb-2">Description de l'entreprise</label>
+                    <textarea name="company_description" rows="4"
+                        class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none">{{ user.company_description }}</textarea>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Submit -->
+        <div class="flex gap-4">
+            <a href="{% url 'profile' request.user.pk %}"
+                class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition text-center">
+                Annuler
+            </a>
+            <button type="submit"
+                class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition">
+                💾 Enregistrer
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

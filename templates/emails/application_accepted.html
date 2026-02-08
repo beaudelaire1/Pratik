@@ -1,0 +1,44 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Candidature acceptée - {{ internship.title }}{% endblock %}
+
+{% block content %}
+<h2>✅ Félicitations ! Votre candidature a été acceptée</h2>
+
+<p>Bonjour {{ student.get_full_name|default:student.username }},</p>
+
+<p>
+    Excellente nouvelle ! Votre candidature pour le stage 
+    <strong>{{ internship.title }}</strong> chez <strong>{{ company.company_name|default:company.username }}</strong> 
+    a été acceptée.
+</p>
+
+{% if application.response_message %}
+<div class="info-box">
+    <p style="margin: 0;"><strong>Message de l'entreprise :</strong></p>
+    <p style="margin: 10px 0 0 0; white-space: pre-line;">{{ application.response_message }}</p>
+</div>
+{% endif %}
+
+<div style="text-align: center;">
+    <a href="{{ site_url }}/dashboard/" class="button">
+        Voir ma candidature
+    </a>
+</div>
+
+<p><strong>Prochaines étapes :</strong></p>
+<ul>
+    <li>L'entreprise vous contactera prochainement pour les détails</li>
+    <li>Préparez vos documents (convention de stage, etc.)</li>
+    <li>Restez disponible pour un éventuel entretien</li>
+</ul>
+
+<p style="font-size: 14px; color: #6b7280;">
+    <strong>💡 Conseil :</strong> Consultez nos guides pour bien préparer votre stage !
+</p>
+
+<p>
+    Toute l'équipe vous félicite !<br>
+    <strong>L'équipe Pratik</strong>
+</p>
+{% endblock %}

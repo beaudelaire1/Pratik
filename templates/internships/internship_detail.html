@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass rounded-2xl shadow-strong overflow-hidden border border-blue-100">
+            <!-- Header -->
+            <div class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-navy-800 p-8 md:p-12 overflow-hidden">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-white rounded-full filter blur-2xl"></div>
+                    <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent-400 rounded-full filter blur-2xl"></div>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+                        <div class="flex-1">
+                            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 leading-tight">{{ internship.title }}</h1>
+                            <div class="flex items-center text-xl text-blue-100 font-semibold">
+                                <span class="mr-2" aria-hidden="true">🏢</span> {{ internship.company.username }}
+                            </div>
+                        </div>
+
+                        {% if user == internship.company %}
+                        <a href="#"
+                            class="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/30 shadow-medium transition-all">
+                            Modifier l'offre
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30 shadow-soft font-medium">
+                            📍 {{ internship.location }}
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30 shadow-soft font-medium">
+                            ⏱ {{ internship.duration }}
+                        </span>
+                        {% if internship.salary %}
+                        <span class="inline-flex items-center px-4 py-2 bg-accent-500/30 backdrop-blur-sm text-white rounded-full border border-accent-400/50 shadow-soft font-medium">
+                            💰 {{ internship.salary }}
+                        </span>
+                        {% endif %}
+                        <span class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30 shadow-soft font-medium">
+                            📅 Publié {{ internship.created_at|timesince }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 md:p-12 bg-white">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-primary-600 pl-4">
+                    Description du poste
+                </h3>
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
+                    {{ internship.description|linebreaks }}
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-8 border-t border-blue-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                <a href="{% url 'internship_list' %}"
+                    class="inline-flex items-center text-gray-600 hover:text-primary-600 font-semibold transition-all">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Retour aux offres
+                </a>
+
+                {% if user.is_authenticated %}
+                {% if user.user_type == 'student' %}
+                <a href="{% url 'apply_internship' internship.slug %}"
+                    class="w-full md:w-auto text-center inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl transition-all shadow-strong hover:shadow-xl transform hover:-translate-y-1">
+                    Postuler maintenant
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'login' %}?next={{ request.path }}"
+                    class="w-full md:w-auto text-center inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-50 text-primary-600 font-bold rounded-xl transition-all border-2 border-primary-200 shadow-medium">
+                    Connectez-vous pour postuler
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Company Info Card -->
+        <div class="mt-8 glass rounded-2xl p-8 shadow-medium border border-blue-100">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">À propos de l'entreprise</h3>
+            <div class="flex items-start gap-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-primary-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <img src="https://ui-avatars.com/api/?name={{ internship.company.username }}&background=2563eb&color=fff&bold=true&size=64"
+                        class="w-14 h-14 rounded-lg" alt="{{ internship.company.username }}">
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-1">{{ internship.company.username }}</h4>
+                    <p class="text-gray-600">Entreprise basée en Guyane française</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

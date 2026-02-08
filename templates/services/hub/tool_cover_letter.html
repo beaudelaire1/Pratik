@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 border-b border-gray-700">
+            <h1 class="text-3xl font-extrabold text-white mb-2 uppercase tracking-tight">
+                Touche Magique <span class="text-purple-400">Lettre de Motivation</span>
+            </h1>
+            <p class="text-gray-300">Créez une lettre de motivation percutante en quelques minutes.</p>
+        </div>
+
+        <!-- Template Selection -->
+        <div class="p-6 bg-gray-800/50 border-b border-gray-700">
+            <h3 class="text-white font-bold mb-4">Choisissez un modèle par secteur :</h3>
+            <div class="flex flex-wrap gap-2">
+                <button class="template-btn active bg-purple-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="general">
+                    📋 Général
+                </button>
+                <button
+                    class="template-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="informatique">
+                    💻 Informatique
+                </button>
+                <button
+                    class="template-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="commerce">
+                    🏪 Commerce
+                </button>
+                <button
+                    class="template-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="sante">
+                    🏥 Santé
+                </button>
+                <button
+                    class="template-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="btp">
+                    🏗️ BTP
+                </button>
+                <button
+                    class="template-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                    data-template="tourisme">
+                    ✈️ Tourisme
+                </button>
+            </div>
+        </div>
+
+        <form id="cover-letter-form" class="p-8 space-y-8">
+            <!-- Your Information -->
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                    <span class="text-2xl mr-3">👤</span> Vos Informations
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Prénom Nom *</label>
+                        <input type="text" name="sender_name" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Jean Dupont">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Email *</label>
+                        <input type="email" name="sender_email" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="jean.dupont@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Téléphone</label>
+                        <input type="tel" name="sender_phone"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="0694 12 34 56">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Ville</label>
+                        <input type="text" name="sender_city"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Cayenne">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Information -->
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                    <span class="text-2xl mr-3">🏢</span> L'Entreprise
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Nom de l'entreprise *</label>
+                        <input type="text" name="company_name" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Société ABC">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Nom du recruteur (si connu)</label>
+                        <input type="text" name="recruiter_name"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="M./Mme X">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Poste visé *</label>
+                        <input type="text" name="position" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Stagiaire Développeur Web">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Your Profile -->
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                    <span class="text-2xl mr-3">✨</span> Votre Profil
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Formation actuelle *</label>
+                        <input type="text" name="current_education" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Licence 3 Informatique à l'Université de Guyane">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Vos 3 principales compétences
+                            *</label>
+                        <input type="text" name="main_skills" required
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Python, travail d'équipe, créativité">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Pourquoi cette entreprise vous
+                            intéresse ?</label>
+                        <textarea name="why_company" rows="3"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Ce qui vous attire dans cette entreprise, ses valeurs, ses projets..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Ce que vous pouvez apporter</label>
+                        <textarea name="what_you_bring" rows="3"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                            placeholder="Votre motivation, vos idées, votre énergie..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internship Details -->
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                    <span class="text-2xl mr-3">📅</span> Détails du Stage
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Durée souhaitée</label>
+                        <select name="duration"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition">
+                            <option value="">Sélectionnez...</option>
+                            <option value="1 mois">1 mois</option>
+                            <option value="2 mois">2 mois</option>
+                            <option value="3 mois">3 mois</option>
+                            <option value="4 mois">4 mois</option>
+                            <option value="5 mois">5 mois</option>
+                            <option value="6 mois">6 mois</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-bold mb-2">Date de début souhaitée</label>
+                        <input type="date" name="start_date"
+                            class="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="pt-6 border-t border-gray-700">
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 rounded-lg shadow-lg transition text-lg uppercase tracking-wide">
+                    ✨ Générer ma lettre de motivation
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Letter Preview Modal -->
+    <div id="letter-preview-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-auto">
+            <div class="p-8" id="letter-preview-content">
+                <!-- Letter will be generated here -->
+            </div>
+            <div class="border-t p-4 flex justify-end gap-4 bg-gray-50">
+                <button type="button" id="close-letter-preview"
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">
+                    Fermer
+                </button>
+                <button type="button" id="copy-letter"
+                    class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-6 rounded-lg transition">
+                    📋 Copier le texte
+                </button>
+                <button type="button" id="print-letter"
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-lg transition">
+                    📄 Imprimer / PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let selectedTemplate = 'general';
+
+        // Template selection
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.template-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-purple-600');
+                    b.classList.add('bg-gray-700');
+                });
+                this.classList.add('active', 'bg-purple-600');
+                this.classList.remove('bg-gray-700');
+                selectedTemplate = this.dataset.template;
+            });
+        });
+
+        // Generate letter
+        document.getElementById('cover-letter-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const today = new Date().toLocaleDateString('fr-FR', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            const recruiterGreeting = formData.get('recruiter_name')
+                ? `${formData.get('recruiter_name')},`
+                : 'Madame, Monsieur,';
+
+            const letterContent = `
+            <div class="text-gray-900 leading-relaxed">
+                <div class="flex justify-between mb-8">
+                    <div>
+                        <p class="font-bold">${formData.get('sender_name')}</p>
+                        <p>${formData.get('sender_email')}</p>
+                        ${formData.get('sender_phone') ? `<p>${formData.get('sender_phone')}</p>` : ''}
+                        ${formData.get('sender_city') ? `<p>${formData.get('sender_city')}</p>` : ''}
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold">${formData.get('company_name')}</p>
+                        <p class="text-gray-600">${today}</p>
+                    </div>
+                </div>
+
+                <p class="font-bold mb-4">Objet : Candidature pour un stage de ${formData.get('position')}</p>
+
+                <p class="mb-4">${recruiterGreeting}</p>
+
+                <p class="mb-4">
+                    Actuellement ${formData.get('current_education')}, je suis à la recherche d'un stage 
+                    ${formData.get('duration') ? `d'une durée de ${formData.get('duration')}` : ''} 
+                    ${formData.get('start_date') ? `à partir du ${new Date(formData.get('start_date')).toLocaleDateString('fr-FR')}` : ''} 
+                    en tant que ${formData.get('position')}. C'est avec un grand intérêt que je vous soumets ma candidature.
+                </p>
+
+                ${formData.get('why_company') ? `
+                <p class="mb-4">
+                    Votre entreprise ${formData.get('company_name')} m'attire particulièrement car ${formData.get('why_company').toLowerCase()}.
+                </p>
+                ` : ''}
+
+                <p class="mb-4">
+                    Au cours de ma formation, j'ai pu développer des compétences solides, notamment en ${formData.get('main_skills')}. 
+                    Ces acquis, combinés à ma motivation et ma capacité d'adaptation, me permettront de m'intégrer 
+                    rapidement à votre équipe et de contribuer efficacement à vos projets.
+                </p>
+
+                ${formData.get('what_you_bring') ? `
+                <p class="mb-4">
+                    Au-delà de mes compétences techniques, ${formData.get('what_you_bring').toLowerCase()}.
+                </p>
+                ` : ''}
+
+                <p class="mb-4">
+                    Je serais ravi(e) de vous rencontrer afin de vous exposer plus en détail mes motivations 
+                    et de discuter des contributions que je pourrais apporter à ${formData.get('company_name')}.
+                </p>
+
+                <p class="mb-4">
+                    Dans l'attente de votre réponse, je vous prie d'agréer, ${recruiterGreeting.replace(',', '')} 
+                    l'expression de mes salutations distinguées.
+                </p>
+
+                <p class="mt-8 font-bold">${formData.get('sender_name')}</p>
+            </div>
+        `;
+
+            document.getElementById('letter-preview-content').innerHTML = letterContent;
+            document.getElementById('letter-preview-modal').classList.remove('hidden');
+            document.getElementById('letter-preview-modal').classList.add('flex');
+        });
+
+        // Close preview
+        document.getElementById('close-letter-preview').addEventListener('click', function () {
+            document.getElementById('letter-preview-modal').classList.add('hidden');
+            document.getElementById('letter-preview-modal').classList.remove('flex');
+        });
+
+        // Copy letter
+        document.getElementById('copy-letter').addEventListener('click', function () {
+            const content = document.getElementById('letter-preview-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                this.textContent = '✅ Copié !';
+                setTimeout(() => { this.textContent = '📋 Copier le texte'; }, 2000);
+            });
+        });
+
+        // Print letter
+        document.getElementById('print-letter').addEventListener('click', function () {
+            const content = document.getElementById('letter-preview-content').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Lettre de motivation - Pratik</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+                    p { margin-bottom: 1em; }
+                    .font-bold { font-weight: bold; }
+                </style>
+            </head>
+            <body>${content}</body>
+            </html>
+        `);
+            printWindow.document.close();
+            printWindow.print();
+        });
+    });
+</script>
+{% endblock %}
