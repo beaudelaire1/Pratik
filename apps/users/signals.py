@@ -1,12 +1,24 @@
 """
 Django Signals for User-related Models
 """
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from apps.users.models import CustomUser
 from apps.users.profile_models import StudentProfile
 from apps.recommendations.models import InternRecommendation
 from apps.verification.models import VerificationDocument
+
+
+@receiver(pre_save, sender=CustomUser)
+def sync_superuser_type(sender, instance, **kwargs):
+    """
+    Ensure superusers and staff always have user_type='admin'.
+    This prevents the dashboard from showing the wrong view
+    when a superuser is created via createsuperuser (which
+    defaults user_type to 'student').
+    """
+    if instance.is_superuser and instance.user_type != 'admin':
+        instance.user_type = 'admin'
 
 
 @receiver(post_save, sender=StudentProfile)

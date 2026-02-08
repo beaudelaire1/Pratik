@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center gap-4 mb-8">
+        <a href="{% url 'company_internship_list' %}" class="text-primary-600 hover:text-primary-700 font-semibold">← Retour</a>
+        <h1 class="text-3xl font-extrabold text-gray-900">{{ internship.title }}</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Détails de l'offre -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Description</h2>
+                <p class="text-gray-700 whitespace-pre-line">{{ internship.description }}</p>
+                <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
+                    <div><span class="text-gray-500">📍 Lieu:</span> <span class="font-semibold text-gray-900">{{ internship.location }}</span></div>
+                    <div><span class="text-gray-500">⏱ Durée:</span> <span class="font-semibold text-gray-900">{{ internship.duration }}</span></div>
+                    {% if internship.salary %}<div><span class="text-gray-500">💰 Rémunération:</span> <span class="font-semibold text-gray-900">{{ internship.salary }}€</span></div>{% endif %}
+                    <div><span class="text-gray-500">📅 Publiée le:</span> <span class="font-semibold text-gray-900">{{ internship.created_at|date:"d/m/Y" }}</span></div>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <a href="{% url 'company_internship_edit' internship.slug %}" class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg transition">✏️ Modifier</a>
+                    <a href="{% url 'company_internship_delete' internship.slug %}" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition">🗑 Supprimer</a>
+                </div>
+            </div>
+
+            <!-- Candidatures -->
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Candidatures ({{ applications.count }})</h2>
+                <div class="space-y-3">
+                    {% for app in applications %}
+                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold">
+                                    {{ app.student.first_name|slice:":1" }}{{ app.student.last_name|slice:":1" }}
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-900">{{ app.student.get_full_name|default:app.student.username }}</p>
+                                    <p class="text-sm text-gray-500">{{ app.created_at|date:"d/m/Y H:i" }}</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold
+                                {% if app.status == 'pending' %}bg-yellow-100 text-yellow-700
+                                {% elif app.status == 'accepted' %}bg-green-100 text-green-700
+                                {% else %}bg-red-100 text-red-700{% endif %}">
+                                {{ app.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500 text-center py-8">Aucune candidature reçue.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Stats -->
+        <div class="space-y-6">
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="font-bold text-gray-900 mb-4">Statistiques</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between"><span class="text-gray-600">En attente</span><span class="font-bold text-yellow-600">{{ pending_count }}</span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">Acceptées</span><span class="font-bold text-green-600">{{ accepted_count }}</span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">Refusées</span><span class="font-bold text-red-600">{{ rejected_count }}</span></div>
+                </div>
+            </div>
+            <div class="glass border border-blue-100 rounded-2xl p-6 shadow-medium">
+                <h3 class="font-bold text-gray-900 mb-4">Statut</h3>
+                {% if internship.is_active %}
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">Active</span>
+                {% else %}
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-bold">Inactive</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold text-gray-900">Candidatures reçues</h1>
+            <p class="text-gray-600 mt-1">{{ total_count }} candidature{{ total_count|pluralize }}</p>
+        </div>
+        <a href="{% url 'dashboard' %}" class="text-primary-600 hover:text-primary-700 font-semibold">← Dashboard</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-soft">
+            <p class="text-sm text-gray-600">Total</p>
+            <p class="text-2xl font-bold text-gray-900">{{ total_count }}</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-yellow-100 shadow-soft">
+            <p class="text-sm text-gray-600">En attente</p>
+            <p class="text-2xl font-bold text-yellow-600">{{ pending_count }}</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-green-100 shadow-soft">
+            <p class="text-sm text-gray-600">Acceptées</p>
+            <p class="text-2xl font-bold text-green-600">{{ accepted_count }}</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-red-100 shadow-soft">
+            <p class="text-sm text-gray-600">Refusées</p>
+            <p class="text-2xl font-bold text-red-600">{{ rejected_count }}</p>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-soft">
+        <form method="GET" class="flex flex-wrap gap-4 items-end">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Statut</label>
+                <select name="status" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                    <option value="">Tous</option>
+                    <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>En attente</option>
+                    <option value="accepted" {% if request.GET.status == 'accepted' %}selected{% endif %}>Acceptées</option>
+                    <option value="rejected" {% if request.GET.status == 'rejected' %}selected{% endif %}>Refusées</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Offre</label>
+                <select name="internship" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                    <option value="">Toutes</option>
+                    {% for internship in internships %}
+                    <option value="{{ internship.pk }}" {% if request.GET.internship == internship.pk|stringformat:"d" %}selected{% endif %}>{{ internship.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg font-bold text-sm hover:bg-primary-700 transition">Filtrer</button>
+        </form>
+    </div>
+
+    <!-- Applications List -->
+    <div class="bg-white rounded-xl shadow-soft overflow-hidden border border-gray-100">
+        <div class="divide-y divide-gray-100">
+            {% for app in applications %}
+            <div class="p-5 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold text-lg">
+                            {{ app.student.first_name|slice:":1" }}{{ app.student.last_name|slice:":1" }}
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">{{ app.student.get_full_name|default:app.student.username }}</p>
+                            <p class="text-sm text-gray-500">Pour: {{ app.internship.title }}</p>
+                            <p class="text-xs text-gray-400">{{ app.created_at|date:"d/m/Y H:i" }}</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold
+                        {% if app.status == 'pending' %}bg-yellow-100 text-yellow-700
+                        {% elif app.status == 'accepted' %}bg-green-100 text-green-700
+                        {% else %}bg-red-100 text-red-700{% endif %}">
+                        {{ app.get_status_display }}
+                    </span>
+                </div>
+            </div>
+            {% empty %}
+            <div class="p-12 text-center">
+                <span class="text-4xl block mb-4">📭</span>
+                <p class="text-gray-500">Aucune candidature trouvée.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if is_paginated %}
+    <div class="flex justify-center mt-8 gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Précédent</a>
+        {% endif %}
+        <span class="px-4 py-2 bg-primary-600 text-white rounded-lg font-bold">{{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Suivant</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

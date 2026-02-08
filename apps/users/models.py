@@ -14,6 +14,9 @@ from .profile_models import (
     PartnerProfile,
 )
 
+# Import document model
+from .models_documents import UserDocument
+
 
 class CustomUser(AbstractUser):
     """

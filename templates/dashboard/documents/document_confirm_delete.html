@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="glass border border-red-200 rounded-2xl p-8 shadow-medium text-center">
+        <span class="text-5xl block mb-4">🗑️</span>
+        <h1 class="text-2xl font-extrabold text-gray-900 mb-2">Supprimer ce document ?</h1>
+        <p class="text-gray-600 mb-6">« {{ object.title }} » sera définitivement supprimé.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="flex gap-4">
+                <a href="{% url 'document_list' %}" class="flex-1 bg-white border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-bold py-3 rounded-xl transition">Annuler</a>
+                <button type="submit" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition">Supprimer</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

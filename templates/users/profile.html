@@ -9,8 +9,8 @@
         <div class="px-6 pb-6 relative">
             <!-- Avatar -->
             <div class="absolute -top-16 left-6">
-                {% if user.profile_picture %}
-                <img src="{{ user.profile_picture.url }}"
+                {% if user.avatar %}
+                <img src="{{ user.avatar.url }}"
                     class="w-32 h-32 rounded-full border-4 border-white object-cover shadow-strong"
                     alt="{{ user.get_display_name }}">
                 {% elif user.company_logo %}

@@ -25,9 +25,30 @@ from .views_partner import (
     EventListView, EventCreateView, EventUpdateView,
     EventDeleteView, EventDetailView
 )
+from .views_company import (
+    InternshipManageListView, InternshipManageCreateView, InternshipManageUpdateView,
+    InternshipManageDeleteView, InternshipManageDetailView, ApplicationManageListView
+)
+from .views_documents import (
+    DocumentListView, DocumentCreateView, DocumentDetailView, DocumentDeleteView
+)
+from .views_admin import (
+    AdminDocumentListView, AdminDocumentDetailView,
+    AdminDocumentApproveView, AdminDocumentRejectView,
+    AdminUserVerificationListView, AdminUserVerificationDetailView,
+    AdminVerifyUserView,
+)
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),
+    
+    # Entreprise/Recruteur - Gestion des offres
+    path('company/internships/', InternshipManageListView.as_view(), name='company_internship_list'),
+    path('company/internships/create/', InternshipManageCreateView.as_view(), name='company_internship_create'),
+    path('company/internships/<slug:slug>/', InternshipManageDetailView.as_view(), name='company_internship_detail'),
+    path('company/internships/<slug:slug>/edit/', InternshipManageUpdateView.as_view(), name='company_internship_edit'),
+    path('company/internships/<slug:slug>/delete/', InternshipManageDeleteView.as_view(), name='company_internship_delete'),
+    path('company/applications/', ApplicationManageListView.as_view(), name='company_application_list'),
     
     # École - Gestion des enseignants
     path('school/teachers/', TeacherListView.as_view(), name='school_teacher_list'),
@@ -80,4 +101,21 @@ urlpatterns = [
     path('partner/events/<int:pk>/', EventDetailView.as_view(), name='partner_event_detail'),
     path('partner/events/<int:pk>/edit/', EventUpdateView.as_view(), name='partner_event_edit'),
     path('partner/events/<int:pk>/delete/', EventDeleteView.as_view(), name='partner_event_delete'),
+    
+    # Documents - Gestion des documents (tous types d'utilisateurs)
+    path('documents/', DocumentListView.as_view(), name='document_list'),
+    path('documents/add/', DocumentCreateView.as_view(), name='document_create'),
+    path('documents/<int:pk>/', DocumentDetailView.as_view(), name='document_detail'),
+    path('documents/<int:pk>/delete/', DocumentDeleteView.as_view(), name='document_delete'),
+    
+    # Admin - Vérification des documents
+    path('admin/documents/', AdminDocumentListView.as_view(), name='admin_document_list'),
+    path('admin/documents/<int:pk>/', AdminDocumentDetailView.as_view(), name='admin_document_detail'),
+    path('admin/documents/<int:pk>/approve/', AdminDocumentApproveView.as_view(), name='admin_document_approve'),
+    path('admin/documents/<int:pk>/reject/', AdminDocumentRejectView.as_view(), name='admin_document_reject'),
+    
+    # Admin - Vérification des profils
+    path('admin/verifications/', AdminUserVerificationListView.as_view(), name='admin_user_verification_list'),
+    path('admin/verifications/<int:pk>/', AdminUserVerificationDetailView.as_view(), name='admin_user_verification_detail'),
+    path('admin/verifications/<int:pk>/action/', AdminVerifyUserView.as_view(), name='admin_verify_user'),
 ]

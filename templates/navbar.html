@@ -74,8 +74,8 @@
                             aria-expanded="false"
                             aria-haspopup="true">
                         <div class="w-9 h-9 bg-gradient-to-br from-navy-600 to-navy-800 rounded-full flex items-center justify-center overflow-hidden ring-2 ring-blue-100">
-                            {% if user.profile_picture %}
-                            <img src="{{ user.profile_picture.url }}" class="w-full h-full object-cover" alt="">
+                            {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" class="w-full h-full object-cover" alt="">
                             {% else %}
                             <span class="text-white font-bold text-sm">{{ user.username|slice:":1"|upper }}</span>
                             {% endif %}
