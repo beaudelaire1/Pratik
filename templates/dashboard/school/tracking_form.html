@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+            {% if object %}Modifier le suivi de stage{% else %}Nouveau suivi de stage{% endif %}
+        </h1>
+        <p class="text-gray-600">Suivez l'évolution de vos étudiants en stage</p>
+    </div>
+
+    <!-- Form -->
+    <div class="bg-white rounded-xl shadow-soft p-8 border border-gray-100">
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <!-- Student -->
+            <div>
+                <label for="{{ form.student.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Étudiant <span class="text-red-500">*</span>
+                </label>
+                {% render_field form.student class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" %}
+                {% if form.student.errors %}
+                <p class="mt-2 text-sm text-red-600">{{ form.student.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Internship (optional) -->
+            <div>
+                <label for="{{ form.internship.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Offre de stage (optionnel)
+                </label>
+                {% render_field form.internship class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" %}
+                <p class="mt-1 text-xs text-gray-500">Si le stage provient d'une offre sur la plateforme</p>
+                {% if form.internship.errors %}
+                <p class="mt-2 text-sm text-red-600">{{ form.internship.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Company Name & Position -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="{{ form.company_name.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Nom de l'entreprise <span class="text-red-500">*</span>
+                    </label>
+                    {% render_field form.company_name class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Ex: Entreprise XYZ" %}
+                    {% if form.company_name.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.company_name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.position.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Poste <span class="text-red-500">*</span>
+                    </label>
+                    {% render_field form.position class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Ex: Développeur Web" %}
+                    {% if form.position.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.position.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Dates -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="{{ form.start_date.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Date de début <span class="text-red-500">*</span>
+                    </label>
+                    {% render_field form.start_date class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" type="date" %}
+                    {% if form.start_date.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.start_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.end_date.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Date de fin <span class="text-red-500">*</span>
+                    </label>
+                    {% render_field form.end_date class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" type="date" %}
+                    {% if form.end_date.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ form.end_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <label for="{{ form.status.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Statut <span class="text-red-500">*</span>
+                </label>
+                {% render_field form.status class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" %}
+                {% if form.status.errors %}
+                <p class="mt-2 text-sm text-red-600">{{ form.status.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label for="{{ form.notes.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Notes internes
+                </label>
+                {% render_field form.notes class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" rows="4" placeholder="Notes de suivi, observations..." %}
+                {% if form.notes.errors %}
+                <p class="mt-2 text-sm text-red-600">{{ form.notes.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            {% if object %}
+            <!-- Evaluations (only for edit) -->
+            <div class="border-t border-gray-200 pt-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Évaluations</h3>
+                
+                <div class="space-y-6">
+                    <!-- Mid-term Evaluation -->
+                    <div>
+                        <label for="{{ form.mid_term_evaluation.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Évaluation mi-parcours
+                        </label>
+                        {% render_field form.mid_term_evaluation class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" rows="4" %}
+                        {% if form.mid_term_evaluation.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.mid_term_evaluation.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.mid_term_evaluation_date.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Date évaluation mi-parcours
+                        </label>
+                        {% render_field form.mid_term_evaluation_date class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" type="date" %}
+                    </div>
+
+                    <!-- Final Evaluation -->
+                    <div>
+                        <label for="{{ form.final_evaluation.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Évaluation finale
+                        </label>
+                        {% render_field form.final_evaluation class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" rows="4" %}
+                        {% if form.final_evaluation.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.final_evaluation.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.final_evaluation_date.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Date évaluation finale
+                        </label>
+                        {% render_field form.final_evaluation_date class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" type="date" %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Convention -->
+            <div class="border-t border-gray-200 pt-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Convention de stage</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        {% render_field form.convention_signed class="w-5 h-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500" %}
+                        <label for="{{ form.convention_signed.id_for_label }}" class="ml-3 text-sm font-medium text-gray-700">
+                            Convention signée
+                        </label>
+                    </div>
+
+                    <div>
+                        <label for="{{ form.convention_file.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Fichier de la convention
+                        </label>
+                        {% render_field form.convention_file class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent" %}
+                        {% if object.convention_file %}
+                        <p class="mt-2 text-sm text-gray-600">
+                            Fichier actuel: <a href="{{ object.convention_file.url }}" target="_blank" class="text-primary-600 hover:text-primary-700 font-semibold">Télécharger</a>
+                        </p>
+                        {% endif %}
+                        {% if form.convention_file.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.convention_file.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4 pt-6 border-t border-gray-200">
+                <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium transition-all">
+                    {% if object %}💾 Enregistrer{% else %}➕ Créer{% endif %}
+                </button>
+                <a href="{% url 'school_tracking_list' %}" class="flex-1 text-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition-all">
+                    Annuler
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

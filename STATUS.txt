@@ -1,0 +1,9 @@
+=== PRATIK - PLATEFORME PRETE ===
+Mot de passe: user1234
+Comptes:
+- etudiant1@pratik.gf
+- ecole1@pratik.gf
+- entreprise1@pratik.gf
+- admin@pratik.gf
+Demarrer: start.bat
+URL: http://localhost:8000

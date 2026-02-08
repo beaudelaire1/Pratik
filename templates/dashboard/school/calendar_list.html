@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Calendriers de Stage</h1>
+            <p class="text-gray-600">Gérez vos calendriers de stage par filière</p>
+        </div>
+        <a href="{% url 'school_calendar_create' %}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium transition-all">
+            <span class="mr-2">➕</span> Nouveau calendrier
+        </a>
+    </div>
+
+    <!-- Calendars List -->
+    {% if calendars %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for calendar in calendars %}
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-medium transition-all">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">{{ calendar.program_name }}</h3>
+                    <p class="text-sm text-gray-600">{{ calendar.program_level }}</p>
+                </div>
+                <div class="flex gap-2">
+                    {% if calendar.is_published %}
+                    <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Publié</span>
+                    {% else %}
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Brouillon</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                    <span>📅</span>
+                    <span>Du {{ calendar.start_date|date:"d/m/Y" }} au {{ calendar.end_date|date:"d/m/Y" }}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                    <span>👥</span>
+                    <span>{{ calendar.number_of_students }} étudiants</span>
+                </div>
+                {% if calendar.description %}
+                <p class="text-sm text-gray-600 mt-2">{{ calendar.description|truncatewords:20 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex gap-2 pt-4 border-t border-gray-100">
+                <a href="{% url 'school_calendar_edit' calendar.pk %}" class="flex-1 text-center px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold rounded-lg transition-all">
+                    ✏️ Modifier
+                </a>
+                <a href="{% url 'school_calendar_delete' calendar.pk %}" class="flex-1 text-center px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 font-semibold rounded-lg transition-all">
+                    🗑️ Supprimer
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="mt-8 flex justify-center">
+        <nav class="flex gap-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Précédent</a>
+            {% endif %}
+            <span class="px-4 py-2 bg-primary-600 text-white rounded-lg">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Suivant</a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="bg-white rounded-xl shadow-soft p-12 text-center">
+        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-4xl">📅</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Aucun calendrier</h3>
+        <p class="text-gray-600 mb-6">Commencez par créer votre premier calendrier de stage</p>
+        <a href="{% url 'school_calendar_create' %}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold rounded-xl shadow-medium transition-all">
+            <span class="mr-2">➕</span> Créer un calendrier
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

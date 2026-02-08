@@ -79,8 +79,12 @@
                             <option value="">Sélectionnez un type</option>
                             <option value="student">🎓 Étudiant</option>
                             <option value="company">🏢 Entreprise</option>
-                            <option value="school">🏫 École</option>
-                            <option value="individual">👤 Particulier</option>
+                            <option value="school">🏫 École/Université</option>
+                            <option value="training_center">📚 Centre de Formation</option>
+                            <option value="recruiter">💼 Recruteur</option>
+                            <option value="landlord">🏠 Particulier/Propriétaire</option>
+                            <option value="driver">🚗 Chauffeur/Taxi</option>
+                            <option value="partner">🤝 Partenaire Institutionnel</option>
                         </select>
                         {% if form.user_type.errors %}
                         <p class="mt-2 text-sm text-red-600 font-medium">{{ form.user_type.errors.0 }}</p>

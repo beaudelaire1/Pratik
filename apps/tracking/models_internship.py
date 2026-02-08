@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from apps.users.models import CustomUser
+from datetime import timedelta
 
 
 class InternshipTracking(models.Model):
@@ -15,24 +15,16 @@ class InternshipTracking(models.Model):
     
     # Relations
     student = models.ForeignKey(
-        CustomUser,
+        'users.CustomUser',
         on_delete=models.CASCADE,
         related_name='internship_trackings',
         limit_choices_to={'user_type': 'student'}
     )
     school = models.ForeignKey(
-        CustomUser,
+        'users.CustomUser',
         on_delete=models.CASCADE,
         related_name='tracked_internships',
         limit_choices_to={'user_type': 'school'}
-    )
-    teacher = models.ForeignKey(
-        'users.Teacher',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='tracked_internships',
-        verbose_name="Enseignant référent"
     )
     internship = models.ForeignKey(
         'internships.Internship',
@@ -77,9 +69,9 @@ class InternshipTracking(models.Model):
         verbose_name_plural = "Suivis de Stages"
         ordering = ['-start_date']
         indexes = [
-            models.Index(fields=['status'], name='int_track_status_idx'),
-            models.Index(fields=['start_date'], name='int_track_start_idx'),
-            models.Index(fields=['school', 'status'], name='int_track_school_idx'),
+            models.Index(fields=['status'], name='internship_tracking_status_idx'),
+            models.Index(fields=['start_date'], name='internship_tracking_start_idx'),
+            models.Index(fields=['school', 'status'], name='internship_tracking_school_status_idx'),
         ]
     
     def __str__(self):
@@ -123,74 +115,3 @@ class InternshipTracking(models.Model):
         today = timezone.now().date()
         return (self.start_date <= today <= self.end_date and 
                 self.status == 'IN_PROGRESS')
-
-
-class StudentEvolutionTracking(models.Model):
-    """Suivi de l'évolution d'un étudiant par une entreprise"""
-    
-    LEVEL_CHOICES = [
-        ('BEGINNER', 'Débutant'),
-        ('INTERMEDIATE', 'Intermédiaire'),
-        ('ADVANCED', 'Avancé'),
-        ('EXPERT', 'Expert'),
-    ]
-    
-    STATUS_CHOICES = [
-        ('AVAILABLE', 'Disponible'),
-        ('IN_INTERNSHIP', 'En stage'),
-        ('EMPLOYED', 'En emploi'),
-        ('UNAVAILABLE', 'Indisponible'),
-    ]
-    
-    # Relations - Using CustomUser instead of profiles
-    company = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name='tracked_students',
-        limit_choices_to={'user_type': 'COMPANY'}
-    )
-    student = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name='tracking_companies',
-        limit_choices_to={'user_type': 'STUDENT'}
-    )
-    
-    # Informations suivies
-    current_level = models.CharField(
-        max_length=20,
-        choices=LEVEL_CHOICES,
-        default='BEGINNER'
-    )
-    domain = models.CharField(max_length=200, blank=True)  # Ex: "Développement Web, IA"
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='AVAILABLE'
-    )
-    
-    # Historique
-    evolution_history = models.JSONField(default=list)  # Historique des changements
-    
-    # Notifications
-    notify_on_level_change = models.BooleanField(default=True)
-    notify_on_status_change = models.BooleanField(default=True)
-    notify_on_availability = models.BooleanField(default=True)
-    
-    # Métadonnées
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        verbose_name = "Suivi Évolution Étudiant"
-        verbose_name_plural = "Suivis Évolution Étudiants"
-        unique_together = ['company', 'student']
-        indexes = [
-            models.Index(fields=['current_level'], name='tracking_level_idx'),
-            models.Index(fields=['status'], name='tracking_status_idx'),
-            models.Index(fields=['-updated_at'], name='tracking_updated_idx'),
-            models.Index(fields=['company', 'student'], name='tracking_company_student_idx'),
-        ]
-    
-    def __str__(self):
-        return f"{self.company.company_name} tracking {self.student.first_name} {self.student.last_name}"

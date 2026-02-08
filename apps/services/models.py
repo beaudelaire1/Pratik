@@ -22,6 +22,7 @@ class HousingOffer(models.Model):
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20, blank=True)
     images = models.ImageField(upload_to='housing_images/', blank=True, null=True)
+    is_available = models.BooleanField(default=True, verbose_name="Disponible")
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='housing_offers', null=True, blank=True)
 
@@ -80,6 +81,7 @@ class CarpoolingOffer(models.Model):
     seats_available = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=6, decimal_places=2, help_text="Prix par passager")
     description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True, verbose_name="Actif")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
