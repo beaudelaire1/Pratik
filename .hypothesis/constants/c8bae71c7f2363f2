@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0003_remove_customuser_profile_picture_customuser_avatar_and_more.py
+# hypothesis_version: 6.151.5
+
+['Admin', 'Avatar', 'Centre de Formation', 'Chauffeur/Taxi', 'Entreprise', 'Recruteur', 'Vérifié', 'Vérifié le', 'Vérifié par', 'admin', 'avatar', 'avatars/', 'company', 'customuser', 'driver', 'is_verified', 'landlord', 'partner', 'profile_picture', 'recruiter', 'school', 'student', 'training_center', 'user_type', 'users', 'verified_at', 'verified_by', 'verified_users', 'École/Université', 'Étudiant']

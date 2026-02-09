@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\tracking\migrations\0002_rename_started_tracking_at_studentevolutiontracking_created_at_and_more.py
+# hypothesis_version: 6.151.5
+
+[200, '0001_initial', 'ADVANCED', 'AVAILABLE', 'Avancé', 'BEGINNER', 'COMPANY', 'Disponible', 'Débutant', 'EMPLOYED', 'EXPERT', 'En emploi', 'En stage', 'Expert', 'INTERMEDIATE', 'IN_INTERNSHIP', 'Indisponible', 'Intermédiaire', 'STUDENT', 'UNAVAILABLE', 'company', 'created_at', 'current_level', 'domain', 'last_updated_at', 'started_tracking_at', 'status', 'student', 'tracked_students', 'tracking', 'tracking_companies', 'updated_at', 'user_type']

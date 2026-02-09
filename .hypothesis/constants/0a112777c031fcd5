@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0010_alter_userdocument_document_type.py
+# hypothesis_version: 6.151.5
+
+['Assurance habitation', 'Assurance véhicule', 'Attestation', 'Autre', 'CV', 'Carte grise', 'Contrat', 'Convention de stage', 'Convention signée', 'Extrait Kbis/SIRET', 'Lettre de motivation', 'Permis de conduire', "Pièce d'identité", 'Type de document', 'accreditation', 'address_proof', 'administrative_doc', 'certificate', 'contract', 'cover_letter', 'cv', 'document_type', 'driver_license', 'home_insurance', 'id_card', 'kbis_siret', 'other', 'partnership_proof', 'property_proof', 'representative_id', 'signed_convention', 'userdocument', 'users', 'vehicle_insurance', 'vehicle_registration']

@@ -12,6 +12,13 @@ class Notification(models.Model):
     APPLICATION_REJECTED = 'application_rejected'
     NEW_INTERNSHIP = 'new_internship'
     MESSAGE_RECEIVED = 'message_received'
+    DOCUMENT_SUBMITTED = 'document_submitted'
+    DOCUMENT_APPROVED = 'document_approved'
+    DOCUMENT_REJECTED = 'document_rejected'
+    PROFILE_VERIFIED = 'profile_verified'
+    PROFILE_REJECTED = 'profile_rejected'
+    PROFILE_SUSPENDED = 'profile_suspended'
+    PROFILE_INCOMPLETE = 'profile_incomplete'
     SYSTEM = 'system'
     
     NOTIFICATION_TYPES = [
@@ -20,6 +27,13 @@ class Notification(models.Model):
         (APPLICATION_REJECTED, 'Candidature refusée'),
         (NEW_INTERNSHIP, 'Nouvelle offre de stage'),
         (MESSAGE_RECEIVED, 'Nouveau message'),
+        (DOCUMENT_SUBMITTED, 'Document soumis'),
+        (DOCUMENT_APPROVED, 'Document approuvé'),
+        (DOCUMENT_REJECTED, 'Document rejeté'),
+        (PROFILE_VERIFIED, 'Profil vérifié'),
+        (PROFILE_REJECTED, 'Profil rejeté'),
+        (PROFILE_SUSPENDED, 'Profil suspendu'),
+        (PROFILE_INCOMPLETE, 'Dossier incomplet'),
         (SYSTEM, 'Notification système'),
     ]
     
@@ -29,7 +43,7 @@ class Notification(models.Model):
         related_name='notifications'
     )
     notification_type = models.CharField(
-        max_length=30, 
+        max_length=50, 
         choices=NOTIFICATION_TYPES, 
         default=SYSTEM
     )

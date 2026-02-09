@@ -1,0 +1,55 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Nouveau document à vérifier - Pratik{% endblock %}
+
+{% block content %}
+<h1 style="margin: 0 0 20px 0; font-size: 24px; color: #1e293b;">
+    📄 Nouveau document soumis
+</h1>
+
+<p style="margin: 0 0 20px 0; font-size: 16px; color: #475569; line-height: 1.6;">
+    Un nouveau document a été soumis et nécessite votre vérification.
+</p>
+
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #eff6ff; border-radius: 8px; margin: 20px 0;">
+    <tr>
+        <td style="padding: 20px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="padding: 8px 0;">
+                        <span style="font-size: 14px; color: #64748b;">Soumis par :</span><br>
+                        <span style="font-size: 16px; color: #1e293b; font-weight: 600;">{{ user_name }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0;">
+                        <span style="font-size: 14px; color: #64748b;">Titre du document :</span><br>
+                        <span style="font-size: 16px; color: #1e293b; font-weight: 600;">{{ document_title }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0;">
+                        <span style="font-size: 14px; color: #64748b;">Type de document :</span><br>
+                        <span style="font-size: 16px; color: #1e293b; font-weight: 600;">{{ document_type }}</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td align="center" style="padding: 20px 0;">
+            <a href="{{ review_link }}" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-size: 16px; font-weight: 600;">
+                Vérifier le document
+            </a>
+        </td>
+    </tr>
+</table>
+
+<p style="margin: 20px 0 0 0; font-size: 14px; color: #94a3b8; line-height: 1.6;">
+    Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :<br>
+    <a href="{{ review_link }}" style="color: #2563eb; word-break: break-all;">{{ review_link }}</a>
+</p>
+{% endblock %}

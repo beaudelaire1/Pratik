@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0005_customuser_user_type_idx_customuser_is_verified_idx_and_more.py
+# hypothesis_version: 6.151.5
+
+['auth', 'customuser', 'email', 'email_idx', 'is_verified', 'is_verified_idx', 'user_type', 'user_type_idx', 'users']

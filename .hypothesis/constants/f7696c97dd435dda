@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\core\services\verification_service.py
+# hypothesis_version: 6.151.5
+
+['-submitted_at', 'ADDRESS_PROOF', 'APPROVED', 'DRIVER', 'DRIVER_LICENSE', 'Document rejected', 'EXPIRED', 'ID_CARD', 'INSURANCE', 'LANDLORD', 'PENDING', 'PROPERTY_PROOF', 'REJECTED', 'VEHICLE_REGISTRATION', 'approved_documents', 'document_type', 'expiry_date', 'file', 'is_verified', 'missing_documents', 'pending_documents', 'rejected_documents', 'required_documents', 'submitted_at', 'submitted_documents', 'type', 'user']

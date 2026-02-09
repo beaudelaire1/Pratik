@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[128, 150, 254, 'Admin', 'Company', 'CustomUser', 'ID', 'Student', 'abstract', 'active', 'admin', 'auth', 'auth.group', 'auth.permission', 'bio', 'company', 'date joined', 'date_joined', 'email', 'email address', 'first name', 'first_name', 'groups', 'id', 'is_active', 'is_staff', 'is_superuser', 'last login', 'last name', 'last_login', 'last_name', 'objects', 'password', 'profile_pics/', 'profile_picture', 'staff status', 'student', 'superuser status', 'unique', 'user', 'user permissions', 'user_permissions', 'user_set', 'user_type', 'username', 'users', 'verbose_name', 'verbose_name_plural']

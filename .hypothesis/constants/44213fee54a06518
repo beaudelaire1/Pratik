@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\events\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[200, 'Autre', 'Conférence', 'Date de début', 'Date de fin', 'Deadline', 'Description', 'Début de stage', 'Entretien', 'Event', 'Fin de stage', 'Formation', 'Heure de début', 'Heure de fin', 'ID', 'Lieu', 'Public', 'Réunion', 'Titre', 'Toute la journée', "Type d'événement", 'conference', 'created_at', 'deadline', 'description', 'end_date', 'end_time', 'event_type', 'events', 'id', 'interview', 'is_all_day', 'is_public', 'location', 'meeting', 'ordering', 'other', 'stage_end', 'stage_start', 'start_date', 'start_time', 'title', 'training', 'updated_at', 'user', 'verbose_name', 'verbose_name_plural', 'Événement', 'Événements']

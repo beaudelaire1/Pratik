@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\calendars\migrations\0002_internshipcalendar_calendar_published_idx_and_more.py
+# hypothesis_version: 6.151.5
+
+['0001_initial', 'calendar_level_idx', 'calendar_start_idx', 'calendar_visible_idx', 'calendars', 'internshipcalendar', 'is_published', 'program_level', 'start_date', 'users']

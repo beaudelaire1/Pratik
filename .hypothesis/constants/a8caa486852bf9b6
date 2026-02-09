@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\verification\migrations\0002_verificationdocument_verification_status_idx_and_more.py
+# hypothesis_version: 6.151.5
+
+['-submitted_at', '0001_initial', 'document_type', 'expiry_date', 'status', 'verification', 'verificationdocument']

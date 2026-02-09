@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\services\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[100, 200, 254, 'Appartement', 'CarpoolingOffer', 'Colocation', 'HousingOffer', 'ID', 'Prix par passager', 'Studio', 'apartment', 'carpooling_offers', 'coloc', 'contact_email', 'contact_phone', 'created_at', 'date_time', 'departure', 'description', 'destination', 'driver', 'housing_images/', 'housing_offers', 'housing_type', 'id', 'images', 'location', 'owner', 'price', 'room', 'seats_available', 'studio', 'title']

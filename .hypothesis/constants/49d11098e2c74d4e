@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\internships\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[100, 200, 'Ex: 6 months', 'ID', 'Internship', 'company', 'created_at', 'description', 'duration', 'id', 'internships', 'is_active', 'location', 'salary', 'slug', 'title', 'updated_at', 'user_type']

@@ -1,0 +1,56 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Mise à jour du statut de votre profil - Pratik{% endblock %}
+
+{% block content %}
+<h1 style="margin: 0 0 20px 0; font-size: 24px; color: #1e293b;">
+    Mise à jour du statut de votre profil
+</h1>
+
+<p style="margin: 0 0 20px 0; font-size: 16px; color: #475569; line-height: 1.6;">
+    Bonjour {{ user_name }},
+</p>
+
+<p style="margin: 0 0 20px 0; font-size: 16px; color: #475569; line-height: 1.6;">
+    Nous vous informons que le statut de votre profil a été mis à jour.
+</p>
+
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f8fafc; border-radius: 8px; margin: 20px 0;">
+    <tr>
+        <td style="padding: 20px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="padding: 8px 0;">
+                        <span style="font-size: 14px; color: #64748b;">Nouveau statut :</span><br>
+                        <span style="font-size: 18px; color: #2563eb; font-weight: 700;">{{ status_display }}</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{% if note %}
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #fefce8; border-left: 4px solid #eab308; border-radius: 0 8px 8px 0; margin: 20px 0;">
+    <tr>
+        <td style="padding: 20px;">
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: #854d0e; font-weight: 600;">
+                Note explicative :
+            </p>
+            <p style="margin: 0; font-size: 16px; color: #1e293b; line-height: 1.6;">
+                {{ note }}
+            </p>
+        </td>
+    </tr>
+</table>
+{% endif %}
+
+<p style="margin: 20px 0 0 0; font-size: 16px; color: #475569; line-height: 1.6;">
+    Si vous avez des questions concernant ce changement, n'hésitez pas à nous contacter.
+</p>
+
+<p style="margin: 20px 0 0 0; font-size: 16px; color: #475569; line-height: 1.6;">
+    Cordialement,<br>
+    <strong>L'équipe Pratik</strong>
+</p>
+{% endblock %}

@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\core\services\document_checklist_service.py
+# hypothesis_version: 6.151.5
+
+[100, '-uploaded_at', 'Assurance habitation', 'Assurance véhicule', 'Carte grise', 'Extrait Kbis/SIRET', 'Permis de conduire', "Pièce d'identité", 'accreditation', 'address_proof', 'approved', 'company', 'driver', 'driver_license', 'home_insurance', 'id_card', 'kbis_siret', 'landlord', 'missing', 'partner', 'partnership_proof', 'property_proof', 'rejected', 'representative_id', 'school', 'vehicle_insurance', 'vehicle_registration']

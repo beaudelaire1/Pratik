@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\recommendations\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+['-created_at', '0001_initial', '1 étoile', '2 étoiles', '3 étoiles', '4 étoiles', '5 étoiles', 'ID', 'InternRecommendation', 'Recommandation', 'Recommandations', 'autonomy', 'comment', 'company', 'created_at', 'creativity', 'id', 'internship', 'internships', 'is_featured', 'is_public', 'ordering', 'punctuality', 'rating', 'recommendations', 'recommended_domains', 'rigor', 'skills_validated', 'student', 'teamwork', 'unique_together', 'updated_at', 'users', 'users.companyprofile', 'users.studentprofile', 'verbose_name', 'verbose_name_plural']

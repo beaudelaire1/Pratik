@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\services\migrations\0005_carpoolingoffer_is_active_housingoffer_is_available.py
+# hypothesis_version: 6.151.5
+
+['Actif', 'Disponible', 'carpoolingoffer', 'housingoffer', 'is_active', 'is_available', 'services']

@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0009_add_verification_status.py
+# hypothesis_version: 6.151.5
+
+['0008_userdocument', 'Dossier incomplet', 'En attente', "En cours d'examen", 'Note de vérification', 'Rejeté', 'Suspendu', 'Vérifié', 'customuser', 'incomplete', 'pending', 'rejected', 'suspended', 'under_review', 'users', 'verification_note', 'verification_status', 'verified']

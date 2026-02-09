@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\events\models.py
+# hypothesis_version: 6.151.5
+
+[200, 'Autre', 'Conférence', 'Date de début', 'Date de fin', 'Deadline', 'Description', 'Début de stage', 'Entretien', 'Fin de stage', 'Formation', 'Heure de début', 'Heure de fin', 'Lieu', 'Public', 'Réunion', 'Titre', 'Toute la journée', "Type d'événement", 'conference', 'deadline', 'events', 'interview', 'meeting', 'other', 'stage_end', 'stage_start', 'start_date', 'start_time', 'training', 'Événement', 'Événements']

@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\tracking\migrations\0003_studentevolutiontracking_tracking_level_idx_and_more.py
+# hypothesis_version: 6.151.5
+
+['-updated_at', 'company', 'current_level', 'status', 'student', 'tracking', 'tracking_level_idx', 'tracking_status_idx', 'tracking_updated_idx']

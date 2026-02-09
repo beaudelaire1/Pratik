@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\tracking\models.py
+# hypothesis_version: 6.151.5
+
+[100, 200, '-start_date', '-updated_at', 'ADVANCED', 'AVAILABLE', 'Avancé', 'BEGINNER', 'COMPANY', 'COMPLETED', 'Disponible', 'Débutant', 'EMPLOYED', 'EXPERT', 'En cours', 'En emploi', 'En stage', 'Enseignant référent', 'Expert', 'INTERMEDIATE', 'INTERRUPTED', 'IN_INTERNSHIP', 'IN_PROGRESS', 'Indisponible', 'Intermédiaire', 'Interrompu', 'NOT_STARTED', 'Non commencé', 'STUDENT', 'Suivi de Stage', 'Suivis de Stages', 'Terminé', 'UNAVAILABLE', 'company', 'conventions/', 'current_level', 'int_track_school_idx', 'int_track_start_idx', 'int_track_status_idx', 'internship_trackings', 'school', 'start_date', 'status', 'student', 'tracked_internships', 'tracked_students', 'tracking_companies', 'tracking_level_idx', 'tracking_status_idx', 'tracking_updated_idx', 'trackings', 'user_type', 'users.Teacher']

@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\verification\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+['-submitted_at', 'ADDRESS_PROOF', 'APPROVED', 'Approuvé', 'CRIMINAL_RECORD', "Carte d'identité", 'Carte grise', 'Casier judiciaire', 'DRIVER_LICENSE', 'EXPIRED', 'En attente', 'Expiré', 'ID', 'ID_CARD', 'INSURANCE', 'PASSPORT', 'PENDING', 'PROPERTY_PROOF', 'Passeport', 'Permis de conduire', 'REJECTED', 'Rejeté', 'VEHICLE_REGISTRATION', 'VerificationDocument', 'document_type', 'expiry_date', 'file', 'id', 'ordering', 'rejection_reason', 'status', 'submitted_at', 'user', 'verbose_name', 'verbose_name_plural', 'verified_at', 'verified_by', 'verified_documents']

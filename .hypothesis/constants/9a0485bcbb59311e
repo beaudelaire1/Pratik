@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0006_teacher_studentschoolenrollment.py
+# hypothesis_version: 6.151.5
+
+[100, 200, 254, '-enrollment_date', 'Actif', 'Année scolaire', 'Classe', "Date d'inscription", 'Date de fin prévue', 'Email', 'Enseignant', 'Enseignant référent', 'Enseignants', 'Ex: 2025-2026', 'Filière', 'ID', 'Inscription Élève', 'Inscriptions Élèves', 'Matières enseignées', 'Nom', 'Numéro étudiant', 'Prénom', 'Teacher', 'Téléphone', 'academic_year', 'class_name', 'created_at', 'email', 'enrolled_students', 'enrollment_date', 'first_name', 'graduation_date', 'id', 'indexes', 'is_active', 'last_name', 'ordering', 'phone', 'program', 'school', 'school_enrollments', 'student', 'student_number', 'students', 'subjects', 'teacher', 'teacher_profile', 'teachers', 'unique_together', 'updated_at', 'user', 'user_type', 'users', 'users.teacher', 'verbose_name', 'verbose_name_plural']

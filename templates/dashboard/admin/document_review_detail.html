@@ -129,10 +129,54 @@
                 </form>
                 <form method="POST" action="{% url 'admin_document_reject' document.pk %}" id="rejectFormInline">
                     {% csrf_token %}
-                    <textarea name="reason" rows="2" required placeholder="Raison du rejet..."
-                        class="w-full border-2 border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-red-500 focus:outline-none mb-2"></textarea>
-                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition">
-                        ✕ Rejeter ce document
+                    
+                    <!-- Motif du rejet - Rejection Templates -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Motif du rejet</label>
+                        <div class="space-y-2">
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="illegible" required
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Document illisible ou de mauvaise qualité</span>
+                            </label>
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="expired"
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Document expiré</span>
+                            </label>
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="wrong_type"
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Mauvais type de document</span>
+                            </label>
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="incomplete"
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Informations manquantes ou incomplètes</span>
+                            </label>
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="non_compliant"
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Document non conforme aux exigences</span>
+                            </label>
+                            <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent has-[:checked]:border-red-300 has-[:checked]:bg-red-50">
+                                <input type="radio" name="rejection_template" value="wrong_user"
+                                    class="mt-1 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-gray-700">Le document ne correspond pas à l'utilisateur</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Message personnalisé (optionnel) -->
+                    <div class="mb-4">
+                        <label for="rejection_reason" class="block text-sm font-bold text-gray-900 mb-2">Message personnalisé (optionnel)</label>
+                        <textarea id="rejection_reason" name="rejection_reason" rows="3"
+                            placeholder="Ajoutez des détails supplémentaires si nécessaire..."
+                            class="w-full border-2 border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-red-500 focus:outline-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition shadow-medium">
+                        ✕ Rejeter le document
                     </button>
                 </form>
             </div>

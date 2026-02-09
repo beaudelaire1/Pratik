@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\notifications\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[200, 500, '-created_at', 'Candidature acceptée', 'Candidature refusée', 'Candidature reçue', 'ID', 'Notification', 'Notification système', 'Notifications', 'Nouveau message', 'application_accepted', 'application_received', 'application_rejected', 'created_at', 'id', 'is_read', 'link', 'message', 'message_received', 'new_internship', 'notification_type', 'notifications', 'ordering', 'recipient', 'system', 'title', 'verbose_name', 'verbose_name_plural']

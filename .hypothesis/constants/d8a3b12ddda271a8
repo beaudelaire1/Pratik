@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\recommendations\migrations\0002_internrecommendation_rec_rating_idx_and_more.py
+# hypothesis_version: 6.151.5
+
+['-created_at', '0001_initial', 'internrecommendation', 'internships', 'is_featured', 'is_public', 'rating', 'rec_created_idx', 'rec_featured_idx', 'rec_public_idx', 'rec_rating_idx', 'recommendations', 'users']

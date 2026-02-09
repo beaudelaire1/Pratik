@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\notifications\models.py
+# hypothesis_version: 6.151.5
+
+[200, 500, '-created_at', 'Candidature acceptée', 'Candidature refusée', 'Candidature reçue', 'Document approuvé', 'Document rejeté', 'Document soumis', 'Dossier incomplet', 'Notification', 'Notification système', 'Notifications', 'Nouveau message', 'Profil rejeté', 'Profil suspendu', 'Profil vérifié', 'application_accepted', 'application_received', 'application_rejected', 'document_approved', 'document_rejected', 'document_submitted', 'message_received', 'new_internship', 'notifications', 'profile_incomplete', 'profile_rejected', 'profile_suspended', 'profile_verified', 'system']

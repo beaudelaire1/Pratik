@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\calendars\admin.py
+# hypothesis_version: 6.151.5
+
+['Availability', 'Dates', 'Details', 'Personal Information', 'Program Information', 'Programs', 'Publication', 'School Information', 'Statistics', 'Timestamps', 'active_conventions', 'classes', 'collapse', 'created_at', 'description', 'email', 'end_date', 'fields', 'first_name', 'id', 'is_active', 'is_published', 'last_name', 'number_of_students', 'office_hours', 'phone', 'program_level', 'program_manager', 'program_name', 'programs', 'publish_calendars', 'published_at', 'school', 'school__school_name', 'skills_sought', 'start_date', 'title', 'unpublish_calendars', 'updated_at', 'user']

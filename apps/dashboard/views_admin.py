@@ -9,6 +9,13 @@ from django.contrib import messages
 from django.utils import timezone
 from apps.users.models_documents import UserDocument
 from django.contrib.auth import get_user_model
+from core.services.notification_dispatcher import (
+    REJECTION_TEMPLATES,
+    on_document_approved,
+    on_document_rejected,
+    on_profile_status_changed,
+)
+from core.services.verification_automator import VerificationAutomator
 
 User = get_user_model()
 
@@ -54,6 +61,11 @@ class AdminDocumentDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView
 
     def get_queryset(self):
         return UserDocument.objects.select_related('user', 'verified_by')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rejection_templates'] = REJECTION_TEMPLATES
+        return context
 
 
 class AdminDocumentApproveView(LoginRequiredMixin, AdminRequiredMixin, View):
@@ -61,42 +73,59 @@ class AdminDocumentApproveView(LoginRequiredMixin, AdminRequiredMixin, View):
         doc = get_object_or_404(UserDocument, pk=pk)
         doc.approve(verified_by=request.user)
         messages.success(request, f'Document « {doc.title} » approuvé.')
-        self._check_user_verification(doc.user)
+        
+        # Notify the document owner of approval
+        on_document_approved(doc)
+        
+        # Check if all required documents are approved and auto-verify if so
+        automator = VerificationAutomator()
+        was_verified = automator.check_and_verify(user=doc.user, admin=request.user)
+        
+        if was_verified:
+            messages.success(request, f'Profil de {doc.user.get_display_name()} vérifié automatiquement.')
+        
         next_url = request.POST.get('next', '')
         if next_url:
             return redirect(next_url)
         return redirect('admin_document_list')
 
-    def _check_user_verification(self, user):
-        """Si tous les documents sont approuvés, passer le profil en vérifié."""
-        pending = UserDocument.objects.filter(user=user, status='pending').count()
-        rejected = UserDocument.objects.filter(user=user, status='rejected').count()
-        approved = UserDocument.objects.filter(user=user, status='approved').count()
-        if approved > 0 and pending == 0 and rejected == 0:
-            user.is_verified = True
-            user.verification_status = 'verified'
-            user.verified_at = timezone.now()
-            user.verified_by = self.request.user
-            user.verification_note = 'Tous les documents approuvés — vérification automatique.'
-            user.save(update_fields=['is_verified', 'verification_status', 'verified_at', 'verified_by', 'verification_note'])
-        elif rejected > 0:
-            user.verification_status = 'incomplete'
-            user.verification_note = f'{rejected} document(s) rejeté(s). En attente de correction.'
-            user.save(update_fields=['verification_status', 'verification_note'])
-
-
 class AdminDocumentRejectView(LoginRequiredMixin, AdminRequiredMixin, View):
+    def get(self, request, pk):
+        """Display rejection form with template options."""
+        doc = get_object_or_404(UserDocument, pk=pk)
+        # This view is typically called via POST, but we support GET for template rendering
+        # The actual form is in the detail view, so redirect there
+        return redirect('admin_document_detail', pk=pk)
+    
     def post(self, request, pk):
         doc = get_object_or_404(UserDocument, pk=pk)
-        reason = request.POST.get('reason', 'Document non conforme')
+        
+        # Handle template selection from POST data
+        # The 'reason' field contains the final rejection message (either from template or custom)
+        # The 'rejection_template' field indicates which template was selected (if any)
+        rejection_template = request.POST.get('rejection_template', '').strip()
+        reason = request.POST.get('reason', '').strip()
+        
+        # If no reason provided, use a default message
+        if not reason:
+            reason = 'Document non conforme'
+        
+        # Reject the document with the provided reason
         doc.reject(verified_by=request.user, reason=reason)
         messages.warning(request, f'Document « {doc.title} » rejeté.')
-        # Mettre à jour le statut du profil
+        
+        # Call NotificationDispatcher to notify user of rejection
+        on_document_rejected(doc, reason)
+        
+        # Set user verification_status to incomplete and is_verified to false
+        # Mark to skip signal notification (we already notified via on_document_rejected)
         user = doc.user
+        user._skip_status_notification = True
         user.verification_status = 'incomplete'
         user.verification_note = f'Document « {doc.title} » rejeté : {reason}'
         user.is_verified = False
         user.save(update_fields=['verification_status', 'verification_note', 'is_verified'])
+        
         next_url = request.POST.get('next', '')
         if next_url:
             return redirect(next_url)
@@ -167,6 +196,12 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
         target = get_object_or_404(User, pk=pk)
         action = request.POST.get('action')
         note = request.POST.get('note', '').strip()
+        
+        # Store old status for notification
+        old_status = target.verification_status
+        
+        # Mark to skip signal notification (we'll call it explicitly)
+        target._skip_status_notification = True
 
         if action == 'verify':
             target.is_verified = True
@@ -176,6 +211,8 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
             target.verification_note = note or 'Profil vérifié manuellement par l\'administrateur.'
             target.save(update_fields=['is_verified', 'verification_status', 'verified_at', 'verified_by', 'verification_note'])
             messages.success(request, f'{target.get_display_name()} a été vérifié.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'verified', target.verification_note)
 
         elif action == 'reject':
             target.is_verified = False
@@ -185,6 +222,8 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
             target.verification_note = note or 'Profil rejeté.'
             target.save(update_fields=['is_verified', 'verification_status', 'verified_at', 'verified_by', 'verification_note'])
             messages.error(request, f'Profil de {target.get_display_name()} rejeté.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'rejected', target.verification_note)
 
         elif action == 'incomplete':
             target.is_verified = False
@@ -192,12 +231,16 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
             target.verification_note = note or 'Dossier incomplet — documents manquants.'
             target.save(update_fields=['is_verified', 'verification_status', 'verification_note'])
             messages.warning(request, f'Dossier de {target.get_display_name()} marqué comme incomplet.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'incomplete', target.verification_note)
 
         elif action == 'under_review':
             target.verification_status = 'under_review'
             target.verification_note = note or 'Dossier en cours d\'examen.'
             target.save(update_fields=['verification_status', 'verification_note'])
             messages.info(request, f'Dossier de {target.get_display_name()} en cours d\'examen.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'under_review', target.verification_note)
 
         elif action == 'suspend':
             target.is_verified = False
@@ -205,6 +248,8 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
             target.verification_note = note or 'Compte suspendu par l\'administrateur.'
             target.save(update_fields=['is_verified', 'verification_status', 'verification_note'])
             messages.error(request, f'Compte de {target.get_display_name()} suspendu.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'suspended', target.verification_note)
 
         elif action == 'unverify':
             target.is_verified = False
@@ -214,5 +259,7 @@ class AdminVerifyUserView(LoginRequiredMixin, AdminRequiredMixin, View):
             target.verification_note = note or 'Vérification retirée.'
             target.save(update_fields=['is_verified', 'verification_status', 'verified_at', 'verified_by', 'verification_note'])
             messages.warning(request, f'Vérification de {target.get_display_name()} retirée.')
+            # Notify user of status change
+            on_profile_status_changed(target, old_status, 'pending', target.verification_note)
 
         return redirect('admin_user_verification_detail', pk=target.pk)

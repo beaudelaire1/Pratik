@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\recommendations\admin.py
+# hypothesis_version: 6.151.5
+
+['Basic Information', 'Details', 'Quality Ratings', 'Timestamps', 'Visibility', 'autonomy', 'classes', 'collapse', 'comment', 'company', 'created_at', 'creativity', 'fields', 'id', 'internship', 'internship__title', 'is_featured', 'is_public', 'punctuality', 'rating', 'recommended_domains', 'rigor', 'skills_validated', 'student', 'student__first_name', 'student__last_name', 'teamwork', 'updated_at']

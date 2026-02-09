@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\tracking\migrations\0004_internshiptracking.py
+# hypothesis_version: 6.151.5
+
+[200, '-start_date', '0001_initial', 'COMPLETED', 'En cours', 'ID', 'INTERRUPTED', 'IN_PROGRESS', 'InternshipTracking', 'Interrompu', 'NOT_STARTED', 'Non commencé', 'Suivi de Stage', 'Suivis de Stages', 'Terminé', 'company_name', 'convention_file', 'convention_signed', 'conventions/', 'created_at', 'end_date', 'final_evaluation', 'id', 'indexes', 'int_track_school_idx', 'int_track_start_idx', 'int_track_status_idx', 'internship', 'internship_trackings', 'internships', 'mid_term_evaluation', 'notes', 'ordering', 'position', 'school', 'start_date', 'status', 'student', 'tracked_internships', 'tracking', 'trackings', 'updated_at', 'user_type', 'verbose_name', 'verbose_name_plural']

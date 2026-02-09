@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\partners\models.py
+# hypothesis_version: 6.151.5
+
+[100, 200, 300, '#06b6d4', '#10b981', '#3b82f6', '#6b7280', '#8b5cf6', '#ec4899', '#ef4444', '#f59e0b', '#f97316', 'Actif', 'Administratif', 'Adresse', 'Association', 'Autre', 'Catégorie', 'Cayenne', 'Code postal', 'Culture', 'Description', 'Description courte', 'Email', 'Entreprise', 'Ex: -52.326000', 'Ex: 4.937200', 'Financement', 'Institution', 'Latitude', 'Logement', 'Logo', 'Longitude', 'Nom', 'Partenaire', 'Partenaires', 'Restauration', 'Santé', 'Service Public', 'Site web', 'Sport', 'Transport', 'Type de partenaire', 'Téléphone', 'Ville', 'Vérifié', 'admin', 'association', 'company', 'culture', 'finance', 'food', 'health', 'housing', 'institution', 'name', 'other', 'partners/logos/', 'school', 'service', 'sport', 'transport', 'École/Université']

@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\hub\admin.py
+# hypothesis_version: 6.151.5
+
+['Contenu', 'Contenu pédagogique', 'Dates', 'Fichiers et liens', 'Informations de base', 'Instructeur', 'Média', 'Métadonnées', 'Ressources', 'Statistiques', 'Statut', 'author', 'category', 'classes', 'collapse', 'content', 'created_at', 'description', 'difficulty', 'downloads_count', 'duration_hours', 'enrollments_count', 'fields', 'file', 'instructor_bio', 'instructor_name', 'is_active', 'is_featured', 'name', 'objectives', 'order', 'prerequisites', 'resource_type', 'resources', 'slug', 'tags', 'thumbnail', 'title', 'updated_at', 'url', 'video_url', 'views_count']

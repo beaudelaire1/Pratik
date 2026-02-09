@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\services\migrations\0004_alter_carpoolingoffer_driver_and_more.py
+# hypothesis_version: 6.151.5
+
+['carpooling_offers', 'carpoolingoffer', 'driver', 'housingoffer', 'price', 'services']

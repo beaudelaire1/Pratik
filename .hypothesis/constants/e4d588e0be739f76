@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\calendars\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+[100, 200, 254, 'Calendrier de Stage', 'ID', 'InternshipCalendar', 'ProgramManager', 'Responsable de Stage', 'active_conventions', 'created_at', 'description', 'email', 'end_date', 'first_name', 'id', 'internship_calendars', 'is_active', 'is_published', 'last_name', 'managed_calendars', 'number_of_students', 'office_hours', 'ordering', 'phone', 'program_level', 'program_manager', 'program_managers', 'program_name', 'programs', 'published_at', 'school', 'skills_sought', 'start_date', 'title', 'updated_at', 'user', 'users', 'users.schoolprofile', 'verbose_name', 'verbose_name_plural']

@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.http import Http404
 from django import forms
 from apps.users.models_documents import UserDocument
+from core.services.document_checklist_service import DocumentChecklistService
 
 
 # Document types allowed per user type
@@ -76,10 +77,37 @@ class DocumentUploadForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, user_type=None, **kwargs):
+    def __init__(self, *args, user_type=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
-        if user_type and user_type in DOCUMENT_TYPES_BY_USER:
-            self.fields['document_type'].choices = DOCUMENT_TYPES_BY_USER[user_type]
+        
+        # Pre-filter document type choices to types relevant to the user type
+        if user_type and user:
+            # Get required document types from DocumentChecklistService
+            required_types = DocumentChecklistService.get_required_document_types(user_type)
+            
+            if required_types:
+                # Get missing/rejected types to highlight them
+                missing_rejected = DocumentChecklistService.get_missing_document_types(user)
+                
+                # Build choices from required types + 'other'
+                from core.services.document_checklist_service import DOCUMENT_TYPE_LABELS
+                choices = []
+                
+                for doc_type in required_types:
+                    label = DOCUMENT_TYPE_LABELS.get(doc_type, doc_type)
+                    # Highlight missing/rejected types with a marker
+                    if doc_type in missing_rejected:
+                        label = f"⚠️ {label} (Requis)"
+                    choices.append((doc_type, label))
+                
+                # Always add 'other' option
+                choices.append(('other', 'Autre'))
+                
+                self.fields['document_type'].choices = choices
+            elif user_type in DOCUMENT_TYPES_BY_USER:
+                # Fallback to old behavior for user types without required documents
+                self.fields['document_type'].choices = DOCUMENT_TYPES_BY_USER[user_type]
+        
         self.fields['document_type'].widget.attrs.update({
             'class': 'w-full bg-white border-2 border-primary-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200',
         })
@@ -104,6 +132,13 @@ class DocumentListView(LoginRequiredMixin, ListView):
         context['pending_count'] = UserDocument.objects.filter(user=self.request.user, status='pending').count()
         context['approved_count'] = UserDocument.objects.filter(user=self.request.user, status='approved').count()
         context['rejected_count'] = UserDocument.objects.filter(user=self.request.user, status='rejected').count()
+        
+        # Add checklist context from DocumentChecklistService
+        checklist_service = DocumentChecklistService()
+        context['checklist'] = checklist_service.get_checklist(self.request.user)
+        context['completion_percentage'] = checklist_service.get_completion_percentage(self.request.user)
+        context['all_approved'] = checklist_service.are_all_required_approved(self.request.user)
+        
         return context
 
 
@@ -116,6 +151,7 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user_type'] = self.request.user.user_type
+        kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -128,6 +164,15 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
         labels = DASHBOARD_LABELS.get(user_type, {'title': 'Mes Documents', 'icon': '📄'})
         context['page_title'] = labels['title']
         context['page_icon'] = labels['icon']
+        
+        # Add checklist context for document guidance
+        checklist_service = DocumentChecklistService()
+        required_types = checklist_service.get_required_document_types(user_type)
+        context['required_types'] = required_types
+        context['checklist'] = checklist_service.get_checklist(self.request.user)
+        context['completion_percentage'] = checklist_service.get_completion_percentage(self.request.user)
+        context['missing_rejected_types'] = checklist_service.get_missing_document_types(self.request.user)
+        
         return context
 
 

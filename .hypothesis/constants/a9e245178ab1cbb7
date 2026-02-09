@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\notifications\admin.py
+# hypothesis_version: 6.151.5
+
+['-created_at', 'created_at', 'is_read', 'message', 'notification_type', 'recipient', 'recipient__username', 'title']

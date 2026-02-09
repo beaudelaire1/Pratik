@@ -6,13 +6,26 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
+# Define REQUIRED_DOCUMENTS locally to avoid circular import
+REQUIRED_DOCUMENTS = {
+    'driver': ['id_card', 'address_proof', 'driver_license', 'vehicle_insurance', 'vehicle_registration'],
+    'landlord': ['id_card', 'address_proof', 'property_proof', 'home_insurance'],
+    'company': ['kbis_siret', 'representative_id'],
+    'school': ['accreditation', 'representative_id'],
+    'partner': ['id_card', 'partnership_proof'],
+}
+
+
 class UserDocument(models.Model):
     """
     Documents uploaded by users for verification or tracking purposes
     """
     DOCUMENT_TYPES = [
-        # Propriétaire
+        # Documents d'identité et justificatifs
         ('id_card', 'Pièce d\'identité'),
+        ('address_proof', 'Justificatif de domicile'),
+        
+        # Propriétaire
         ('property_proof', 'Justificatif de propriété'),
         ('home_insurance', 'Assurance habitation'),
         
@@ -21,10 +34,18 @@ class UserDocument(models.Model):
         ('vehicle_registration', 'Carte grise'),
         ('vehicle_insurance', 'Assurance véhicule'),
         
+        # Entreprise
+        ('kbis_siret', 'Extrait Kbis/SIRET'),
+        ('representative_id', 'Pièce d\'identité du représentant'),
+        
         # École
+        ('accreditation', 'Agrément/Accréditation'),
         ('internship_convention', 'Convention de stage'),
         ('contract', 'Contrat'),
         ('administrative_doc', 'Document administratif'),
+        
+        # Partenaire
+        ('partnership_proof', 'Document justificatif du partenariat'),
         
         # Étudiant
         ('cv', 'CV'),
@@ -145,29 +166,14 @@ class UserDocument(models.Model):
         # Validate document type for user type
         user_type = self.user.user_type
         
-        landlord_docs = ['id_card', 'property_proof', 'home_insurance']
-        driver_docs = ['driver_license', 'vehicle_registration', 'vehicle_insurance']
-        school_docs = ['internship_convention', 'contract', 'administrative_doc']
-        student_docs = ['cv', 'cover_letter', 'certificate', 'signed_convention']
+        # Get allowed document types for this user type
+        allowed_types = list(REQUIRED_DOCUMENTS.get(user_type, []))
+        allowed_types.append('other')
         
-        if user_type == 'landlord' and self.document_type not in landlord_docs + ['other']:
+        # Validate the document type is allowed for this user type
+        if self.document_type not in allowed_types:
             raise ValidationError({
-                'document_type': f'Type de document invalide pour un propriétaire'
-            })
-        
-        if user_type == 'driver' and self.document_type not in driver_docs + ['other']:
-            raise ValidationError({
-                'document_type': f'Type de document invalide pour un chauffeur'
-            })
-        
-        if user_type == 'school' and self.document_type not in school_docs + ['other']:
-            raise ValidationError({
-                'document_type': f'Type de document invalide pour une école'
-            })
-        
-        if user_type == 'student' and self.document_type not in student_docs + ['other']:
-            raise ValidationError({
-                'document_type': f'Type de document invalide pour un étudiant'
+                'document_type': "Ce type de document n'est pas autorisé pour votre type de compte."
             })
     
     def save(self, *args, **kwargs):

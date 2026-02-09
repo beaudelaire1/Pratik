@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\core\services\recommendation_service.py
+# hypothesis_version: 6.151.5
+
+['-avg_rating', '-created_at', 'autonomy', 'comment', 'company', 'company__user', 'creativity', 'internship', 'min_rating', 'min_recommendations', 'punctuality', 'rating', 'recommended_domains', 'rigor', 'sector', 'skills_validated', 'teamwork']

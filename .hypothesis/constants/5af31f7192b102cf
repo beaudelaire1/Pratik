@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\applications\migrations\0002_alter_application_options_application_responded_at_and_more.py
+# hypothesis_version: 6.151.5
+
+['-created_at', '0001_initial', 'Acceptée', 'Candidature', 'Candidatures', 'En attente', 'Refusée', 'accepted', 'application', 'applications', 'ordering', 'pending', 'rejected', 'responded_at', 'response_message', 'status', 'verbose_name', 'verbose_name_plural', 'viewed_applications', 'viewed_at', 'viewed_by']

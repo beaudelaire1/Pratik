@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\events\admin.py
+# hypothesis_version: 6.151.5
+
+['Date et heure', 'Lieu et visibilité', 'Métadonnées', 'classes', 'collapse', 'created_at', 'description', 'end_date', 'end_time', 'event_type', 'fields', 'is_all_day', 'is_public', 'location', 'start_date', 'start_time', 'title', 'updated_at', 'user', 'user__username']

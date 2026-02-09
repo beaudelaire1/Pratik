@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\applications\migrations\0001_initial.py
+# hypothesis_version: 6.151.5
+
+['0001_initial', 'Accepted', 'Application', 'ID', 'Pending', 'Rejected', 'accepted', 'applications', 'cover_letter', 'created_at', 'cv', 'cvs/', 'id', 'internship', 'internships', 'pending', 'rejected', 'status', 'student', 'unique_together', 'user_type']

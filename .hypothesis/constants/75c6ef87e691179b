@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\verification\models.py
+# hypothesis_version: 6.151.5
+
+['-submitted_at', 'ADDRESS_PROOF', 'APPROVED', 'Approuvé', 'CRIMINAL_RECORD', "Carte d'identité", 'Carte grise', 'Casier judiciaire', 'DRIVER_LICENSE', 'EXPIRED', 'En attente', 'Expiré', 'ID_CARD', 'INSURANCE', 'PASSPORT', 'PENDING', 'PROPERTY_PROOF', 'Passeport', 'Permis de conduire', 'REJECTED', 'Rejeté', 'VEHICLE_REGISTRATION', 'document_type', 'expiry_date', 'status', 'users.CustomUser', 'verified_documents']

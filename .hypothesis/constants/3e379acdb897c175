@@ -1,0 +1,4 @@
+# file: C:\Users\vilme\OneDrive\Bureau\YANA PRATIK PROTOTYPE\apps\users\migrations\0002_alter_customuser_options_and_more.py
+# hypothesis_version: 6.151.5
+
+[100, 200, '0001_initial', 'Admin', 'Bio', 'CV', 'Compétences', "Domaine d'études", 'Entreprise', 'Langues', 'Langues parlées', 'LinkedIn', 'Localisation', "Logo de l'entreprise", "Nom de l'entreprise", 'Photo de profil', 'Portfolio', 'Recherche un stage', 'SIRET', "Secteur d'activité", 'Site web', 'Téléphone', 'Utilisateur', 'Utilisateurs', 'admin', 'bio', 'company', 'company_description', 'company_logo', 'company_logos/', 'company_name', 'company_size', 'customuser', 'cv', 'cvs/', 'field_of_study', 'graduation_year', 'industry', 'languages', 'linkedin', 'location', 'phone', 'portfolio_url', 'profile_pics/', 'profile_picture', 'school', 'siret', 'skills', 'student', 'user_type', 'users', 'verbose_name', 'verbose_name_plural', 'website', 'École/Université', 'Étudiant']
